@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.goods.dao.GoodsChannelDao">
+    
+	<sql id="goodsChannelColumns">
+		a.id AS "id",
+		a.channel_name AS "channelName",
+		a.channel_type AS "channelType",
+		a.channel_alias AS "channelAlias",
+		a.goods_qty AS "goodsQty",
+		a.channel_status AS "channelStatus",
+		a.sort AS "sort",
+		a.start_time AS "startTime",
+		a.end_time AS "endTime",
+		a.channel_img AS "channelImg",
+		a.channel_url AS "channelUrl",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.merchant_id AS "merchantId"
+	</sql>
+	
+	<sql id="goodsChannelJoins">
+	</sql>
+    
+	<select id="get" resultType="GoodsChannel">
+		SELECT 
+			<include refid="goodsChannelColumns"/>
+		FROM goods_channel a
+		<include refid="goodsChannelJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="GoodsChannel">
+		SELECT 
+			<include refid="goodsChannelColumns"/>
+		FROM goods_channel a
+		<include refid="goodsChannelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="channelName != null and channelName != ''">
+				AND a.channel_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{channelName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{channelName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{channelName},'%')</if>
+			</if>
+			<if test="channelType != null and channelType != ''">
+				AND a.channel_type = #{channelType}
+			</if>
+			<if test="channelAlias != null and channelAlias != ''">
+				AND a.channel_alias LIKE 
+					<if test="dbName == 'oracle'">'%'||#{channelAlias}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{channelAlias}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{channelAlias},'%')</if>
+			</if>
+			<if test="channelStatus != null and channelStatus != ''">
+				AND a.channel_status = #{channelStatus}
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="GoodsChannel">
+		SELECT 
+			<include refid="goodsChannelColumns"/>
+		FROM goods_channel a
+		<include refid="goodsChannelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO goods_channel(
+					channel_name,
+					channel_type,
+					channel_alias,
+					goods_qty,
+					channel_status,
+					sort,
+					start_time,
+					end_time,
+					channel_img,
+					channel_url,
+					remarks,
+					create_by,
+					create_date,
+					update_by,
+					update_date,
+					del_flag,
+					merchant_id
+		) VALUES (
+			#{channelName},
+			#{channelType},
+			#{channelAlias},
+			#{goodsQty},
+			#{channelStatus},
+			#{sort},
+			#{startTime},
+			#{endTime},
+			#{channelImg},
+			#{channelUrl},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{merchantId}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO goods_channel 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="channelName != null">	
+				channel_name,
+			</if>	
+			<if test="channelType != null">	
+				channel_type,
+			</if>	
+			<if test="channelAlias != null">	
+				channel_alias,
+			</if>	
+			<if test="goodsQty != null">	
+				goods_qty,
+			</if>	
+			<if test="channelStatus != null">	
+				channel_status,
+			</if>	
+			<if test="sort != null">	
+				sort,
+			</if>	
+			<if test="startTime != null">	
+				start_time,
+			</if>	
+			<if test="endTime != null">	
+				end_time,
+			</if>	
+			<if test="channelImg != null">	
+				channel_img,
+			</if>	
+			<if test="channelUrl != null">	
+				channel_url,
+			</if>	
+			<if test="remarks != null">	
+				remarks,
+			</if>	
+			<if test="createBy.id != null">	
+				create_by,
+			</if>	
+			<if test="createDate != null">	
+				create_date,
+			</if>	
+			<if test="updateBy.id != null">	
+				update_by,
+			</if>	
+			<if test="updateDate != null">	
+				update_date,
+			</if>	
+			<if test="delFlag != null">	
+				del_flag,
+			</if>	
+			<if test="merchantId != null">	
+				merchant_id,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="channelName != null">
+				#{channelName},
+			</if>
+			<if test="channelType != null">
+				#{channelType},
+			</if>
+			<if test="channelAlias != null">
+				#{channelAlias},
+			</if>
+			<if test="goodsQty != null">
+				#{goodsQty},
+			</if>
+			<if test="channelStatus != null">
+				#{channelStatus},
+			</if>
+			<if test="sort != null">
+				#{sort},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="channelImg != null">
+				#{channelImg},
+			</if>
+			<if test="channelUrl != null">
+				#{channelUrl},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="createBy.id != null">
+				#{createBy.id},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="updateBy.id != null">
+				#{updateBy.id},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE goods_channel SET 	
+			channel_name = #{channelName},
+			channel_type = #{channelType},
+			channel_alias = #{channelAlias},
+			goods_qty = #{goodsQty},
+			channel_status = #{channelStatus},
+			sort = #{sort},
+			start_time = #{startTime},
+			end_time = #{endTime},
+			channel_img = #{channelImg},
+			channel_url = #{channelUrl},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			merchant_id = #{merchantId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE goods_channel  	
+		<set >		
+			<if test="channelName != null">	
+			channel_name = #{channelName},
+			</if>
+			<if test="channelType != null">	
+			channel_type = #{channelType},
+			</if>
+			<if test="channelAlias != null">	
+			channel_alias = #{channelAlias},
+			</if>
+			<if test="goodsQty != null">	
+			goods_qty = #{goodsQty},
+			</if>
+			<if test="channelStatus != null">	
+			channel_status = #{channelStatus},
+			</if>
+			<if test="sort != null">	
+			sort = #{sort},
+			</if>
+			<if test="startTime != null">	
+			start_time = #{startTime},
+			</if>
+			<if test="endTime != null">	
+			end_time = #{endTime},
+			</if>
+			<if test="channelImg != null">	
+			channel_img = #{channelImg},
+			</if>
+			<if test="channelUrl != null">	
+			channel_url = #{channelUrl},
+			</if>
+			<if test="remarks != null">	
+			remarks = #{remarks},
+			</if>
+			<if test="updateBy.id != null">	
+			update_by = #{updateBy.id},
+			</if>
+			<if test="updateDate != null">	
+			update_date = #{updateDate},
+			</if>
+			<if test="merchantId != null">	
+			merchant_id = #{merchantId},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE goods_channel SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

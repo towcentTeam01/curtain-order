@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Spring Configuration</description>
+	
+	<!-- 加载配置属性文件 -->
+    <import resource="/spring-conf.xml"/>
+	
+	<import resource="classpath*:META-INF/spring/spring-base-web.xml" />
+	<import resource="classpath*:META-INF/spring-base-redis.xml" />
+	<import resource="/spring-context-shiro.xml" />
+	
+	<!-- 开启可使用 -->
+	<import resource="/spring-dubbo-client.xml" />
+	
+	<!-- 加载 FTP Client-->
+	<import resource="classpath*:META-INF/spring-base-ftp.xml" />
+	
+	<!-- 加载JMS 
+	<import resource="classpath*:META-INF/spring-base-jms.xml" />-->
+		
+	<!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+	<context:component-scan base-package="com.towcent.base.sc.web,com.towcent.curtain.order.web,com.towcent.curtain.order.common"><!-- base-package 如果多个，用“,”分隔 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.towcent,com.towcent.curtain"/>
+		<property name="annotationClass" value="com.towcent.base.common.annotation.MyBatisDao"/>
+	</bean>
+
+	
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${task.core.pool.size}" />   <!-- 核心线程数 -->
+		<property name="maxPoolSize" value="${task.max.pool.size}" />     <!-- 最大线程数 -->
+		<property name="queueCapacity" value="${task.queue.capacity}" />  <!-- 队列最大长度 -->
+		<property name="keepAliveSeconds" value="${task.keep.alive.seconds}" /> <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+	</bean>
+	
+</beans>

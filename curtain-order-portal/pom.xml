@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.towcent.curtain</groupId>
+		<artifactId>curtain-order</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>curtain-order-portal</artifactId>
+	<packaging>war</packaging>
+	
+	<name>curtain-order-portal</name>
+	<url>http://www.towcent.com</url>
+	
+	<properties>
+		<webserver.port>8068</webserver.port>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.towcent.curtain</groupId>
+			<artifactId>curtain-order-dubbo-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.towcent.curtain</groupId>
+			<artifactId>curtain-order-common</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<!-- xstream xml -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>curtain-order-portal</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/test/java/</directory>
+				<includes>
+					<include>**/*.txt</include>
+				</includes>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<!-- war 打包插件, 设定war包名称不带版本号 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			
+			<!-- tomcat7插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>${webserver.port}</port>
+					<path>/api</path>
+					<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+				</configuration>
+			</plugin>
+			
+			<!-- jetty插件 -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>${webserver.port}</port>
+						</connector>
+					</connectors>
+					<webAppConfig>
+						<contextPath>/api</contextPath>
+					</webAppConfig>
+					<systemProperties>  
+						<systemProperty>
+							<name>org.mortbay.util.URI.charset</name>
+							<value>${project.build.sourceEncoding}</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

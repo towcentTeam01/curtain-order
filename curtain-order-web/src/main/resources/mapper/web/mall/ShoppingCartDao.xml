@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.mall.dao.ShoppingCartDao">
+
+    <sql id="shoppingCartColumns">
+		a.id AS "id",
+		a.goods_id AS "goodsId",
+		a.goods_name AS "goodsName",
+		a.goods_pic_url AS "goodsPicUrl",
+		a.length AS "length",
+		a.high AS "high",
+		a.multiple AS "multiple",
+		a.num AS "num",
+		a.qty AS "qty",
+		a.price AS "price",
+		a.amount AS "amount",
+		a.param1 AS "param1",
+		a.param2 AS "param2",
+		a.param3 AS "param3",
+		a.param4 AS "param4",
+		a.param5 AS "param5",
+		a.remarks AS "remarks",
+		a.merchant_id AS "merchantId"
+	</sql>
+
+    <sql id="shoppingCartJoins">
+    </sql>
+
+    <select id="get" resultType="ShoppingCart">
+        SELECT
+        <include refid="shoppingCartColumns"/>
+        FROM shopping_cart a
+        <include refid="shoppingCartJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="ShoppingCart">
+        SELECT
+        <include refid="shoppingCartColumns"/>
+        FROM shopping_cart a
+        <include refid="shoppingCartJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="goodsName != null and goodsName != ''">
+                AND a.goods_name LIKE
+                <if test="dbName == 'oracle'">'%'||#{goodsName}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{goodsName}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
+            </if>
+            <if test="null != createBy and createBy.id != null and createBy.id != ''">
+                and create_by = ${createBy.id}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="ShoppingCart">
+        SELECT
+        <include refid="shoppingCartColumns"/>
+        FROM shopping_cart a
+        <include refid="shoppingCartJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" keyProperty="id">
+		INSERT INTO shopping_cart(
+					goods_id,
+					goods_name,
+					goods_pic_url,
+					length,
+					high,
+					multiple,
+					num,
+					qty,
+					price,
+					amount,
+					param1,
+					param2,
+					param3,
+					param4,
+					param5,
+					remarks,
+					merchant_id,
+					create_by,
+					create_date,
+					update_by,
+					update_date,
+					del_flag
+		) VALUES (
+			#{goodsId},
+			#{goodsName},
+			#{goodsPicUrl},
+			#{length},
+			#{high},
+			#{multiple},
+			#{num},
+			#{qty},
+			#{price},
+			#{amount},
+			#{param1},
+			#{param2},
+			#{param3},
+			#{param4},
+			#{param5},
+			#{remarks},
+			#{merchantId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+
+    <insert id="insertSelective" keyProperty="id">
+        INSERT INTO shopping_cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsPicUrl != null">
+                goods_pic_url,
+            </if>
+            <if test="length != null">
+                length,
+            </if>
+            <if test="high != null">
+                high,
+            </if>
+            <if test="multiple != null">
+                multiple,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="qty != null">
+                qty,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="param1 != null">
+                param1,
+            </if>
+            <if test="param2 != null">
+                param2,
+            </if>
+            <if test="param3 != null">
+                param3,
+            </if>
+            <if test="param4 != null">
+                param4,
+            </if>
+            <if test="param5 != null">
+                param5,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="createBy.id != null">
+                create_by,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateBy.id != null">
+                update_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="goodsPicUrl != null">
+                #{goodsPicUrl},
+            </if>
+            <if test="length != null">
+                #{length},
+            </if>
+            <if test="high != null">
+                #{high},
+            </if>
+            <if test="multiple != null">
+                #{multiple},
+            </if>
+            <if test="num != null">
+                #{num},
+            </if>
+            <if test="qty != null">
+                #{qty},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="param1 != null">
+                #{param1},
+            </if>
+            <if test="param2 != null">
+                #{param2},
+            </if>
+            <if test="param3 != null">
+                #{param3},
+            </if>
+            <if test="param4 != null">
+                #{param4},
+            </if>
+            <if test="param5 != null">
+                #{param5},
+            </if>
+            <if test="remarks != null">
+                #{remarks},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId},
+            </if>
+            <if test="createBy.id != null">
+                #{createBy.id},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="updateBy.id != null">
+                #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update">
+		UPDATE shopping_cart SET 	
+			goods_id = #{goodsId},
+			goods_name = #{goodsName},
+			goods_pic_url = #{goodsPicUrl},
+			length = #{length},
+			high = #{high},
+			multiple = #{multiple},
+			num = #{num},
+			qty = #{qty},
+			price = #{price},
+			amount = #{amount},
+			param1 = #{param1},
+			param2 = #{param2},
+			param3 = #{param3},
+			param4 = #{param4},
+			param5 = #{param5},
+			remarks = #{remarks},
+			merchant_id = #{merchantId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateSelective">
+        UPDATE shopping_cart
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsPicUrl != null">
+                goods_pic_url = #{goodsPicUrl},
+            </if>
+            <if test="length != null">
+                length = #{length},
+            </if>
+            <if test="high != null">
+                high = #{high},
+            </if>
+            <if test="multiple != null">
+                multiple = #{multiple},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="qty != null">
+                qty = #{qty},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="param1 != null">
+                param1 = #{param1},
+            </if>
+            <if test="param2 != null">
+                param2 = #{param2},
+            </if>
+            <if test="param3 != null">
+                param3 = #{param3},
+            </if>
+            <if test="param4 != null">
+                param4 = #{param4},
+            </if>
+            <if test="param5 != null">
+                param5 = #{param5},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId},
+            </if>
+            <if test="updateBy.id != null">
+                update_by = #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+		UPDATE shopping_cart SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+</mapper>

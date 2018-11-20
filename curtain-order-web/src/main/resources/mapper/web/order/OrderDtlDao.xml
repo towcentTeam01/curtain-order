@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.order.dao.OrderDtlDao">
+    
+	<sql id="orderDtlColumns">
+		a.id AS "id",
+		a.order_id AS "orderId",
+		a.goods_id AS "goods.id",
+		g.goods_no AS "goods.goodsNo",
+		g.goods_name AS "goods.goodsName",
+		a.goods_name AS "goodsName",
+		a.goods_pic_url AS "goodsPicUrl",
+		a.length AS "length",
+		a.high AS "high",
+		a.multiple AS "multiple",
+		a.num AS "num",
+		a.qty AS "qty",
+		a.price AS "price",
+		a.amount AS "amount",
+		a.param1 AS "param1",
+		a.param2 AS "param2",
+		a.param3 AS "param3",
+		a.param4 AS "param4",
+		a.param5 AS "param5",
+		a.remarks AS "remarks",
+		a.eval_flag AS "evalFlag",
+		a.merchant_id AS "merchantId"
+	</sql>
+	
+	<sql id="orderDtlJoins">
+	   left join goods g ON g.id = a.goods_id 
+	</sql>
+    
+	<select id="get" resultType="OrderDtl">
+		SELECT 
+			<include refid="orderDtlColumns"/>
+		FROM order_dtl a
+		<include refid="orderDtlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="OrderDtl">
+		SELECT 
+			<include refid="orderDtlColumns"/>
+		FROM order_dtl a
+		<include refid="orderDtlJoins"/>
+		<where>
+			
+			<if test="orderId != null and orderId != ''">
+				AND a.order_id = #{orderId}
+			</if>
+			<if test="goods != null and goods.id != null and goods.id != ''">
+				AND a.goods_id = #{goods.id}
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="OrderDtl">
+		SELECT 
+			<include refid="orderDtlColumns"/>
+		FROM order_dtl a
+		<include refid="orderDtlJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO order_dtl(
+					order_id,
+					goods_id,
+					goods_name,
+					goods_pic_url,
+					length,
+					high,
+					multiple,
+					num,
+					qty,
+					price,
+					amount,
+					param1,
+					param2,
+					param3,
+					param4,
+					param5,
+					remarks,
+					eval_flag,
+					merchant_id
+		) VALUES (
+			#{orderId},
+			#{goods.id},
+			#{goodsName},
+			#{goodsPicUrl},
+			#{length},
+			#{high},
+			#{multiple},
+			#{num},
+			#{qty},
+			#{price},
+			#{amount},
+			#{param1},
+			#{param2},
+			#{param3},
+			#{param4},
+			#{param5},
+			#{remarks},
+			#{evalFlag},
+			#{merchantId}goods.id
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO order_dtl 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orderId != null">	
+				order_id,
+			</if>
+			<if test="goods != null and goods.id != null and goods.id != ''">
+				goods_id,
+			</if>	
+			<if test="goodsName != null">	
+				goods_name,
+			</if>	
+			<if test="goodsPicUrl != null">	
+				goods_pic_url,
+			</if>	
+			<if test="length != null">	
+				length,
+			</if>	
+			<if test="high != null">	
+				high,
+			</if>	
+			<if test="multiple != null">	
+				multiple,
+			</if>	
+			<if test="num != null">	
+				num,
+			</if>	
+			<if test="qty != null">	
+				qty,
+			</if>	
+			<if test="price != null">	
+				price,
+			</if>	
+			<if test="amount != null">	
+				amount,
+			</if>	
+			<if test="param1 != null">	
+				param1,
+			</if>	
+			<if test="param2 != null">	
+				param2,
+			</if>	
+			<if test="param3 != null">	
+				param3,
+			</if>	
+			<if test="param4 != null">	
+				param4,
+			</if>	
+			<if test="param5 != null">	
+				param5,
+			</if>	
+			<if test="remarks != null">	
+				remarks,
+			</if>	
+			<if test="evalFlag != null">	
+				eval_flag,
+			</if>	
+			<if test="merchantId != null">	
+				merchant_id,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="goods != null and goods.id != null and goods.id != ''">
+				#{goods.id},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName},
+			</if>
+			<if test="goodsPicUrl != null">
+				#{goodsPicUrl},
+			</if>
+			<if test="length != null">
+				#{length},
+			</if>
+			<if test="high != null">
+				#{high},
+			</if>
+			<if test="multiple != null">
+				#{multiple},
+			</if>
+			<if test="num != null">
+				#{num},
+			</if>
+			<if test="qty != null">
+				#{qty},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="amount != null">
+				#{amount},
+			</if>
+			<if test="param1 != null">
+				#{param1},
+			</if>
+			<if test="param2 != null">
+				#{param2},
+			</if>
+			<if test="param3 != null">
+				#{param3},
+			</if>
+			<if test="param4 != null">
+				#{param4},
+			</if>
+			<if test="param5 != null">
+				#{param5},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="evalFlag != null">
+				#{evalFlag},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE order_dtl SET 	
+			order_id = #{orderId},
+			goods_id = #{goods.id},
+			goods_name = #{goodsName},
+			goods_pic_url = #{goodsPicUrl},
+			length = #{length},
+			high = #{high},
+			multiple = #{multiple},
+			num = #{num},
+			qty = #{qty},
+			price = #{price},
+			amount = #{amount},
+			param1 = #{param1},
+			param2 = #{param2},
+			param3 = #{param3},
+			param4 = #{param4},
+			param5 = #{param5},
+			remarks = #{remarks},
+			eval_flag = #{evalFlag},
+			merchant_id = #{merchantId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE order_dtl  	
+		<set >		
+			<if test="orderId != null">	
+			order_id = #{orderId},
+			</if>
+			<if test="goods != null and goods.id != null and goods.id != ''">
+			goods_id = #{goods.id},
+			</if>
+			<if test="goodsName != null">	
+			goods_name = #{goodsName},
+			</if>
+			<if test="goodsPicUrl != null">	
+			goods_pic_url = #{goodsPicUrl},
+			</if>
+			<if test="length != null">	
+			length = #{length},
+			</if>
+			<if test="high != null">	
+			high = #{high},
+			</if>
+			<if test="multiple != null">	
+			multiple = #{multiple},
+			</if>
+			<if test="num != null">	
+			num = #{num},
+			</if>
+			<if test="qty != null">	
+			qty = #{qty},
+			</if>
+			<if test="price != null">	
+			price = #{price},
+			</if>
+			<if test="amount != null">	
+			amount = #{amount},
+			</if>
+			<if test="param1 != null">	
+			param1 = #{param1},
+			</if>
+			<if test="param2 != null">	
+			param2 = #{param2},
+			</if>
+			<if test="param3 != null">	
+			param3 = #{param3},
+			</if>
+			<if test="param4 != null">	
+			param4 = #{param4},
+			</if>
+			<if test="param5 != null">	
+			param5 = #{param5},
+			</if>
+			<if test="remarks != null">	
+			remarks = #{remarks},
+			</if>
+			<if test="evalFlag != null">	
+			eval_flag = #{evalFlag},
+			</if>
+			<if test="merchantId != null">	
+			merchant_id = #{merchantId},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM order_dtl
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.goods.dao.ChannelGoodsDao">
+    
+	<sql id="channelGoodsColumns">
+		a.id AS "goodsId",
+		a.goods_name AS "goodsName",
+		a.goods_no AS "goodsNo",
+		a.goods_status AS "goodsStatus",
+		<!-- a.structure_name AS "structureName", -->
+		 (case when gcd.channel_id is null then 2 else 1 end ) AS "assigned",
+		#{channelId}  AS "channelId"
+	</sql>
+	
+	<sql id="goodsChannelJoins">
+	   left join goods_channel_dtl gcd on gcd.goods_id = a.id and gcd.channel_id = #{channelId}
+	   left join goods_channel gc on gc.id = gcd.channel_id
+	</sql>
+	
+	<select id="findChannelGoodsPage" resultType="ChannelGoods">
+		SELECT  
+			<include refid="channelGoodsColumns"/>
+		FROM goods a
+		<include refid="goodsChannelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.merchant_id=0 
+			<choose>
+				<when test="assigned==0">
+				  and 1=1
+				</when>
+				<when test="assigned==1">
+				    and  (a.id in (select goods_id from goods_channel_dtl where channel_id = #{channelId}))
+				</when>
+				<when test="assigned==2">
+				    and (a.id not in (select goods_id from goods_channel_dtl where channel_id = #{channelId}))
+				</when>
+				<otherwise>
+				  and 1=2
+				</otherwise>
+			</choose>
+			<if test="goodsCategoryId != null and goodsCategoryId != ''">
+				AND a.category_id = #{goodsCategoryId}
+			</if>
+			<if test="goodsName != null and goodsName != ''">
+				AND a.goods_name LIKE concat('%',#{goodsName},'%')
+			</if>
+			<if test="goodsNo != null and goodsNo != ''">
+				AND a.goods_no LIKE concat('%',#{goodsNo},'%')
+			</if>
+			<if test="goodsStatus != null and goodsStatus != ''">
+				AND a.goods_status = #{goodsStatus}
+			</if>
+			<if test="merchantId != null">
+				AND  a.merchant_id = #{merchantId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise> 
+				ORDER BY assigned ASC,a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

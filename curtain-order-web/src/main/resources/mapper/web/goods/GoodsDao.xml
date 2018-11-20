@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.goods.dao.GoodsDao">
+    
+	<sql id="goodsColumns">
+		a.id AS "id",
+		a.cate_no AS "cateNo",
+		a.cate_name AS "cateName",
+		a.goods_no AS "goodsNo",
+		a.goods_name AS "goodsName",
+		a.goods_type AS "goodsType",
+		a.goods_barcode AS "goodsBarcode",
+		a.goods_status AS "goodsStatus",
+		a.brand_name AS "brandName",
+		a.larghezza AS "larghezza",
+		a.style AS "style",
+		a.material AS "material",
+		a.specification AS "specification",
+		a.price AS "price",
+		a.cost_price AS "costPrice",
+		a.main_urls AS "mainUrls",
+		a.description AS "description",
+		a.desc_pic AS "descPic",
+		a.desc_pic_v AS "descPicV",
+		a.qty AS "qty",
+		a.sale_num AS "saleNum",
+		a.sale_length AS "saleLength",
+		a.label_type AS "labelType",
+		a.eva_num AS "evaNum",
+		a.good_eval_rate AS "goodEvalRate",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.merchant_id AS "merchantId"
+	</sql>
+	
+	<sql id="goodsJoins">
+	</sql>
+    
+	<select id="get" resultType="Goods">
+		SELECT 
+			<include refid="goodsColumns"/>
+		FROM goods a
+		<include refid="goodsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Goods">
+		SELECT 
+			<include refid="goodsColumns"/>
+		FROM goods a
+		<include refid="goodsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="cateNo != null and cateNo != ''">
+				AND a.cate_no = #{cateNo}
+			</if>
+			<if test="goodsNo != null and goodsNo != ''">
+				AND a.goods_no LIKE 
+					<if test="dbName == 'oracle'">'%'||#{goodsNo}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{goodsNo}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{goodsNo},'%')</if>
+			</if>
+			<if test="goodsName != null and goodsName != ''">
+				AND a.goods_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{goodsName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{goodsName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
+			</if>
+			<if test="brandName != null and brandName != ''">
+				AND a.brand_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{brandName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{brandName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{brandName},'%')</if>
+			</if>
+			<if test="style != null and style != ''">
+				AND a.style LIKE 
+					<if test="dbName == 'oracle'">'%'||#{style}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{style}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{style},'%')</if>
+			</if>
+			<if test="material != null and material != ''">
+				AND a.material LIKE 
+					<if test="dbName == 'oracle'">'%'||#{material}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{material}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{material},'%')</if>
+			</if>
+			<if test="labelType != null and labelType != ''">
+				AND a.label_type = #{labelType}
+			</if>
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+			<if test="goodsStatus != null and goodsStatus != ''">
+				AND a.goods_status = #{goodsStatus}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Goods">
+		SELECT 
+			<include refid="goodsColumns"/>
+		FROM goods a
+		<include refid="goodsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO goods(
+					cate_no,
+					cate_name,
+					goods_no,
+					goods_name,
+					goods_type,
+					goods_barcode,
+					goods_status,
+					brand_name,
+					larghezza,
+					style,
+					material,
+					specification,
+					price,
+					cost_price,
+					main_urls,
+					description,
+					desc_pic,
+					desc_pic_v,
+					qty,
+					sale_num,
+					sale_length,
+					label_type,
+					eva_num,
+					good_eval_rate,
+					remarks,
+					create_by,
+					create_date,
+					update_by,
+					update_date,
+					del_flag,
+					merchant_id
+		) VALUES (
+			#{cateNo},
+			#{cateName},
+			#{goodsNo},
+			#{goodsName},
+			#{goodsType},
+			#{goodsBarcode},
+			#{goodsStatus},
+			#{brandName},
+			#{larghezza},
+			#{style},
+			#{material},
+			#{specification},
+			#{price},
+			#{costPrice},
+			#{mainUrls},
+			#{description},
+			#{descPic},
+			#{descPicV},
+			#{qty},
+			#{saleNum},
+			#{saleLength},
+			#{labelType},
+			#{evaNum},
+			#{goodEvalRate},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{merchantId}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO goods 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="cateNo != null">	
+				cate_no,
+			</if>	
+			<if test="cateName != null">	
+				cate_name,
+			</if>	
+			<if test="goodsNo != null">	
+				goods_no,
+			</if>	
+			<if test="goodsName != null">	
+				goods_name,
+			</if>	
+			<if test="goodsType != null">	
+				goods_type,
+			</if>	
+			<if test="goodsBarcode != null">	
+				goods_barcode,
+			</if>	
+			<if test="goodsStatus != null">	
+				goods_status,
+			</if>	
+			<if test="brandName != null">	
+				brand_name,
+			</if>	
+			<if test="larghezza != null">	
+				larghezza,
+			</if>	
+			<if test="style != null">	
+				style,
+			</if>	
+			<if test="material != null">	
+				material,
+			</if>	
+			<if test="specification != null">	
+				specification,
+			</if>	
+			<if test="price != null">	
+				price,
+			</if>	
+			<if test="costPrice != null">	
+				cost_price,
+			</if>	
+			<if test="mainUrls != null">	
+				main_urls,
+			</if>	
+			<if test="description != null">	
+				description,
+			</if>	
+			<if test="descPic != null">	
+				desc_pic,
+			</if>	
+			<if test="descPicV != null">	
+				desc_pic_v,
+			</if>	
+			<if test="qty != null">	
+				qty,
+			</if>	
+			<if test="saleNum != null">	
+				sale_num,
+			</if>	
+			<if test="saleLength != null">	
+				sale_length,
+			</if>	
+			<if test="labelType != null">	
+				label_type,
+			</if>	
+			<if test="evaNum != null">	
+				eva_num,
+			</if>	
+			<if test="goodEvalRate != null">	
+				good_eval_rate,
+			</if>	
+			<if test="remarks != null">	
+				remarks,
+			</if>	
+			<if test="createBy.id != null">	
+				create_by,
+			</if>	
+			<if test="createDate != null">	
+				create_date,
+			</if>	
+			<if test="updateBy.id != null">	
+				update_by,
+			</if>	
+			<if test="updateDate != null">	
+				update_date,
+			</if>	
+			<if test="delFlag != null">	
+				del_flag,
+			</if>	
+			<if test="merchantId != null">	
+				merchant_id,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="cateNo != null">
+				#{cateNo},
+			</if>
+			<if test="cateName != null">
+				#{cateName},
+			</if>
+			<if test="goodsNo != null">
+				#{goodsNo},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName},
+			</if>
+			<if test="goodsType != null">
+				#{goodsType},
+			</if>
+			<if test="goodsBarcode != null">
+				#{goodsBarcode},
+			</if>
+			<if test="goodsStatus != null">
+				#{goodsStatus},
+			</if>
+			<if test="brandName != null">
+				#{brandName},
+			</if>
+			<if test="larghezza != null">
+				#{larghezza},
+			</if>
+			<if test="style != null">
+				#{style},
+			</if>
+			<if test="material != null">
+				#{material},
+			</if>
+			<if test="specification != null">
+				#{specification},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="costPrice != null">
+				#{costPrice},
+			</if>
+			<if test="mainUrls != null">
+				#{mainUrls},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+			<if test="descPic != null">
+				#{descPic},
+			</if>
+			<if test="descPicV != null">
+				#{descPicV},
+			</if>
+			<if test="qty != null">
+				#{qty},
+			</if>
+			<if test="saleNum != null">
+				#{saleNum},
+			</if>
+			<if test="saleLength != null">
+				#{saleLength},
+			</if>
+			<if test="labelType != null">
+				#{labelType},
+			</if>
+			<if test="evaNum != null">
+				#{evaNum},
+			</if>
+			<if test="goodEvalRate != null">
+				#{goodEvalRate},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="createBy.id != null">
+				#{createBy.id},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="updateBy.id != null">
+				#{updateBy.id},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE goods SET 	
+			cate_no = #{cateNo},
+			cate_name = #{cateName},
+			goods_no = #{goodsNo},
+			goods_name = #{goodsName},
+			goods_type = #{goodsType},
+			goods_barcode = #{goodsBarcode},
+			goods_status = #{goodsStatus},
+			brand_name = #{brandName},
+			larghezza = #{larghezza},
+			style = #{style},
+			material = #{material},
+			specification = #{specification},
+			price = #{price},
+			cost_price = #{costPrice},
+			main_urls = #{mainUrls},
+			description = #{description},
+			desc_pic = #{descPic},
+			desc_pic_v = #{descPicV},
+			qty = #{qty},
+			sale_num = #{saleNum},
+			sale_length = #{saleLength},
+			label_type = #{labelType},
+			eva_num = #{evaNum},
+			good_eval_rate = #{goodEvalRate},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			merchant_id = #{merchantId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE goods  	
+		<set >		
+			<if test="cateNo != null">	
+			cate_no = #{cateNo},
+			</if>
+			<if test="cateName != null">	
+			cate_name = #{cateName},
+			</if>
+			<if test="goodsNo != null">	
+			goods_no = #{goodsNo},
+			</if>
+			<if test="goodsName != null">	
+			goods_name = #{goodsName},
+			</if>
+			<if test="goodsType != null">	
+			goods_type = #{goodsType},
+			</if>
+			<if test="goodsBarcode != null">	
+			goods_barcode = #{goodsBarcode},
+			</if>
+			<if test="goodsStatus != null">	
+			goods_status = #{goodsStatus},
+			</if>
+			<if test="brandName != null">	
+			brand_name = #{brandName},
+			</if>
+			<if test="larghezza != null">	
+			larghezza = #{larghezza},
+			</if>
+			<if test="style != null">	
+			style = #{style},
+			</if>
+			<if test="material != null">	
+			material = #{material},
+			</if>
+			<if test="specification != null">	
+			specification = #{specification},
+			</if>
+			<if test="price != null">	
+			price = #{price},
+			</if>
+			<if test="costPrice != null">	
+			cost_price = #{costPrice},
+			</if>
+			<if test="mainUrls != null">	
+			main_urls = #{mainUrls},
+			</if>
+			<if test="description != null">	
+			description = #{description},
+			</if>
+			<if test="descPic != null">	
+			desc_pic = #{descPic},
+			</if>
+			<if test="descPicV != null">	
+			desc_pic_v = #{descPicV},
+			</if>
+			<if test="qty != null">	
+			qty = #{qty},
+			</if>
+			<if test="saleNum != null">	
+			sale_num = #{saleNum},
+			</if>
+			<if test="saleLength != null">	
+			sale_length = #{saleLength},
+			</if>
+			<if test="labelType != null">	
+			label_type = #{labelType},
+			</if>
+			<if test="evaNum != null">	
+			eva_num = #{evaNum},
+			</if>
+			<if test="goodEvalRate != null">	
+			good_eval_rate = #{goodEvalRate},
+			</if>
+			<if test="remarks != null">	
+			remarks = #{remarks},
+			</if>
+			<if test="updateBy.id != null">	
+			update_by = #{updateBy.id},
+			</if>
+			<if test="updateDate != null">	
+			update_date = #{updateDate},
+			</if>
+			<if test="merchantId != null">	
+			merchant_id = #{merchantId},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE goods SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

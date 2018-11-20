@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.sys.dao.SysUserMerchantRelDao">
+    
+	<sql id="sysUserMerchantRelColumns">		
+		a.id AS "id",
+        a.sys_user_id AS "user.id",
+        u.login_name AS "user.loginName",
+        u.name AS "user.name",
+        a.merchant_id AS "merchant.id",
+        m.merchant_name as "merchant.merchantName",
+        m.merchant_no as "merchant.merchantNo",
+        m.logo as "merchant.logo"
+	</sql>
+	
+	<sql id="sysUserMerchantRelJoins">
+	    left join sys_user u on u.id = a.sys_user_id 
+        inner join sys_merchant_info m on a.merchant_id = m.id
+	</sql>
+    
+	<select id="get" resultType="SysUserMerchantRel">
+		SELECT 
+			<include refid="sysUserMerchantRelColumns"/>
+		FROM sys_user_merchant_rel a
+		<include refid="sysUserMerchantRelJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysUserMerchantRel">
+		SELECT 
+			<include refid="sysUserMerchantRelColumns"/>
+		FROM sys_user_merchant_rel a
+		<include refid="sysUserMerchantRelJoins"/>
+		<where>
+			<if test="user != null and user.id != null and user.id != ''">
+                AND a.sys_user_id = #{user.id}
+            </if>
+            <if test="merchant != null and merchant.id != null and merchant.id != ''">
+                AND a.merchant_id = #{merchant.id}
+            </if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysUserMerchantRel">
+		SELECT 
+			<include refid="sysUserMerchantRelColumns"/>
+		FROM sys_user_merchant_rel a
+		<include refid="sysUserMerchantRelJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO sys_user_merchant_rel(
+					sys_user_id,
+					merchant_id
+		) VALUES (
+			#{user.id},
+            #{merchant.id}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO sys_user_merchant_rel 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="user != null and user.id != null and user.id != ''">
+                sys_user_id,
+            </if>   
+            <if test="merchant != null and merchant.id != null and merchant.id != ''">
+                merchant_id,
+            </if>   
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="user != null and user.id != null and user.id != ''">
+                #{user.id},
+            </if>
+            <if test="merchant != null and merchant.id != null and merchant.id != ''">
+                #{merchant.id},
+            </if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_user_merchant_rel SET 	
+			sys_user_id = #{user.id},
+            merchant_id = #{merchant.id}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE sys_user_merchant_rel  	
+		<set >		
+			<if test="user != null and user.id != null and user.id != ''">
+            sys_user_id = #{user.id},
+            </if>
+            <if test="merchant != null and merchant.id != null and merchant.id != ''">
+            merchant_id = #{merchant.id},
+            </if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_user_merchant_rel
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

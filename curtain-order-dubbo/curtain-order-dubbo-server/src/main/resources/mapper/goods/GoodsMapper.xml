@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.towcent.curtain.order.app.server.goods.dao.GoodsMapper" >
+  	<resultMap id="BaseResultMap" type="com.towcent.curtain.order.app.client.goods.dto.Goods" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cate_no" property="cateNo" jdbcType="VARCHAR" />
+		<result column="cate_name" property="cateName" jdbcType="VARCHAR" />
+		<result column="goods_no" property="goodsNo" jdbcType="VARCHAR" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goods_type" property="goodsType" jdbcType="CHAR" />
+		<result column="goods_barcode" property="goodsBarcode" jdbcType="VARCHAR" />
+		<result column="goods_status" property="goodsStatus" jdbcType="CHAR" />
+		<result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+		<result column="larghezza" property="larghezza" jdbcType="VARCHAR" />
+		<result column="style" property="style" jdbcType="VARCHAR" />
+		<result column="material" property="material" jdbcType="VARCHAR" />
+		<result column="specification" property="specification" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+		<result column="main_urls" property="mainUrls" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="desc_pic" property="descPic" jdbcType="VARCHAR" />
+		<result column="desc_pic_v" property="descPicV" jdbcType="INTEGER" />
+		<result column="qty" property="qty" jdbcType="DECIMAL" />
+		<result column="sale_num" property="saleNum" jdbcType="INTEGER" />
+		<result column="sale_length" property="saleLength" jdbcType="DECIMAL" />
+		<result column="label_type" property="labelType" jdbcType="VARCHAR" />
+		<result column="eva_num" property="evaNum" jdbcType="INTEGER" />
+		<result column="good_eval_rate" property="goodEvalRate" jdbcType="DECIMAL" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+  	</resultMap>
+  	<sql id="Base_Column_List" >
+  	  	a.id, a.cate_no, a.cate_name, a.goods_no, a.goods_name, a.goods_type, a.goods_barcode, a.goods_status, a.brand_name, a.larghezza, a.style, a.material, a.specification, a.price, a.cost_price, a.main_urls, a.description, a.desc_pic, a.desc_pic_v, a.qty, a.sale_num, a.sale_length, a.label_type, a.eva_num, a.good_eval_rate, a.remarks, a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag, a.merchant_id
+  	</sql>
+	<sql id="condition" >
+    	<if test="null!=params" >
+      		<if test="params.id != null" >
+        		and a.id = #{params.id,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.cateNo != null and '' != params.cateNo" >
+        		and a.cate_no = #{params.cateNo,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.cateName != null and '' != params.cateName" >
+        		and a.cate_name = #{params.cateName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.goodsNo != null and '' != params.goodsNo" >
+        		and a.goods_no = #{params.goodsNo,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.goodsName != null and '' != params.goodsName" >
+        		and a.goods_name = #{params.goodsName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.goodsType != null and '' != params.goodsType" >
+        		and a.goods_type = #{params.goodsType,jdbcType=CHAR}
+      		</if>
+      		<if test="params.goodsBarcode != null and '' != params.goodsBarcode" >
+        		and a.goods_barcode = #{params.goodsBarcode,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.goodsStatus != null and '' != params.goodsStatus" >
+        		and a.goods_status = #{params.goodsStatus,jdbcType=CHAR}
+      		</if>
+      		<if test="params.brandName != null and '' != params.brandName" >
+        		and a.brand_name = #{params.brandName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.larghezza != null and '' != params.larghezza" >
+        		and a.larghezza = #{params.larghezza,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.style != null and '' != params.style" >
+        		and a.style = #{params.style,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.material != null and '' != params.material" >
+        		and a.material = #{params.material,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.specification != null and '' != params.specification" >
+        		and a.specification = #{params.specification,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.price != null" >
+        		and a.price = #{params.price,jdbcType=DECIMAL}
+      		</if>
+      		<if test="params.costPrice != null" >
+        		and a.cost_price = #{params.costPrice,jdbcType=DECIMAL}
+      		</if>
+      		<if test="params.mainUrls != null and '' != params.mainUrls" >
+        		and a.main_urls = #{params.mainUrls,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.description != null and '' != params.description" >
+        		and a.description = #{params.description,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.descPic != null and '' != params.descPic" >
+        		and a.desc_pic = #{params.descPic,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.descPicV != null" >
+        		and a.desc_pic_v = #{params.descPicV,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.qty != null" >
+        		and a.qty = #{params.qty,jdbcType=DECIMAL}
+      		</if>
+      		<if test="params.saleNum != null" >
+        		and a.sale_num = #{params.saleNum,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.saleLength != null" >
+        		and a.sale_length = #{params.saleLength,jdbcType=DECIMAL}
+      		</if>
+      		<if test="params.labelType != null and '' != params.labelType" >
+        		and a.label_type = #{params.labelType,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.evaNum != null" >
+        		and a.eva_num = #{params.evaNum,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.goodEvalRate != null" >
+        		and a.good_eval_rate = #{params.goodEvalRate,jdbcType=DECIMAL}
+      		</if>
+      		<if test="params.remarks != null and '' != params.remarks" >
+        		and a.remarks = #{params.remarks,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.createBy != null" >
+        		and a.create_by = #{params.createBy,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.createDate != null" >
+        		and a.create_date = #{params.createDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.updateBy != null" >
+        		and a.update_by = #{params.updateBy,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.updateDate != null" >
+        		and a.update_date = #{params.updateDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.delFlag != null and '' != params.delFlag" >
+        		and a.del_flag = #{params.delFlag,jdbcType=CHAR}
+      		</if>
+      		<if test="params.merchantId != null" >
+        		and a.merchant_id = #{params.merchantId,jdbcType=INTEGER}
+      		</if>
+      	</if>
+  	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from goods a
+		where a.id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+		select 
+		<include refid="Base_Column_List" />
+		from goods a 
+		where 1=1 
+		<include refid="condition" />
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" >
+	  	select count(1) as s from goods a where 1=1
+	  	<include refid="condition" />
+	</select>
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+	  	select 
+	  	<include refid="Base_Column_List" />
+	  	from goods a
+	  	where 1=1
+	  	<include refid="condition" />
+	  	<if test="orderByField != null and ''!=orderByField" >
+	    	order by ${orderByField} 
+	    	<if test="orderByField" >
+	      	${orderBy}
+	    	</if>
+	  	</if>
+	  	limit #{page.startRowNum} ,#{page.pageSize}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	  	delete from goods
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByPrimarayKeyForModel" parameterType="com.towcent.curtain.order.app.client.goods.dto.Goods" >
+	  	delete from goods
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.towcent.curtain.order.app.client.goods.dto.Goods" useGeneratedKeys="true" keyProperty="id">
+    	insert into goods (
+					id,
+			cate_no,
+			cate_name,
+			goods_no,
+			goods_name,
+			goods_type,
+			goods_barcode,
+			goods_status,
+			brand_name,
+			larghezza,
+			style,
+			material,
+			specification,
+			price,
+			cost_price,
+			main_urls,
+			description,
+			desc_pic,
+			desc_pic_v,
+			qty,
+			sale_num,
+			sale_length,
+			label_type,
+			eva_num,
+			good_eval_rate,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			merchant_id
+    	)
+    	values (
+					#{id,jdbcType=INTEGER},
+			#{cateNo,jdbcType=VARCHAR},
+			#{cateName,jdbcType=VARCHAR},
+			#{goodsNo,jdbcType=VARCHAR},
+			#{goodsName,jdbcType=VARCHAR},
+			#{goodsType,jdbcType=CHAR},
+			#{goodsBarcode,jdbcType=VARCHAR},
+			#{goodsStatus,jdbcType=CHAR},
+			#{brandName,jdbcType=VARCHAR},
+			#{larghezza,jdbcType=VARCHAR},
+			#{style,jdbcType=VARCHAR},
+			#{material,jdbcType=VARCHAR},
+			#{specification,jdbcType=VARCHAR},
+			#{price,jdbcType=DECIMAL},
+			#{costPrice,jdbcType=DECIMAL},
+			#{mainUrls,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{descPic,jdbcType=VARCHAR},
+			#{descPicV,jdbcType=INTEGER},
+			#{qty,jdbcType=DECIMAL},
+			#{saleNum,jdbcType=INTEGER},
+			#{saleLength,jdbcType=DECIMAL},
+			#{labelType,jdbcType=VARCHAR},
+			#{evaNum,jdbcType=INTEGER},
+			#{goodEvalRate,jdbcType=DECIMAL},
+			#{remarks,jdbcType=VARCHAR},
+			#{createBy,jdbcType=INTEGER},
+			#{createDate,jdbcType=TIMESTAMP},
+			#{updateBy,jdbcType=INTEGER},
+			#{updateDate,jdbcType=TIMESTAMP},
+			#{delFlag,jdbcType=CHAR},
+			#{merchantId,jdbcType=INTEGER}
+		)
+  	</insert>
+	<insert id="insertSelective" parameterType="com.towcent.curtain.order.app.client.goods.dto.Goods" useGeneratedKeys="true" keyProperty="id" >
+    	insert into goods 
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+      			id,
+      		</if>
+      		<if test="cateNo != null and '' != cateNo" >
+      			cate_no,
+      		</if>
+      		<if test="cateName != null and '' != cateName" >
+      			cate_name,
+      		</if>
+      		<if test="goodsNo != null and '' != goodsNo" >
+      			goods_no,
+      		</if>
+      		<if test="goodsName != null and '' != goodsName" >
+      			goods_name,
+      		</if>
+      		<if test="goodsType != null and '' != goodsType" >
+      			goods_type,
+      		</if>
+      		<if test="goodsBarcode != null and '' != goodsBarcode" >
+      			goods_barcode,
+      		</if>
+      		<if test="goodsStatus != null and '' != goodsStatus" >
+      			goods_status,
+      		</if>
+      		<if test="brandName != null and '' != brandName" >
+      			brand_name,
+      		</if>
+      		<if test="larghezza != null and '' != larghezza" >
+      			larghezza,
+      		</if>
+      		<if test="style != null and '' != style" >
+      			style,
+      		</if>
+      		<if test="material != null and '' != material" >
+      			material,
+      		</if>
+      		<if test="specification != null and '' != specification" >
+      			specification,
+      		</if>
+      		<if test="price != null" >
+      			price,
+      		</if>
+      		<if test="costPrice != null" >
+      			cost_price,
+      		</if>
+      		<if test="mainUrls != null and '' != mainUrls" >
+      			main_urls,
+      		</if>
+      		<if test="description != null and '' != description" >
+      			description,
+      		</if>
+      		<if test="descPic != null and '' != descPic" >
+      			desc_pic,
+      		</if>
+      		<if test="descPicV != null" >
+      			desc_pic_v,
+      		</if>
+      		<if test="qty != null" >
+      			qty,
+      		</if>
+      		<if test="saleNum != null" >
+      			sale_num,
+      		</if>
+      		<if test="saleLength != null" >
+      			sale_length,
+      		</if>
+      		<if test="labelType != null and '' != labelType" >
+      			label_type,
+      		</if>
+      		<if test="evaNum != null" >
+      			eva_num,
+      		</if>
+      		<if test="goodEvalRate != null" >
+      			good_eval_rate,
+      		</if>
+      		<if test="remarks != null and '' != remarks" >
+      			remarks,
+      		</if>
+      		<if test="createBy != null" >
+      			create_by,
+      		</if>
+      		<if test="createDate != null" >
+      			create_date,
+      		</if>
+      		<if test="updateBy != null" >
+      			update_by,
+      		</if>
+      		<if test="updateDate != null" >
+      			update_date,
+      		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+      			del_flag,
+      		</if>
+      		<if test="merchantId != null" >
+      			merchant_id,
+      		</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+	  			#{id,jdbcType=INTEGER},
+	  		</if>
+      		<if test="cateNo != null and '' != cateNo" >
+	  			#{cateNo,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="cateName != null and '' != cateName" >
+	  			#{cateName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="goodsNo != null and '' != goodsNo" >
+	  			#{goodsNo,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="goodsName != null and '' != goodsName" >
+	  			#{goodsName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="goodsType != null and '' != goodsType" >
+	  			#{goodsType,jdbcType=CHAR},
+	  		</if>
+      		<if test="goodsBarcode != null and '' != goodsBarcode" >
+	  			#{goodsBarcode,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="goodsStatus != null and '' != goodsStatus" >
+	  			#{goodsStatus,jdbcType=CHAR},
+	  		</if>
+      		<if test="brandName != null and '' != brandName" >
+	  			#{brandName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="larghezza != null and '' != larghezza" >
+	  			#{larghezza,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="style != null and '' != style" >
+	  			#{style,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="material != null and '' != material" >
+	  			#{material,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="specification != null and '' != specification" >
+	  			#{specification,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="price != null" >
+	  			#{price,jdbcType=DECIMAL},
+	  		</if>
+      		<if test="costPrice != null" >
+	  			#{costPrice,jdbcType=DECIMAL},
+	  		</if>
+      		<if test="mainUrls != null and '' != mainUrls" >
+	  			#{mainUrls,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="description != null and '' != description" >
+	  			#{description,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="descPic != null and '' != descPic" >
+	  			#{descPic,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="descPicV != null" >
+	  			#{descPicV,jdbcType=INTEGER},
+	  		</if>
+      		<if test="qty != null" >
+	  			#{qty,jdbcType=DECIMAL},
+	  		</if>
+      		<if test="saleNum != null" >
+	  			#{saleNum,jdbcType=INTEGER},
+	  		</if>
+      		<if test="saleLength != null" >
+	  			#{saleLength,jdbcType=DECIMAL},
+	  		</if>
+      		<if test="labelType != null and '' != labelType" >
+	  			#{labelType,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="evaNum != null" >
+	  			#{evaNum,jdbcType=INTEGER},
+	  		</if>
+      		<if test="goodEvalRate != null" >
+	  			#{goodEvalRate,jdbcType=DECIMAL},
+	  		</if>
+      		<if test="remarks != null and '' != remarks" >
+	  			#{remarks,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="createBy != null" >
+	  			#{createBy,jdbcType=INTEGER},
+	  		</if>
+      		<if test="createDate != null" >
+	  			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="updateBy != null" >
+	  			#{updateBy,jdbcType=INTEGER},
+	  		</if>
+      		<if test="updateDate != null" >
+	  			#{updateDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+	  			#{delFlag,jdbcType=CHAR},
+	  		</if>
+      		<if test="merchantId != null" >
+	  			#{merchantId,jdbcType=INTEGER},
+	  		</if>
+    	</trim>
+  	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.towcent.curtain.order.app.client.goods.dto.Goods" >
+    	update goods 
+	    <set >
+	      	<if test="id != null" >
+	        	id = #{id,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="cateNo != null and '' != cateNo" >
+	        	cate_no = #{cateNo,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="cateName != null and '' != cateName" >
+	        	cate_name = #{cateName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="goodsNo != null and '' != goodsNo" >
+	        	goods_no = #{goodsNo,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="goodsName != null and '' != goodsName" >
+	        	goods_name = #{goodsName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="goodsType != null and '' != goodsType" >
+	        	goods_type = #{goodsType,jdbcType=CHAR},
+	      	</if>
+	      	<if test="goodsBarcode != null and '' != goodsBarcode" >
+	        	goods_barcode = #{goodsBarcode,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="goodsStatus != null and '' != goodsStatus" >
+	        	goods_status = #{goodsStatus,jdbcType=CHAR},
+	      	</if>
+	      	<if test="brandName != null and '' != brandName" >
+	        	brand_name = #{brandName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="larghezza != null and '' != larghezza" >
+	        	larghezza = #{larghezza,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="style != null and '' != style" >
+	        	style = #{style,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="material != null and '' != material" >
+	        	material = #{material,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="specification != null and '' != specification" >
+	        	specification = #{specification,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="price != null" >
+	        	price = #{price,jdbcType=DECIMAL},
+	      	</if>
+	      	<if test="costPrice != null" >
+	        	cost_price = #{costPrice,jdbcType=DECIMAL},
+	      	</if>
+	      	<if test="mainUrls != null and '' != mainUrls" >
+	        	main_urls = #{mainUrls,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="description != null and '' != description" >
+	        	description = #{description,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="descPic != null and '' != descPic" >
+	        	desc_pic = #{descPic,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="descPicV != null" >
+	        	desc_pic_v = #{descPicV,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="qty != null" >
+	        	qty = #{qty,jdbcType=DECIMAL},
+	      	</if>
+	      	<if test="saleNum != null" >
+	        	sale_num = #{saleNum,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="saleLength != null" >
+	        	sale_length = #{saleLength,jdbcType=DECIMAL},
+	      	</if>
+	      	<if test="labelType != null and '' != labelType" >
+	        	label_type = #{labelType,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="evaNum != null" >
+	        	eva_num = #{evaNum,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="goodEvalRate != null" >
+	        	good_eval_rate = #{goodEvalRate,jdbcType=DECIMAL},
+	      	</if>
+	      	<if test="remarks != null and '' != remarks" >
+	        	remarks = #{remarks,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createBy != null" >
+	        	create_by = #{createBy,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="createDate != null" >
+	        	create_date = #{createDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="updateBy != null" >
+	        	update_by = #{updateBy,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="updateDate != null" >
+	        	update_date = #{updateDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="delFlag != null and '' != delFlag" >
+	        	del_flag = #{delFlag,jdbcType=CHAR},
+	      	</if>
+	      	<if test="merchantId != null" >
+	        	merchant_id = #{merchantId,jdbcType=INTEGER},
+	      	</if>
+    	</set>
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<update id="updateByPrimaryKey" parameterType="com.towcent.curtain.order.app.client.goods.dto.Goods" >
+    	update goods 
+    	set 
+      	      		id = #{id,jdbcType=INTEGER},
+      		cate_no = #{cateNo,jdbcType=VARCHAR},
+      		cate_name = #{cateName,jdbcType=VARCHAR},
+      		goods_no = #{goodsNo,jdbcType=VARCHAR},
+      		goods_name = #{goodsName,jdbcType=VARCHAR},
+      		goods_type = #{goodsType,jdbcType=CHAR},
+      		goods_barcode = #{goodsBarcode,jdbcType=VARCHAR},
+      		goods_status = #{goodsStatus,jdbcType=CHAR},
+      		brand_name = #{brandName,jdbcType=VARCHAR},
+      		larghezza = #{larghezza,jdbcType=VARCHAR},
+      		style = #{style,jdbcType=VARCHAR},
+      		material = #{material,jdbcType=VARCHAR},
+      		specification = #{specification,jdbcType=VARCHAR},
+      		price = #{price,jdbcType=DECIMAL},
+      		cost_price = #{costPrice,jdbcType=DECIMAL},
+      		main_urls = #{mainUrls,jdbcType=VARCHAR},
+      		description = #{description,jdbcType=VARCHAR},
+      		desc_pic = #{descPic,jdbcType=VARCHAR},
+      		desc_pic_v = #{descPicV,jdbcType=INTEGER},
+      		qty = #{qty,jdbcType=DECIMAL},
+      		sale_num = #{saleNum,jdbcType=INTEGER},
+      		sale_length = #{saleLength,jdbcType=DECIMAL},
+      		label_type = #{labelType,jdbcType=VARCHAR},
+      		eva_num = #{evaNum,jdbcType=INTEGER},
+      		good_eval_rate = #{goodEvalRate,jdbcType=DECIMAL},
+      		remarks = #{remarks,jdbcType=VARCHAR},
+      		create_by = #{createBy,jdbcType=INTEGER},
+      		create_date = #{createDate,jdbcType=TIMESTAMP},
+      		update_by = #{updateBy,jdbcType=INTEGER},
+      		update_date = #{updateDate,jdbcType=TIMESTAMP},
+      		del_flag = #{delFlag,jdbcType=CHAR},
+      		merchant_id = #{merchantId,jdbcType=INTEGER} 
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+</mapper>

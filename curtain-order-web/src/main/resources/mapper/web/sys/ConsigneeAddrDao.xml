@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.sys.dao.ConsigneeAddrDao">
+    
+	<sql id="consigneeAddrColumns">
+		a.id AS "id",
+		a.consignee_name AS "consigneeName",
+		a.province AS "province",
+		a.city AS "city",
+		a.district AS "district",
+		a.detail_addr AS "detailAddr",
+		a.address AS "address",
+		a.mobile_phone AS "mobilePhone",
+		a.telephone AS "telephone",
+		a.default_flag AS "defaultFlag",
+		a.user_id AS "user.id",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.merchant_id AS "merchantId",
+		u11.name AS "user.name"
+	</sql>
+	
+	<sql id="consigneeAddrJoins">
+		LEFT JOIN sys_user u11 ON u11.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="ConsigneeAddr">
+		SELECT 
+			<include refid="consigneeAddrColumns"/>
+		FROM consignee_addr a
+		<include refid="consigneeAddrJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ConsigneeAddr">
+		SELECT 
+			<include refid="consigneeAddrColumns"/>
+		FROM consignee_addr a
+		<include refid="consigneeAddrJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="consigneeName != null and consigneeName != ''">
+				AND a.consignee_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{consigneeName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{consigneeName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{consigneeName},'%')</if>
+			</if>
+			<if test="mobilePhone != null and mobilePhone != ''">
+				AND a.mobile_phone LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mobilePhone}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mobilePhone}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mobilePhone},'%')</if>
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+			<if test="user != null and user.id != null and user.id != ''">
+                AND a.user_id = #{user.id}
+            </if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ConsigneeAddr">
+		SELECT 
+			<include refid="consigneeAddrColumns"/>
+		FROM consignee_addr a
+		<include refid="consigneeAddrJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO consignee_addr(
+					consignee_name,
+					province,
+					city,
+					district,
+					detail_addr,
+					address,
+					mobile_phone,
+					telephone,
+					default_flag,
+					user_id,
+					remarks,
+					create_by,
+					create_date,
+					update_by,
+					update_date,
+					del_flag,
+					merchant_id
+		) VALUES (
+			#{consigneeName},
+			#{province},
+			#{city},
+			#{district},
+			#{detailAddr},
+			#{address},
+			#{mobilePhone},
+			#{telephone},
+			#{defaultFlag},
+			#{user.id},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{merchantId}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO consignee_addr 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="consigneeName != null">	
+				consignee_name,
+			</if>	
+			<if test="province != null">	
+				province,
+			</if>	
+			<if test="city != null">	
+				city,
+			</if>	
+			<if test="district != null">	
+				district,
+			</if>	
+			<if test="detailAddr != null">	
+				detail_addr,
+			</if>	
+			<if test="address != null">	
+				address,
+			</if>	
+			<if test="mobilePhone != null">	
+				mobile_phone,
+			</if>	
+			<if test="telephone != null">	
+				telephone,
+			</if>	
+			<if test="defaultFlag != null">	
+				default_flag,
+			</if>
+			<if test="user != null and user.id != null and user.id != ''">
+				user_id,
+			</if>	
+			<if test="remarks != null">	
+				remarks,
+			</if>	
+			<if test="createBy.id != null">	
+				create_by,
+			</if>	
+			<if test="createDate != null">	
+				create_date,
+			</if>	
+			<if test="updateBy.id != null">	
+				update_by,
+			</if>	
+			<if test="updateDate != null">	
+				update_date,
+			</if>	
+			<if test="delFlag != null">	
+				del_flag,
+			</if>	
+			<if test="merchantId != null">	
+				merchant_id,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="consigneeName != null">
+				#{consigneeName},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="district != null">
+				#{district},
+			</if>
+			<if test="detailAddr != null">
+				#{detailAddr},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone},
+			</if>
+			<if test="telephone != null">
+				#{telephone},
+			</if>
+			<if test="defaultFlag != null">
+				#{defaultFlag},
+			</if>
+			<if test="user != null and user.id != null and user.id != ''">
+				#{user.id},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="createBy.id != null">
+				#{createBy.id},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="updateBy.id != null">
+				#{updateBy.id},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE consignee_addr SET 	
+			consignee_name = #{consigneeName},
+			province = #{province},
+			city = #{city},
+			district = #{district},
+			detail_addr = #{detailAddr},
+			address = #{address},
+			mobile_phone = #{mobilePhone},
+			telephone = #{telephone},
+			default_flag = #{defaultFlag},
+			user_id = #{user.id},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			merchant_id = #{merchantId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE consignee_addr  	
+		<set >		
+			<if test="consigneeName != null">	
+			consignee_name = #{consigneeName},
+			</if>
+			<if test="province != null">	
+			province = #{province},
+			</if>
+			<if test="city != null">	
+			city = #{city},
+			</if>
+			<if test="district != null">	
+			district = #{district},
+			</if>
+			<if test="detailAddr != null">	
+			detail_addr = #{detailAddr},
+			</if>
+			<if test="address != null">	
+			address = #{address},
+			</if>
+			<if test="mobilePhone != null">	
+			mobile_phone = #{mobilePhone},
+			</if>
+			<if test="telephone != null">	
+			telephone = #{telephone},
+			</if>
+			<if test="defaultFlag != null">	
+			default_flag = #{defaultFlag},
+			</if>
+			<if test="user != null and user.id != null and user.id != ''">
+			user_id = #{user.id},
+			</if>
+			<if test="remarks != null">	
+			remarks = #{remarks},
+			</if>
+			<if test="updateBy.id != null">	
+			update_by = #{updateBy.id},
+			</if>
+			<if test="updateDate != null">	
+			update_date = #{updateDate},
+			</if>
+			<if test="merchantId != null">	
+			merchant_id = #{merchantId},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE consignee_addr SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

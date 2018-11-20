@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.sys.dao.SysMerchantInfoDao">
+    
+	<sql id="sysMerchantInfoColumns">
+		a.id AS "id",
+		a.merchant_no AS "merchantNo",
+		a.merchant_name AS "merchantName",
+		a.apply_status AS "applyStatus",
+		a.contact_phone AS "contactPhone",
+		a.service_phone AS "servicePhone",
+		a.logo AS "logo",
+		a.province AS "province",
+		a.city AS "city",
+		a.district AS "district",
+		a.street AS "street",
+		a.address AS "address",
+		a.longtitude AS "longtitude",
+		a.latitude AS "latitude",
+		a.email AS "email",
+		a.qq AS "qq",
+		a.wx_code AS "wxCode",
+		a.wx_qr_code AS "wxQrCode",
+		a.qr_code AS "qrCode",
+		a.self_employed_name AS "selfEmployedName",
+		a.id_card_front_url AS "idCardFrontUrl",
+		a.apply_id_card AS "applyIdCard",
+		a.biz_lic_url AS "bizLicUrl",
+		a.cover_url AS "coverUrl",
+		a.id_card_back_url AS "idCardBackUrl",
+		a.hand_id_card_url AS "handIdCardUrl",
+		a.alias AS "alias",
+		a.enabled_flag AS "enabledFlag",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysMerchantInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="SysMerchantInfo">
+		SELECT 
+			<include refid="sysMerchantInfoColumns"/>
+		FROM sys_merchant_info a
+		<include refid="sysMerchantInfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysMerchantInfo">
+		SELECT 
+			<include refid="sysMerchantInfoColumns"/>
+		FROM sys_merchant_info a
+		<include refid="sysMerchantInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="merchantNo != null and merchantNo != ''">
+				AND a.merchant_no LIKE 
+					<if test="dbName == 'oracle'">'%'||#{merchantNo}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{merchantNo}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{merchantNo},'%')</if>
+			</if>
+			<if test="merchantName != null and merchantName != ''">
+				AND a.merchant_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{merchantName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{merchantName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{merchantName},'%')</if>
+			</if>
+			<if test="enabledFlag != null and enabledFlag != ''">
+				AND a.enabled_flag = #{enabledFlag}
+			</if>
+			<if test="qrCode != null and qrCode != ''">
+				AND a.qr_code = #{qrCode}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysMerchantInfo">
+		SELECT 
+			<include refid="sysMerchantInfoColumns"/>
+		FROM sys_merchant_info a
+		<include refid="sysMerchantInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO sys_merchant_info(
+					merchant_no,
+					merchant_name,
+					apply_status,
+					contact_phone,
+					service_phone,
+					logo,
+					province,
+					city,
+					district,
+					street,
+					address,
+					longtitude,
+					latitude,
+					email,
+					qq,
+					wx_code,
+					wx_qr_code,
+					qr_code,
+					self_employed_name,
+					id_card_front_url,
+					apply_id_card,
+					biz_lic_url,
+					cover_url,
+					id_card_back_url,
+					hand_id_card_url,
+					alias,
+					enabled_flag,
+					remarks,
+					create_by,
+					create_date,
+					update_by,
+					update_date,
+					del_flag
+		) VALUES (
+			#{merchantNo},
+			#{merchantName},
+			#{applyStatus},
+			#{contactPhone},
+			#{servicePhone},
+			#{logo},
+			#{province},
+			#{city},
+			#{district},
+			#{street},
+			#{address},
+			#{longtitude},
+			#{latitude},
+			#{email},
+			#{qq},
+			#{wxCode},
+			#{wxQrCode},
+			#{qrCode},
+			#{selfEmployedName},
+			#{idCardFrontUrl},
+			#{applyIdCard},
+			#{bizLicUrl},
+			#{coverUrl},
+			#{idCardBackUrl},
+			#{handIdCardUrl},
+			#{alias},
+			#{enabledFlag},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO sys_merchant_info 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="merchantNo != null">	
+				merchant_no,
+			</if>	
+			<if test="merchantName != null">	
+				merchant_name,
+			</if>	
+			<if test="applyStatus != null">	
+				apply_status,
+			</if>	
+			<if test="contactPhone != null">	
+				contact_phone,
+			</if>	
+			<if test="servicePhone != null">	
+				service_phone,
+			</if>	
+			<if test="logo != null">	
+				logo,
+			</if>	
+			<if test="province != null">	
+				province,
+			</if>	
+			<if test="city != null">	
+				city,
+			</if>	
+			<if test="district != null">	
+				district,
+			</if>	
+			<if test="street != null">	
+				street,
+			</if>	
+			<if test="address != null">	
+				address,
+			</if>	
+			<if test="longtitude != null">	
+				longtitude,
+			</if>	
+			<if test="latitude != null">	
+				latitude,
+			</if>	
+			<if test="email != null">	
+				email,
+			</if>	
+			<if test="qq != null">	
+				qq,
+			</if>	
+			<if test="wxCode != null">	
+				wx_code,
+			</if>	
+			<if test="wxQrCode != null">	
+				wx_qr_code,
+			</if>	
+			<if test="qrCode != null">	
+				qr_code,
+			</if>	
+			<if test="selfEmployedName != null">	
+				self_employed_name,
+			</if>	
+			<if test="idCardFrontUrl != null">	
+				id_card_front_url,
+			</if>	
+			<if test="applyIdCard != null">	
+				apply_id_card,
+			</if>	
+			<if test="bizLicUrl != null">	
+				biz_lic_url,
+			</if>	
+			<if test="coverUrl != null">	
+				cover_url,
+			</if>	
+			<if test="idCardBackUrl != null">	
+				id_card_back_url,
+			</if>	
+			<if test="handIdCardUrl != null">	
+				hand_id_card_url,
+			</if>	
+			<if test="alias != null">	
+				alias,
+			</if>	
+			<if test="enabledFlag != null">	
+				enabled_flag,
+			</if>	
+			<if test="remarks != null">	
+				remarks,
+			</if>	
+			<if test="createBy.id != null">	
+				create_by,
+			</if>	
+			<if test="createDate != null">	
+				create_date,
+			</if>	
+			<if test="updateBy.id != null">	
+				update_by,
+			</if>	
+			<if test="updateDate != null">	
+				update_date,
+			</if>	
+			<if test="delFlag != null">	
+				del_flag,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="merchantNo != null">
+				#{merchantNo},
+			</if>
+			<if test="merchantName != null">
+				#{merchantName},
+			</if>
+			<if test="applyStatus != null">
+				#{applyStatus},
+			</if>
+			<if test="contactPhone != null">
+				#{contactPhone},
+			</if>
+			<if test="servicePhone != null">
+				#{servicePhone},
+			</if>
+			<if test="logo != null">
+				#{logo},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="district != null">
+				#{district},
+			</if>
+			<if test="street != null">
+				#{street},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="longtitude != null">
+				#{longtitude},
+			</if>
+			<if test="latitude != null">
+				#{latitude},
+			</if>
+			<if test="email != null">
+				#{email},
+			</if>
+			<if test="qq != null">
+				#{qq},
+			</if>
+			<if test="wxCode != null">
+				#{wxCode},
+			</if>
+			<if test="wxQrCode != null">
+				#{wxQrCode},
+			</if>
+			<if test="qrCode != null">
+				#{qrCode},
+			</if>
+			<if test="selfEmployedName != null">
+				#{selfEmployedName},
+			</if>
+			<if test="idCardFrontUrl != null">
+				#{idCardFrontUrl},
+			</if>
+			<if test="applyIdCard != null">
+				#{applyIdCard},
+			</if>
+			<if test="bizLicUrl != null">
+				#{bizLicUrl},
+			</if>
+			<if test="coverUrl != null">
+				#{coverUrl},
+			</if>
+			<if test="idCardBackUrl != null">
+				#{idCardBackUrl},
+			</if>
+			<if test="handIdCardUrl != null">
+				#{handIdCardUrl},
+			</if>
+			<if test="alias != null">
+				#{alias},
+			</if>
+			<if test="enabledFlag != null">
+				#{enabledFlag},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="createBy.id != null">
+				#{createBy.id},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="updateBy.id != null">
+				#{updateBy.id},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_merchant_info SET 	
+			merchant_no = #{merchantNo},
+			merchant_name = #{merchantName},
+			apply_status = #{applyStatus},
+			contact_phone = #{contactPhone},
+			service_phone = #{servicePhone},
+			logo = #{logo},
+			province = #{province},
+			city = #{city},
+			district = #{district},
+			street = #{street},
+			address = #{address},
+			longtitude = #{longtitude},
+			latitude = #{latitude},
+			email = #{email},
+			qq = #{qq},
+			wx_code = #{wxCode},
+			wx_qr_code = #{wxQrCode},
+			qr_code = #{qrCode},
+			self_employed_name = #{selfEmployedName},
+			id_card_front_url = #{idCardFrontUrl},
+			apply_id_card = #{applyIdCard},
+			biz_lic_url = #{bizLicUrl},
+			cover_url = #{coverUrl},
+			id_card_back_url = #{idCardBackUrl},
+			hand_id_card_url = #{handIdCardUrl},
+			alias = #{alias},
+			enabled_flag = #{enabledFlag},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE sys_merchant_info  	
+		<set >		
+			<if test="merchantNo != null">	
+			merchant_no = #{merchantNo},
+			</if>
+			<if test="merchantName != null">	
+			merchant_name = #{merchantName},
+			</if>
+			<if test="applyStatus != null">	
+			apply_status = #{applyStatus},
+			</if>
+			<if test="contactPhone != null">	
+			contact_phone = #{contactPhone},
+			</if>
+			<if test="servicePhone != null">	
+			service_phone = #{servicePhone},
+			</if>
+			<if test="logo != null">	
+			logo = #{logo},
+			</if>
+			<if test="province != null">	
+			province = #{province},
+			</if>
+			<if test="city != null">	
+			city = #{city},
+			</if>
+			<if test="district != null">	
+			district = #{district},
+			</if>
+			<if test="street != null">	
+			street = #{street},
+			</if>
+			<if test="address != null">	
+			address = #{address},
+			</if>
+			<if test="longtitude != null">	
+			longtitude = #{longtitude},
+			</if>
+			<if test="latitude != null">	
+			latitude = #{latitude},
+			</if>
+			<if test="email != null">	
+			email = #{email},
+			</if>
+			<if test="qq != null">	
+			qq = #{qq},
+			</if>
+			<if test="wxCode != null">	
+			wx_code = #{wxCode},
+			</if>
+			<if test="wxQrCode != null">	
+			wx_qr_code = #{wxQrCode},
+			</if>
+			<if test="qrCode != null">	
+			qr_code = #{qrCode},
+			</if>
+			<if test="selfEmployedName != null">	
+			self_employed_name = #{selfEmployedName},
+			</if>
+			<if test="idCardFrontUrl != null">	
+			id_card_front_url = #{idCardFrontUrl},
+			</if>
+			<if test="applyIdCard != null">	
+			apply_id_card = #{applyIdCard},
+			</if>
+			<if test="bizLicUrl != null">	
+			biz_lic_url = #{bizLicUrl},
+			</if>
+			<if test="coverUrl != null">	
+			cover_url = #{coverUrl},
+			</if>
+			<if test="idCardBackUrl != null">	
+			id_card_back_url = #{idCardBackUrl},
+			</if>
+			<if test="handIdCardUrl != null">	
+			hand_id_card_url = #{handIdCardUrl},
+			</if>
+			<if test="alias != null">	
+			alias = #{alias},
+			</if>
+			<if test="enabledFlag != null">	
+			enabled_flag = #{enabledFlag},
+			</if>
+			<if test="remarks != null">	
+			remarks = #{remarks},
+			</if>
+			<if test="updateBy.id != null">	
+			update_by = #{updateBy.id},
+			</if>
+			<if test="updateDate != null">	
+			update_date = #{updateDate},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_merchant_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

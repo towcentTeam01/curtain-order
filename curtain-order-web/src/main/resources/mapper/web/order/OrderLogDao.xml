@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.towcent.curtain.order.web.order.dao.OrderLogDao">
+    
+	<sql id="orderLogColumns">
+		a.id AS "id",
+		a.order_id AS "orderId",
+		a.content AS "content",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="orderLogJoins">
+	</sql>
+    
+	<select id="get" resultType="OrderLog">
+		SELECT 
+			<include refid="orderLogColumns"/>
+		FROM order_log a
+		<include refid="orderLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="OrderLog">
+		SELECT 
+			<include refid="orderLogColumns"/>
+		FROM order_log a
+		<include refid="orderLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="orderId != null and orderId != ''">
+				AND a.order_id = #{orderId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="OrderLog">
+		SELECT 
+			<include refid="orderLogColumns"/>
+		FROM order_log a
+		<include refid="orderLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" keyProperty="id">
+		INSERT INTO order_log(
+					order_id,
+					content,
+					create_by,
+					create_date,
+					del_flag
+		) VALUES (
+			#{orderId},
+			#{content},
+			#{createBy.id},
+			#{createDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<insert id="insertSelective" keyProperty="id">
+		INSERT INTO order_log 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orderId != null">	
+				order_id,
+			</if>	
+			<if test="content != null">	
+				content,
+			</if>	
+			<if test="createBy.id != null">	
+				create_by,
+			</if>	
+			<if test="createDate != null">	
+				create_date,
+			</if>	
+			<if test="delFlag != null">	
+				del_flag,
+			</if>	
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="createBy.id != null">
+				#{createBy.id},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update">
+		UPDATE order_log SET 	
+			order_id = #{orderId},
+			content = #{content}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateSelective">
+		UPDATE order_log  	
+		<set >		
+			<if test="orderId != null">	
+			order_id = #{orderId},
+			</if>
+			<if test="content != null">	
+			content = #{content},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE order_log SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

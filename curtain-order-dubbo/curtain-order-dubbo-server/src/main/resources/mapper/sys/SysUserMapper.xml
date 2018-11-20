@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.towcent.curtain.order.app.server.sys.dao.SysUserMapper" >
+  	<resultMap id="BaseResultMap" type="com.towcent.curtain.order.app.client.sys.dto.SysUser" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="company_id" property="companyId" jdbcType="INTEGER" />
+		<result column="office_id" property="officeId" jdbcType="INTEGER" />
+		<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="no" property="no" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="user_type" property="userType" jdbcType="CHAR" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+		<result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+		<result column="login_flag" property="loginFlag" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="sex" property="sex" jdbcType="CHAR" />
+		<result column="job" property="job" jdbcType="VARCHAR" />
+		<result column="entry_date" property="entryDate" jdbcType="TIMESTAMP" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+  	</resultMap>
+  	<sql id="Base_Column_List" >
+  	  	a.id, a.company_id, a.office_id, a.login_name, a.password, a.no, a.name, a.email, a.phone, a.mobile, a.user_type, a.photo, a.login_ip, a.login_date, a.login_flag, a.create_by, a.create_date, a.update_by, a.update_date, a.remarks, a.del_flag, a.sex, a.job, a.entry_date, a.birthday
+  	</sql>
+	<sql id="condition" >
+    	<if test="null!=params" >
+      		<if test="params.id != null" >
+        		and a.id = #{params.id,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.companyId != null" >
+        		and a.company_id = #{params.companyId,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.officeId != null" >
+        		and a.office_id = #{params.officeId,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.loginName != null and '' != params.loginName" >
+        		and a.login_name = #{params.loginName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.password != null and '' != params.password" >
+        		and a.password = #{params.password,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.no != null and '' != params.no" >
+        		and a.no = #{params.no,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.name != null and '' != params.name" >
+        		and a.name = #{params.name,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.email != null and '' != params.email" >
+        		and a.email = #{params.email,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.phone != null and '' != params.phone" >
+        		and a.phone = #{params.phone,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.mobile != null and '' != params.mobile" >
+        		and a.mobile = #{params.mobile,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.userType != null and '' != params.userType" >
+        		and a.user_type = #{params.userType,jdbcType=CHAR}
+      		</if>
+      		<if test="params.photo != null and '' != params.photo" >
+        		and a.photo = #{params.photo,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.loginIp != null and '' != params.loginIp" >
+        		and a.login_ip = #{params.loginIp,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.loginDate != null" >
+        		and a.login_date = #{params.loginDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.loginFlag != null and '' != params.loginFlag" >
+        		and a.login_flag = #{params.loginFlag,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.createBy != null and '' != params.createBy" >
+        		and a.create_by = #{params.createBy,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.createDate != null" >
+        		and a.create_date = #{params.createDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.updateBy != null and '' != params.updateBy" >
+        		and a.update_by = #{params.updateBy,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.updateDate != null" >
+        		and a.update_date = #{params.updateDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.remarks != null and '' != params.remarks" >
+        		and a.remarks = #{params.remarks,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.delFlag != null and '' != params.delFlag" >
+        		and a.del_flag = #{params.delFlag,jdbcType=CHAR}
+      		</if>
+      		<if test="params.sex != null and '' != params.sex" >
+        		and a.sex = #{params.sex,jdbcType=CHAR}
+      		</if>
+      		<if test="params.job != null and '' != params.job" >
+        		and a.job = #{params.job,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.entryDate != null" >
+        		and a.entry_date = #{params.entryDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.birthday != null" >
+        		and a.birthday = #{params.birthday,jdbcType=TIMESTAMP}
+      		</if>
+      	</if>
+  	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from sys_user a
+		where a.id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+		select 
+		<include refid="Base_Column_List" />
+		from sys_user a 
+		where 1=1 
+		<include refid="condition" />
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" >
+	  	select count(1) as s from sys_user a where 1=1
+	  	<include refid="condition" />
+	</select>
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+	  	select 
+	  	<include refid="Base_Column_List" />
+	  	from sys_user a
+	  	where 1=1
+	  	<include refid="condition" />
+	  	<if test="orderByField != null and ''!=orderByField" >
+	    	order by ${orderByField} 
+	    	<if test="orderByField" >
+	      	${orderBy}
+	    	</if>
+	  	</if>
+	  	limit #{page.startRowNum} ,#{page.pageSize}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	  	delete from sys_user
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByPrimarayKeyForModel" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUser" >
+	  	delete from sys_user
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUser" useGeneratedKeys="true" keyProperty="id">
+    	insert into sys_user (
+					id,
+			company_id,
+			office_id,
+			login_name,
+			password,
+			no,
+			name,
+			email,
+			phone,
+			mobile,
+			user_type,
+			photo,
+			login_ip,
+			login_date,
+			login_flag,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			sex,
+			job,
+			entry_date,
+			birthday
+    	)
+    	values (
+					#{id,jdbcType=INTEGER},
+			#{companyId,jdbcType=INTEGER},
+			#{officeId,jdbcType=INTEGER},
+			#{loginName,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{no,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR},
+			#{phone,jdbcType=VARCHAR},
+			#{mobile,jdbcType=VARCHAR},
+			#{userType,jdbcType=CHAR},
+			#{photo,jdbcType=VARCHAR},
+			#{loginIp,jdbcType=VARCHAR},
+			#{loginDate,jdbcType=TIMESTAMP},
+			#{loginFlag,jdbcType=VARCHAR},
+			#{createBy,jdbcType=VARCHAR},
+			#{createDate,jdbcType=TIMESTAMP},
+			#{updateBy,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP},
+			#{remarks,jdbcType=VARCHAR},
+			#{delFlag,jdbcType=CHAR},
+			#{sex,jdbcType=CHAR},
+			#{job,jdbcType=VARCHAR},
+			#{entryDate,jdbcType=TIMESTAMP},
+			#{birthday,jdbcType=TIMESTAMP}
+		)
+  	</insert>
+	<insert id="insertSelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUser" useGeneratedKeys="true" keyProperty="id" >
+    	insert into sys_user 
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+      			id,
+      		</if>
+      		<if test="companyId != null" >
+      			company_id,
+      		</if>
+      		<if test="officeId != null" >
+      			office_id,
+      		</if>
+      		<if test="loginName != null and '' != loginName" >
+      			login_name,
+      		</if>
+      		<if test="password != null and '' != password" >
+      			password,
+      		</if>
+      		<if test="no != null and '' != no" >
+      			no,
+      		</if>
+      		<if test="name != null and '' != name" >
+      			name,
+      		</if>
+      		<if test="email != null and '' != email" >
+      			email,
+      		</if>
+      		<if test="phone != null and '' != phone" >
+      			phone,
+      		</if>
+      		<if test="mobile != null and '' != mobile" >
+      			mobile,
+      		</if>
+      		<if test="userType != null and '' != userType" >
+      			user_type,
+      		</if>
+      		<if test="photo != null and '' != photo" >
+      			photo,
+      		</if>
+      		<if test="loginIp != null and '' != loginIp" >
+      			login_ip,
+      		</if>
+      		<if test="loginDate != null" >
+      			login_date,
+      		</if>
+      		<if test="loginFlag != null and '' != loginFlag" >
+      			login_flag,
+      		</if>
+      		<if test="createBy != null and '' != createBy" >
+      			create_by,
+      		</if>
+      		<if test="createDate != null" >
+      			create_date,
+      		</if>
+      		<if test="updateBy != null and '' != updateBy" >
+      			update_by,
+      		</if>
+      		<if test="updateDate != null" >
+      			update_date,
+      		</if>
+      		<if test="remarks != null and '' != remarks" >
+      			remarks,
+      		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+      			del_flag,
+      		</if>
+      		<if test="sex != null and '' != sex" >
+      			sex,
+      		</if>
+      		<if test="job != null and '' != job" >
+      			job,
+      		</if>
+      		<if test="entryDate != null" >
+      			entry_date,
+      		</if>
+      		<if test="birthday != null" >
+      			birthday,
+      		</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+	  			#{id,jdbcType=INTEGER},
+	  		</if>
+      		<if test="companyId != null" >
+	  			#{companyId,jdbcType=INTEGER},
+	  		</if>
+      		<if test="officeId != null" >
+	  			#{officeId,jdbcType=INTEGER},
+	  		</if>
+      		<if test="loginName != null and '' != loginName" >
+	  			#{loginName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="password != null and '' != password" >
+	  			#{password,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="no != null and '' != no" >
+	  			#{no,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="name != null and '' != name" >
+	  			#{name,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="email != null and '' != email" >
+	  			#{email,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="phone != null and '' != phone" >
+	  			#{phone,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="mobile != null and '' != mobile" >
+	  			#{mobile,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="userType != null and '' != userType" >
+	  			#{userType,jdbcType=CHAR},
+	  		</if>
+      		<if test="photo != null and '' != photo" >
+	  			#{photo,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="loginIp != null and '' != loginIp" >
+	  			#{loginIp,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="loginDate != null" >
+	  			#{loginDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="loginFlag != null and '' != loginFlag" >
+	  			#{loginFlag,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="createBy != null and '' != createBy" >
+	  			#{createBy,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="createDate != null" >
+	  			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="updateBy != null and '' != updateBy" >
+	  			#{updateBy,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="updateDate != null" >
+	  			#{updateDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="remarks != null and '' != remarks" >
+	  			#{remarks,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+	  			#{delFlag,jdbcType=CHAR},
+	  		</if>
+      		<if test="sex != null and '' != sex" >
+	  			#{sex,jdbcType=CHAR},
+	  		</if>
+      		<if test="job != null and '' != job" >
+	  			#{job,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="entryDate != null" >
+	  			#{entryDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="birthday != null" >
+	  			#{birthday,jdbcType=TIMESTAMP},
+	  		</if>
+    	</trim>
+  	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUser" >
+    	update sys_user 
+	    <set >
+	      	<if test="id != null" >
+	        	id = #{id,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="companyId != null" >
+	        	company_id = #{companyId,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="officeId != null" >
+	        	office_id = #{officeId,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="loginName != null and '' != loginName" >
+	        	login_name = #{loginName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="password != null and '' != password" >
+	        	password = #{password,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="no != null and '' != no" >
+	        	no = #{no,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="name != null and '' != name" >
+	        	name = #{name,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="email != null and '' != email" >
+	        	email = #{email,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="phone != null and '' != phone" >
+	        	phone = #{phone,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="mobile != null and '' != mobile" >
+	        	mobile = #{mobile,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="userType != null and '' != userType" >
+	        	user_type = #{userType,jdbcType=CHAR},
+	      	</if>
+	      	<if test="photo != null and '' != photo" >
+	        	photo = #{photo,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="loginIp != null and '' != loginIp" >
+	        	login_ip = #{loginIp,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="loginDate != null" >
+	        	login_date = #{loginDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="loginFlag != null and '' != loginFlag" >
+	        	login_flag = #{loginFlag,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createBy != null and '' != createBy" >
+	        	create_by = #{createBy,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createDate != null" >
+	        	create_date = #{createDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="updateBy != null and '' != updateBy" >
+	        	update_by = #{updateBy,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="updateDate != null" >
+	        	update_date = #{updateDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="remarks != null and '' != remarks" >
+	        	remarks = #{remarks,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="delFlag != null and '' != delFlag" >
+	        	del_flag = #{delFlag,jdbcType=CHAR},
+	      	</if>
+	      	<if test="sex != null and '' != sex" >
+	        	sex = #{sex,jdbcType=CHAR},
+	      	</if>
+	      	<if test="job != null and '' != job" >
+	        	job = #{job,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="entryDate != null" >
+	        	entry_date = #{entryDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="birthday != null" >
+	        	birthday = #{birthday,jdbcType=TIMESTAMP},
+	      	</if>
+    	</set>
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<update id="updateByPrimaryKey" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUser" >
+    	update sys_user 
+    	set 
+      	      		id = #{id,jdbcType=INTEGER},
+      		company_id = #{companyId,jdbcType=INTEGER},
+      		office_id = #{officeId,jdbcType=INTEGER},
+      		login_name = #{loginName,jdbcType=VARCHAR},
+      		password = #{password,jdbcType=VARCHAR},
+      		no = #{no,jdbcType=VARCHAR},
+      		name = #{name,jdbcType=VARCHAR},
+      		email = #{email,jdbcType=VARCHAR},
+      		phone = #{phone,jdbcType=VARCHAR},
+      		mobile = #{mobile,jdbcType=VARCHAR},
+      		user_type = #{userType,jdbcType=CHAR},
+      		photo = #{photo,jdbcType=VARCHAR},
+      		login_ip = #{loginIp,jdbcType=VARCHAR},
+      		login_date = #{loginDate,jdbcType=TIMESTAMP},
+      		login_flag = #{loginFlag,jdbcType=VARCHAR},
+      		create_by = #{createBy,jdbcType=VARCHAR},
+      		create_date = #{createDate,jdbcType=TIMESTAMP},
+      		update_by = #{updateBy,jdbcType=VARCHAR},
+      		update_date = #{updateDate,jdbcType=TIMESTAMP},
+      		remarks = #{remarks,jdbcType=VARCHAR},
+      		del_flag = #{delFlag,jdbcType=CHAR},
+      		sex = #{sex,jdbcType=CHAR},
+      		job = #{job,jdbcType=VARCHAR},
+      		entry_date = #{entryDate,jdbcType=TIMESTAMP},
+      		birthday = #{birthday,jdbcType=TIMESTAMP} 
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+</mapper>

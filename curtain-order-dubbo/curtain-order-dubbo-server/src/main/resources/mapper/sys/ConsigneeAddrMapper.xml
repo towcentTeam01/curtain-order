@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.towcent.curtain.order.app.server.sys.dao.ConsigneeAddrMapper" >
+  	<resultMap id="BaseResultMap" type="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="INTEGER" />
+		<result column="city" property="city" jdbcType="INTEGER" />
+		<result column="district" property="district" jdbcType="INTEGER" />
+		<result column="detail_addr" property="detailAddr" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="default_flag" property="defaultFlag" jdbcType="CHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+  	</resultMap>
+  	<sql id="Base_Column_List" >
+  	  	a.id, a.consignee_name, a.province, a.city, a.district, a.detail_addr, a.address, a.mobile_phone, a.telephone, a.default_flag, a.user_id, a.remarks, a.create_by, a.create_date, a.update_by, a.update_date, a.del_flag, a.merchant_id
+  	</sql>
+	<sql id="condition" >
+    	<if test="null!=params" >
+      		<if test="params.id != null" >
+        		and a.id = #{params.id,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.consigneeName != null and '' != params.consigneeName" >
+        		and a.consignee_name = #{params.consigneeName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.province != null" >
+        		and a.province = #{params.province,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.city != null" >
+        		and a.city = #{params.city,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.district != null" >
+        		and a.district = #{params.district,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.detailAddr != null and '' != params.detailAddr" >
+        		and a.detail_addr = #{params.detailAddr,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.address != null and '' != params.address" >
+        		and a.address = #{params.address,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.mobilePhone != null and '' != params.mobilePhone" >
+        		and a.mobile_phone = #{params.mobilePhone,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.telephone != null and '' != params.telephone" >
+        		and a.telephone = #{params.telephone,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.defaultFlag != null and '' != params.defaultFlag" >
+        		and a.default_flag = #{params.defaultFlag,jdbcType=CHAR}
+      		</if>
+      		<if test="params.userId != null" >
+        		and a.user_id = #{params.userId,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.remarks != null and '' != params.remarks" >
+        		and a.remarks = #{params.remarks,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.createBy != null" >
+        		and a.create_by = #{params.createBy,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.createDate != null" >
+        		and a.create_date = #{params.createDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.updateBy != null" >
+        		and a.update_by = #{params.updateBy,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.updateDate != null" >
+        		and a.update_date = #{params.updateDate,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.delFlag != null and '' != params.delFlag" >
+        		and a.del_flag = #{params.delFlag,jdbcType=CHAR}
+      		</if>
+      		<if test="params.merchantId != null" >
+        		and a.merchant_id = #{params.merchantId,jdbcType=INTEGER}
+      		</if>
+      	</if>
+  	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from consignee_addr a
+		where a.id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+		select 
+		<include refid="Base_Column_List" />
+		from consignee_addr a 
+		where 1=1 
+		<include refid="condition" />
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" >
+	  	select count(1) as s from consignee_addr a where 1=1
+	  	<include refid="condition" />
+	</select>
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+	  	select 
+	  	<include refid="Base_Column_List" />
+	  	from consignee_addr a
+	  	where 1=1
+	  	<include refid="condition" />
+	  	<if test="orderByField != null and ''!=orderByField" >
+	    	order by ${orderByField} 
+	    	<if test="orderByField" >
+	      	${orderBy}
+	    	</if>
+	  	</if>
+	  	limit #{page.startRowNum} ,#{page.pageSize}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	  	delete from consignee_addr
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByPrimarayKeyForModel" parameterType="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" >
+	  	delete from consignee_addr
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" useGeneratedKeys="true" keyProperty="id">
+    	insert into consignee_addr (
+					id,
+			consignee_name,
+			province,
+			city,
+			district,
+			detail_addr,
+			address,
+			mobile_phone,
+			telephone,
+			default_flag,
+			user_id,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			merchant_id
+    	)
+    	values (
+					#{id,jdbcType=INTEGER},
+			#{consigneeName,jdbcType=VARCHAR},
+			#{province,jdbcType=INTEGER},
+			#{city,jdbcType=INTEGER},
+			#{district,jdbcType=INTEGER},
+			#{detailAddr,jdbcType=VARCHAR},
+			#{address,jdbcType=VARCHAR},
+			#{mobilePhone,jdbcType=VARCHAR},
+			#{telephone,jdbcType=VARCHAR},
+			#{defaultFlag,jdbcType=CHAR},
+			#{userId,jdbcType=INTEGER},
+			#{remarks,jdbcType=VARCHAR},
+			#{createBy,jdbcType=INTEGER},
+			#{createDate,jdbcType=TIMESTAMP},
+			#{updateBy,jdbcType=INTEGER},
+			#{updateDate,jdbcType=TIMESTAMP},
+			#{delFlag,jdbcType=CHAR},
+			#{merchantId,jdbcType=INTEGER}
+		)
+  	</insert>
+	<insert id="insertSelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" useGeneratedKeys="true" keyProperty="id" >
+    	insert into consignee_addr 
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+      			id,
+      		</if>
+      		<if test="consigneeName != null and '' != consigneeName" >
+      			consignee_name,
+      		</if>
+      		<if test="province != null" >
+      			province,
+      		</if>
+      		<if test="city != null" >
+      			city,
+      		</if>
+      		<if test="district != null" >
+      			district,
+      		</if>
+      		<if test="detailAddr != null and '' != detailAddr" >
+      			detail_addr,
+      		</if>
+      		<if test="address != null and '' != address" >
+      			address,
+      		</if>
+      		<if test="mobilePhone != null and '' != mobilePhone" >
+      			mobile_phone,
+      		</if>
+      		<if test="telephone != null and '' != telephone" >
+      			telephone,
+      		</if>
+      		<if test="defaultFlag != null and '' != defaultFlag" >
+      			default_flag,
+      		</if>
+      		<if test="userId != null" >
+      			user_id,
+      		</if>
+      		<if test="remarks != null and '' != remarks" >
+      			remarks,
+      		</if>
+      		<if test="createBy != null" >
+      			create_by,
+      		</if>
+      		<if test="createDate != null" >
+      			create_date,
+      		</if>
+      		<if test="updateBy != null" >
+      			update_by,
+      		</if>
+      		<if test="updateDate != null" >
+      			update_date,
+      		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+      			del_flag,
+      		</if>
+      		<if test="merchantId != null" >
+      			merchant_id,
+      		</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="id != null" >
+	  			#{id,jdbcType=INTEGER},
+	  		</if>
+      		<if test="consigneeName != null and '' != consigneeName" >
+	  			#{consigneeName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="province != null" >
+	  			#{province,jdbcType=INTEGER},
+	  		</if>
+      		<if test="city != null" >
+	  			#{city,jdbcType=INTEGER},
+	  		</if>
+      		<if test="district != null" >
+	  			#{district,jdbcType=INTEGER},
+	  		</if>
+      		<if test="detailAddr != null and '' != detailAddr" >
+	  			#{detailAddr,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="address != null and '' != address" >
+	  			#{address,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="mobilePhone != null and '' != mobilePhone" >
+	  			#{mobilePhone,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="telephone != null and '' != telephone" >
+	  			#{telephone,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="defaultFlag != null and '' != defaultFlag" >
+	  			#{defaultFlag,jdbcType=CHAR},
+	  		</if>
+      		<if test="userId != null" >
+	  			#{userId,jdbcType=INTEGER},
+	  		</if>
+      		<if test="remarks != null and '' != remarks" >
+	  			#{remarks,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="createBy != null" >
+	  			#{createBy,jdbcType=INTEGER},
+	  		</if>
+      		<if test="createDate != null" >
+	  			#{createDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="updateBy != null" >
+	  			#{updateBy,jdbcType=INTEGER},
+	  		</if>
+      		<if test="updateDate != null" >
+	  			#{updateDate,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="delFlag != null and '' != delFlag" >
+	  			#{delFlag,jdbcType=CHAR},
+	  		</if>
+      		<if test="merchantId != null" >
+	  			#{merchantId,jdbcType=INTEGER},
+	  		</if>
+    	</trim>
+  	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" >
+    	update consignee_addr 
+	    <set >
+	      	<if test="id != null" >
+	        	id = #{id,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="consigneeName != null and '' != consigneeName" >
+	        	consignee_name = #{consigneeName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="province != null" >
+	        	province = #{province,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="city != null" >
+	        	city = #{city,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="district != null" >
+	        	district = #{district,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="detailAddr != null and '' != detailAddr" >
+	        	detail_addr = #{detailAddr,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="address != null and '' != address" >
+	        	address = #{address,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="mobilePhone != null and '' != mobilePhone" >
+	        	mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="telephone != null and '' != telephone" >
+	        	telephone = #{telephone,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="defaultFlag != null and '' != defaultFlag" >
+	        	default_flag = #{defaultFlag,jdbcType=CHAR},
+	      	</if>
+	      	<if test="userId != null" >
+	        	user_id = #{userId,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="remarks != null and '' != remarks" >
+	        	remarks = #{remarks,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createBy != null" >
+	        	create_by = #{createBy,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="createDate != null" >
+	        	create_date = #{createDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="updateBy != null" >
+	        	update_by = #{updateBy,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="updateDate != null" >
+	        	update_date = #{updateDate,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="delFlag != null and '' != delFlag" >
+	        	del_flag = #{delFlag,jdbcType=CHAR},
+	      	</if>
+	      	<if test="merchantId != null" >
+	        	merchant_id = #{merchantId,jdbcType=INTEGER},
+	      	</if>
+    	</set>
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<update id="updateByPrimaryKey" parameterType="com.towcent.curtain.order.app.client.sys.dto.ConsigneeAddr" >
+    	update consignee_addr 
+    	set 
+      	      		id = #{id,jdbcType=INTEGER},
+      		consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      		province = #{province,jdbcType=INTEGER},
+      		city = #{city,jdbcType=INTEGER},
+      		district = #{district,jdbcType=INTEGER},
+      		detail_addr = #{detailAddr,jdbcType=VARCHAR},
+      		address = #{address,jdbcType=VARCHAR},
+      		mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      		telephone = #{telephone,jdbcType=VARCHAR},
+      		default_flag = #{defaultFlag,jdbcType=CHAR},
+      		user_id = #{userId,jdbcType=INTEGER},
+      		remarks = #{remarks,jdbcType=VARCHAR},
+      		create_by = #{createBy,jdbcType=INTEGER},
+      		create_date = #{createDate,jdbcType=TIMESTAMP},
+      		update_by = #{updateBy,jdbcType=INTEGER},
+      		update_date = #{updateDate,jdbcType=TIMESTAMP},
+      		del_flag = #{delFlag,jdbcType=CHAR},
+      		merchant_id = #{merchantId,jdbcType=INTEGER} 
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+</mapper>

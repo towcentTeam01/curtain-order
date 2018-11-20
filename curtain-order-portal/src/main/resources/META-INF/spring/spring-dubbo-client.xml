@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+			http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<import resource="classpath*:META-INF/spring-base-dubbo-client.xml" />
+	
+	<!-- profiles.dubbo.address|profiles.dubbo.monitor maven打包参数 -->
+	<!-- ${dubbo.registry.address}/N/A -->
+	<dubbo:registry protocol="zookeeper" address="${profiles.dubbo.address}" file="${dubbo.registry.file}"/> 
+	
+	<!-- 监控 <dubbo:monitor protocol="registry" />
+	${profiles.dubbo.monitor} -->
+	
+	<!-- 生成远程服务代理   调用服务 
+	<dubbo:reference id="activeApiService" interface="com.yougou.active.api.IActiveApiService" version="${dubbo.api.version}" ${profiles.dubbo.ims.url} />
+	 -->
+	
+	<dubbo:reference id="sysCommonApi" interface="com.towcent.curtain.order.app.client.sys.service.SysCommonApi" version="${dubbo.api.version}" ${profiles.dubbo.url} />
+	<dubbo:reference id="sessionApi" interface="com.towcent.curtain.order.app.client.sys.service.SessionApi" version="${dubbo.api.version}" ${profiles.dubbo.url} />
+	<dubbo:reference id="sysFrontAccountApi" interface="com.towcent.curtain.order.app.client.sys.service.SysFrontAccountApi" version="${dubbo.api.version}" ${profiles.dubbo.url} />
+</beans>

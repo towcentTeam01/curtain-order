@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.towcent.curtain.order.app.server.temp.dao.UserMapper" >
+  	<resultMap id="BaseResultMap" type="com.towcent.curtain.order.app.client.temp.dto.User" >
+		<id column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_type" property="userType" jdbcType="INTEGER" />
+		<result column="passwd" property="passwd" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="consignee_name" property="consigneeName" jdbcType="VARCHAR" />
+		<result column="consignee_address" property="consigneeAddress" jdbcType="VARCHAR" />
+		<result column="consignee_phone" property="consigneePhone" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<sql id="Base_Column_List" >
+  	  	a.user_id, a.user_name, a.user_type, a.passwd, a.email, a.status, a.consignee_name, a.consignee_address, a.consignee_phone, a.create_time, a.update_time, a.remark
+  	</sql>
+	<sql id="condition" >
+    	<if test="null!=params" >
+      		<if test="params.userId != null and '' != params.userId" >
+        		and a.user_id = #{params.userId,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.userName != null and '' != params.userName" >
+        		and a.user_name = #{params.userName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.userType != null" >
+        		and a.user_type = #{params.userType,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.passwd != null and '' != params.passwd" >
+        		and a.passwd = #{params.passwd,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.email != null and '' != params.email" >
+        		and a.email = #{params.email,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.status != null" >
+        		and a.status = #{params.status,jdbcType=INTEGER}
+      		</if>
+      		<if test="params.consigneeName != null and '' != params.consigneeName" >
+        		and a.consignee_name = #{params.consigneeName,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.consigneeAddress != null and '' != params.consigneeAddress" >
+        		and a.consignee_address = #{params.consigneeAddress,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.consigneePhone != null and '' != params.consigneePhone" >
+        		and a.consignee_phone = #{params.consigneePhone,jdbcType=VARCHAR}
+      		</if>
+      		<if test="params.createTime != null" >
+        		and a.create_time = #{params.createTime,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.updateTime != null" >
+        		and a.update_time = #{params.updateTime,jdbcType=TIMESTAMP}
+      		</if>
+      		<if test="params.remark != null and '' != params.remark" >
+        		and a.remark = #{params.remark,jdbcType=VARCHAR}
+      		</if>
+      	</if>
+  	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from user a
+		where a.id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+		select 
+		<include refid="Base_Column_List" />
+		from user a 
+		where 1=1 
+		<include refid="condition" />
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" >
+	  	select count(1) as s from user a where 1=1
+	  	<include refid="condition" />
+	</select>
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+	  	select 
+	  	<include refid="Base_Column_List" />
+	  	from user a
+	  	where 1=1
+	  	<include refid="condition" />
+	  	<if test="orderByField != null and ''!=orderByField" >
+	    	order by ${orderByField} 
+	    	<if test="orderByField" >
+	      	${orderBy}
+	    	</if>
+	  	</if>
+	  	limit #{page.startRowNum} ,#{page.pageSize}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	  	delete from user
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByPrimarayKeyForModel" parameterType="com.towcent.curtain.order.app.client.temp.dto.User" >
+	  	delete from user
+	  	where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.towcent.curtain.order.app.client.temp.dto.User" useGeneratedKeys="true" keyProperty="id">
+    	insert into user (
+					user_id,
+			user_name,
+			user_type,
+			passwd,
+			email,
+			status,
+			consignee_name,
+			consignee_address,
+			consignee_phone,
+			create_time,
+			update_time,
+			remark
+    	)
+    	values (
+					#{userId,jdbcType=VARCHAR},
+			#{userName,jdbcType=VARCHAR},
+			#{userType,jdbcType=INTEGER},
+			#{passwd,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR},
+			#{status,jdbcType=INTEGER},
+			#{consigneeName,jdbcType=VARCHAR},
+			#{consigneeAddress,jdbcType=VARCHAR},
+			#{consigneePhone,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{updateTime,jdbcType=TIMESTAMP},
+			#{remark,jdbcType=VARCHAR}
+		)
+  	</insert>
+	<insert id="insertSelective" parameterType="com.towcent.curtain.order.app.client.temp.dto.User" useGeneratedKeys="true" keyProperty="id" >
+    	insert into user 
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+      		<if test="userId != null and '' != userId" >
+      			user_id,
+      		</if>
+      		<if test="userName != null and '' != userName" >
+      			user_name,
+      		</if>
+      		<if test="userType != null" >
+      			user_type,
+      		</if>
+      		<if test="passwd != null and '' != passwd" >
+      			passwd,
+      		</if>
+      		<if test="email != null and '' != email" >
+      			email,
+      		</if>
+      		<if test="status != null" >
+      			status,
+      		</if>
+      		<if test="consigneeName != null and '' != consigneeName" >
+      			consignee_name,
+      		</if>
+      		<if test="consigneeAddress != null and '' != consigneeAddress" >
+      			consignee_address,
+      		</if>
+      		<if test="consigneePhone != null and '' != consigneePhone" >
+      			consignee_phone,
+      		</if>
+      		<if test="createTime != null" >
+      			create_time,
+      		</if>
+      		<if test="updateTime != null" >
+      			update_time,
+      		</if>
+      		<if test="remark != null and '' != remark" >
+      			remark,
+      		</if>
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+      		<if test="userId != null and '' != userId" >
+	  			#{userId,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="userName != null and '' != userName" >
+	  			#{userName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="userType != null" >
+	  			#{userType,jdbcType=INTEGER},
+	  		</if>
+      		<if test="passwd != null and '' != passwd" >
+	  			#{passwd,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="email != null and '' != email" >
+	  			#{email,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="status != null" >
+	  			#{status,jdbcType=INTEGER},
+	  		</if>
+      		<if test="consigneeName != null and '' != consigneeName" >
+	  			#{consigneeName,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="consigneeAddress != null and '' != consigneeAddress" >
+	  			#{consigneeAddress,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="consigneePhone != null and '' != consigneePhone" >
+	  			#{consigneePhone,jdbcType=VARCHAR},
+	  		</if>
+      		<if test="createTime != null" >
+	  			#{createTime,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="updateTime != null" >
+	  			#{updateTime,jdbcType=TIMESTAMP},
+	  		</if>
+      		<if test="remark != null and '' != remark" >
+	  			#{remark,jdbcType=VARCHAR},
+	  		</if>
+    	</trim>
+  	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.towcent.curtain.order.app.client.temp.dto.User" >
+    	update user 
+	    <set >
+	      	<if test="userId != null and '' != userId" >
+	        	user_id = #{userId,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="userName != null and '' != userName" >
+	        	user_name = #{userName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="userType != null" >
+	        	user_type = #{userType,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="passwd != null and '' != passwd" >
+	        	passwd = #{passwd,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="email != null and '' != email" >
+	        	email = #{email,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="status != null" >
+	        	status = #{status,jdbcType=INTEGER},
+	      	</if>
+	      	<if test="consigneeName != null and '' != consigneeName" >
+	        	consignee_name = #{consigneeName,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="consigneeAddress != null and '' != consigneeAddress" >
+	        	consignee_address = #{consigneeAddress,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="consigneePhone != null and '' != consigneePhone" >
+	        	consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="createTime != null" >
+	        	create_time = #{createTime,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="updateTime != null" >
+	        	update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      	</if>
+	      	<if test="remark != null and '' != remark" >
+	        	remark = #{remark,jdbcType=VARCHAR},
+	      	</if>
+    	</set>
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<update id="updateByPrimaryKey" parameterType="com.towcent.curtain.order.app.client.temp.dto.User" >
+    	update user 
+    	set 
+      	      		user_id = #{userId,jdbcType=VARCHAR},
+      		user_name = #{userName,jdbcType=VARCHAR},
+      		user_type = #{userType,jdbcType=INTEGER},
+      		passwd = #{passwd,jdbcType=VARCHAR},
+      		email = #{email,jdbcType=VARCHAR},
+      		status = #{status,jdbcType=INTEGER},
+      		consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      		consignee_address = #{consigneeAddress,jdbcType=VARCHAR},
+      		consignee_phone = #{consigneePhone,jdbcType=VARCHAR},
+      		create_time = #{createTime,jdbcType=TIMESTAMP},
+      		update_time = #{updateTime,jdbcType=TIMESTAMP},
+      		remark = #{remark,jdbcType=VARCHAR} 
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
+</mapper>

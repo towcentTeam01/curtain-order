@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.towcent.curtain</groupId>
+		<artifactId>curtain-order</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>curtain-order-web</artifactId>
+	<version>${project.parent.version}</version>
+	<packaging>war</packaging>
+	
+	<name>curtain-order-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<ehcache.version>2.6.9</ehcache.version>
+		<ehcache-web.version>2.0.4</ehcache-web.version>
+		<shiro.version>1.2.4</shiro.version>
+		<sitemesh.version>2.4.2</sitemesh.version>
+		<dozer.version>5.5.1</dozer.version>
+		<commons-email.version>1.2</commons-email.version>
+		
+		<!-- environment setting -->
+		<webserver.port>8069</webserver.port>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.towcent.curtain</groupId>
+			<artifactId>curtain-order-dubbo-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.towcent.curtain</groupId>
+			<artifactId>curtain-order-common</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.towcent</groupId>
+			<artifactId>base-framework-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>${commons-email.version}</version>
+		</dependency>
+		<!-- xstream xml -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
+		
+		<!-- pojo copy -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>${dozer.version}</version>
+		</dependency>
+		
+		<!-- image util -->
+		<dependency>
+			<groupId>com.drewnoakes</groupId>
+			<artifactId>metadata-extractor</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		
+		<!-- 条形码、二维码生成  -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>2.2</version>
+		</dependency>
+		
+		<!-- User Agent -->
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+			<version>1.14</version>
+		</dependency>
+		
+		<!-- SECURITY begin -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- SECURITY end -->
+		
+		<!-- CACHE begin -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>${ehcache.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>  
+			<artifactId>ehcache-web</artifactId>  
+			<version>${ehcache-web.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes/</outputDirectory>
+		<plugins>
+
+			<!-- war 打包插件, 设定war包名称不带版本号 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<packagingExcludes>
+						WEB-INF/classes/org/apache/ibatis/**,
+						WEB-INF/classes/org/mybatis/spring/**
+					</packagingExcludes>
+					<warSourceExcludes>
+						static/bootstrap/2.3.1/docs/**,
+						static/ckeditor/_samples/**,
+						static/ckeditor/_source/**,
+						static/ckfinder/_samples/**,
+						static/ckfinder/help/**,
+						static/compressor*/**,
+						static/jquery-jbox/2.3/docs/**,
+						static/jquery-jbox/2.3/Skins2/**,
+						static/jquery-ztree/3.5.12/demo/**,
+						static/jquery-ztree/3.5.12/api/**,
+						static/kindeditor/attached/**,
+						static/kindeditor/examples/**,
+						static/kindeditor/jsp/**,
+						static/My97DatePicker/docs/**,
+						static/supcan/doc/**,
+						static/SuperSlide/demo/**,
+						static/treeTable/demo/**,
+						static/mCustomScrollbar/demo/**,
+						static/jqGrid/4.6/demo/**,
+						userfiles/**,
+						test/**
+					</warSourceExcludes>
+					<webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
+					<warName>${project.artifactId}</warName>
+				</configuration>
+			</plugin>
+			
+			<!-- tomcat7插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>${webserver.port}</port>
+					<path>/${project.artifactId}</path>
+					<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+				</configuration>
+			</plugin>
+			
+			<!-- jetty插件 -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>${webserver.port}</port>
+						</connector>
+					</connectors>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+					</webAppConfig>
+					<systemProperties>  
+						<systemProperty>
+							<name>org.mortbay.util.URI.charset</name>
+							<value>${project.build.sourceEncoding}</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<!-- 初始化数据库 -->			
+		<profile>
+			<id>init-db</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.dbunit</groupId>
+					<artifactId>dbunit</artifactId>
+					<version>2.4.8</version>
+				</dependency>
+			  	<dependency>
+				    <groupId>org.apache.poi</groupId>
+				    <artifactId>poi</artifactId>
+				    <version>3.2-FINAL</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<configuration>
+							<target>
+								<!-- oracle -->
+								<property name="dbunit.datatype" value="org.dbunit.ext.oracle.Oracle10DataTypeFactory" /> 
+								
+								<property file="src/main/resources/application.properties" />
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}" 
+									onerror="continue" encoding="${project.build.sourceEncoding}">
+									<classpath refid="maven.test.classpath" />
+									<transaction src="db/sys/jeesite_${jdbc.type}.sql"/>
+									<transaction src="db/oa/jeesite_${jdbc.type}.sql"/>
+									<transaction src="db/gen/jeesite_${jdbc.type}.sql"/>
+									<transaction src="db/gen/example_${jdbc.type}.sql"/>
+									<transaction src="db/test/jeesite_${jdbc.type}.sql"/>
+								</sql>
+								
+								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
+																
+								<!-- oracle -->
+								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+									password="${jdbc.password}" schema="${jdbc.username}" > 
+									
+									<dbconfig>
+										<property name="datatypeFactory" value="${dbunit.datatype}" />
+									</dbconfig>
+									<classpath refid="maven.test.classpath" />
+									<operation type="INSERT" src="db/sys/jeesite_data.xls" format="xls" transaction="true"/>
+								</dbunit>
+								
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

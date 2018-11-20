@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.towcent</groupId>
+		<artifactId>base-framework</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+		<!-- <relativePath>../../pom.xml</relativePath> -->
+	</parent>
+	
+	<groupId>com.towcent.curtain</groupId>
+	<artifactId>curtain-order</artifactId>
+	<version>${project.parent.version}</version>
+	<packaging>pom</packaging>
+
+	<name>curtain-order</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<profiles.prefix>$</profiles.prefix>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.towcent</groupId>
+			<artifactId>base-framework-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.towcent.curtain</groupId>
+				<artifactId>curtain-order-dubbo-client</artifactId>
+				<version>${project.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>*</groupId>
+						<artifactId>*</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>com.towcent.curtain</groupId>
+				<artifactId>curtain-order-common</artifactId>
+				<version>${project.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>*</groupId>
+						<artifactId>*</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<modules>
+		<module>curtain-order-common</module>
+		<module>curtain-order-dubbo</module>
+		<module>curtain-order-portal</module>
+		<module>curtain-order-web</module>
+  	</modules>
+  	
+  	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profiles.log.level>DEBUG</profiles.log.level>
+				<profiles.active>unix</profiles.active>
+				<profiles.dubbo.address>N/A</profiles.dubbo.address>  <!-- 本地采用直连 -->
+				<profiles.dubbo.monitor/>     <!-- 本地暂时不配置监控 -->
+				<profiles.dubbo.url>url="${profiles.prefix}{dubbo.app.url}"</profiles.dubbo.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<profiles.log.level>DEBUG</profiles.log.level>
+				<profiles.active>unix</profiles.active>
+				<profiles.dubbo.address>N/A</profiles.dubbo.address>  <!-- 本地采用直连 -->
+				<profiles.dubbo.monitor/>     <!-- 本地暂时不配置监控 -->
+				<profiles.dubbo.url>url="${profiles.prefix}{dubbo.app.url}"</profiles.dubbo.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>product</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<profiles.log.level>INFO</profiles.log.level>
+				<profiles.active>unix</profiles.active>
+				<profiles.dubbo.address>${profiles.prefix}{dubbo.registry.address}</profiles.dubbo.address>
+				<profiles.dubbo.monitor><![CDATA[<dubbo:monitor protocol="registry" />]]></profiles.dubbo.monitor>
+				<profiles.dubbo.url/>
+			</properties>
+		</profile>
+	</profiles>
+</project>
