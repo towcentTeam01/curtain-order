@@ -235,7 +235,7 @@
                     <th>成品高（单位M）</th>
                     <th><span>*</span>褶数（倍）</th>
                     <th>辅料铅线、铅块、底边花边</th>
-                    <th>里衬/造型（返幔、帘头）</th>
+                    <th>里衬/帘头/返曼/侧拼</th>
                     <th>对/单开</th>
                     <th>打孔/捏褶（对花）</th>
                     <th>环、S钩（不要可不填）</th>
@@ -244,11 +244,11 @@
                 <tbody>
                 <tr>
                     <td>
-                        <form:input path="length" htmlEscape="false" maxlength="50"
+                        <form:input path="length" htmlEscape="false" maxlength="50" max="999.99"
                                     class="form-control required money"/>
                     </td>
                     <td>
-                        <form:input path="high" htmlEscape="false" maxlength="50" class="form-control money"/>
+                        <form:input path="high" htmlEscape="false" maxlength="50" max="999.99" class="form-control money"/>
                     </td>
                     <td>
                         <form:input path="multiple" htmlEscape="false" maxlength="50" class="form-control required"/>

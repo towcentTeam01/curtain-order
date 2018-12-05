@@ -342,9 +342,9 @@
     </div>
     <div style="margin-bottom:15px;" class="width85">
         <!-- Standard button -->
-        <button id="button_refuse" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}
-                onclick="updateStatus('0', '${orderMain.id}');" class="btn btn-warning order-btn">退回
-        </button>
+        <%--<button id="button_refuse" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}--%>
+                <%--onclick="updateStatus('0', '${orderMain.id}');" class="btn btn-warning order-btn">退回--%>
+        <%--</button>--%>
 
         <!-- Standard button -->
         <button id="button_saleafter" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}
@@ -398,7 +398,7 @@
             <th>褶数/倍</th>
             <th>总米数/米</th>
             <th>辅料铅线、铅块、<br>底边花边</th>
-            <th>里衬/造型<br>(返幔、帘头)</th>
+            <th>里衬/帘头<br>返曼/侧拼</th>
             <th>对/单开</th>
             <th>打孔/捏褶<br>(对花)</th>
             <th>环、S钩</th>

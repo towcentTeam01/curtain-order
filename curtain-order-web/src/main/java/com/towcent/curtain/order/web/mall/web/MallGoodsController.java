@@ -78,7 +78,7 @@ public class MallGoodsController extends BaseController {
 		Page<Goods> p = new Page<Goods>(request, response);
 		p.setOrderBy("a.create_date DESC");
 		goods.setMerchantId(getMerchantId(request));
-		goods.setGoodsStatus(GOODS_STATUS_2);
+		//goods.setGoodsStatus(GOODS_STATUS_2);
 		Page<Goods> page = goodsService.findPage(p, goods);
 		model.addAttribute("page", page);
 		return "web/mall/goodsList";

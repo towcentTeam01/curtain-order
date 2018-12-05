@@ -91,7 +91,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">
-				里衬/造型(返幔、帘头)：
+				里衬/帘头/返曼/侧拼：
 			</label>
 			<div class="col-sm-3">
 				<form:input path="param2" htmlEscape="false" maxlength="50" class="form-control "/>
