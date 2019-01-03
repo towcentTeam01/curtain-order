@@ -238,7 +238,7 @@
 					<iframe id="mainFrame" name="mainFrame" src="" style="overflow:visible;" scrolling="yes" frameborder="no" width="100%" height="650"></iframe>
 				</div>
 			</div>
-		    <div id="footer" class="row" id="footerId">
+		    <div id="footer" class="row">
 	            Copyright &copy; 2017-${fns:getConfig('copyrightYear')} ${fns:getConfig('productName')} - ${fns:getConfig('version')}
 			</div>
 		</div>
@@ -355,7 +355,7 @@
                 var title = $('#productName').text();
                 if(data.data.merchantName){
                     $('#productName').html(data.data.merchantName+title);
-                    $('#footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
+                    $('#footer').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
                     $('#titleId').html(data.data.merchantName + $('#titleId').text());
                 }
             }
