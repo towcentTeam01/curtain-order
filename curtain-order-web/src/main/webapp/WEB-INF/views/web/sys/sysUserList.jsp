@@ -19,7 +19,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/general/user/">会员列表</a></li>
-		<shiro:hasPermission name="general:user:edit"><li><a href="${ctx}/general/user/form">会员添加</a></li></shiro:hasPermission>
+		<!-- <shiro:hasPermission name="general:user:edit"><li><a href="${ctx}/general/user/form">会员添加</a></li></shiro:hasPermission> -->
 	</ul>
 	<form:form id="searchForm" modelAttribute="user" action="${ctx}/general/user/" method="post" class="navbar-form form-search" role="form">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -51,24 +51,24 @@
 		<c:forEach items="${page.list}" var="sysFrontAccount">
 			<tr>
 				<td>
-				    ${sysFrontAccount.loginName}
+				    ${sysFrontAccount.user.loginName}
 				</td>
 				<td>
-					${sysFrontAccount.mobile}
+					${sysFrontAccount.user.mobile}
 				</td>
 				<td>
-					${sysFrontAccount.email}
+					${sysFrontAccount.user.email}
 				</td>
 				<td>
-				    ${fns:getDictLabel(sysFrontAccount.job, 'user_status', '')}
+				    ${fns:getDictLabel(sysFrontAccount.user.job, 'user_status', '')}
                 </td>
 				<td>
-					<fmt:formatDate value="${sysFrontAccount.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${sysFrontAccount.user.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="general:user:edit"><td>
-    				<a href="${ctx}/general/user/form?id=${sysFrontAccount.id}">修改</a>
-    				<a href="${ctx}/sys/consigneeAddr/list?user.id=${sysFrontAccount.id}">收货地址</a>
-					<a href="${ctx}/general/user/delete?id=${sysFrontAccount.id}" onclick="return confirmx('确认要删除该会员吗？', this.href)">删除</a>
+    				<a href="${ctx}/general/user/form?id=${sysFrontAccount.user.id}">修改</a>
+    				<a href="${ctx}/sys/consigneeAddr/list?user.id=${sysFrontAccount.user.id}">收货地址</a>
+					<a href="${ctx}/general/user/delete?id=${sysFrontAccount.user.id}" onclick="return confirmx('确认要删除该会员吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

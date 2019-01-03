@@ -12,6 +12,10 @@ import com.towcent.base.sc.web.modules.sys.entity.Role;
 import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.base.sc.web.modules.sys.service.SystemService;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
+import com.towcent.curtain.order.web.sys.entity.SysMerchantInfo;
+import com.towcent.curtain.order.web.sys.entity.SysUserMerchantRel;
+import com.towcent.curtain.order.web.sys.service.SysUserMerchantRelService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +41,8 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SystemService systemService;
+    @Autowired
+    private SysUserMerchantRelService sysUserMerchantRelService;
 
     @ModelAttribute
     public User get(@RequestParam(required = false) String id) {
@@ -51,15 +57,24 @@ public class SysUserController extends BaseController {
     @RequestMapping(value = {"list", ""})
     public String list(User user, HttpServletRequest request,
                        HttpServletResponse response, Model model) {
-        User user1 = UserUtils.getUser();
-        if (!WebConstant.isLeader()) {
-            user.setOffice(user1.getOffice());
-        }
-        user.setUserType("3");   // 普通用户
+        // User user1 = UserUtils.getUser();
+        // if (!WebConstant.isLeader()) {
+        //    user.setOffice(user1.getOffice());
+        // }
+        // user.setUserType("3");   // 普通用户
+
+        SysUserMerchantRel userMerchantRel = new SysUserMerchantRel();
+        SysMerchantInfo merchantInfo = new SysMerchantInfo();
+        merchantInfo.setId(MerchantUtils.getMerchantId(request) + "");
+        userMerchantRel.setMerchant(merchantInfo);
+        Page<SysUserMerchantRel> p = new Page<SysUserMerchantRel>(request, response);
+        p.setOrderBy("u.create_date DESC");
+        Page<SysUserMerchantRel> page = sysUserMerchantRelService.findPage(p, userMerchantRel);
+
         // 设置排序规则
-        Page<User> p = new Page<User>(request, response);
-        p.setOrderBy("a.create_date DESC");
-        Page<User> page = systemService.findUser(p, user);
+        // Page<User> p = new Page<User>(request, response);
+        // p.setOrderBy("u.create_date DESC");
+        // Page<User> page = systemService.findUser(p, user);
         model.addAttribute("page", page);
         return "web/sys/sysUserList";
     }
