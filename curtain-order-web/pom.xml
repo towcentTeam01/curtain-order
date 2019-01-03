@@ -222,7 +222,7 @@
 				</configuration>
 			</plugin>
 			
-			<!-- jetty插件 -->
+			<!-- jetty插件
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -243,7 +243,7 @@
 					</systemProperties>
 				</configuration>
 			</plugin>
-			
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
@@ -279,13 +279,14 @@
 			</dependencies>
 			<build>
 				<plugins>
-					<plugin>
+					<!-- plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<version>1.7</version>
 						<configuration>
-							<target>
+							<target -->
 								<!-- oracle -->
+								<!--
 								<property name="dbunit.datatype" value="org.dbunit.ext.oracle.Oracle10DataTypeFactory" /> 
 								
 								<property file="src/main/resources/application.properties" />
@@ -300,8 +301,9 @@
 								</sql>
 								
 								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
-																
+								-->
 								<!-- oracle -->
+								<!--
 								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
 									password="${jdbc.password}" schema="${jdbc.username}" > 
 									
@@ -314,7 +316,7 @@
 								
 							</target>
 						</configuration>
-					</plugin>
+					</plugin -->
 				</plugins>
 			</build>
 		</profile>
