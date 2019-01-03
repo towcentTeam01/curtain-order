@@ -45,7 +45,7 @@ public class GoodsService extends CrudService<GoodsDao, Goods> {
             for (Goods entity : p.getList()) {
                 if (StringUtils.isNotBlank(entity.getMainUrls())) {
                     String[] imgs = StringUtils.split(entity.getMainUrls(), ";");
-                    entity.setGoodsPicUrl(imgs[0]);
+                    entity.setGoodsPicUrl(imgs[0].replaceAll(".jpg", "_300.jpg"));
                 }
             }
         }

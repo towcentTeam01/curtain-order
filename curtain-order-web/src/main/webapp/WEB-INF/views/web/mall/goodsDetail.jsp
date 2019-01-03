@@ -244,29 +244,29 @@
                 <tbody>
                 <tr>
                     <td>
-                        <form:input path="length" htmlEscape="false" maxlength="50" max="999.99"
+                        <form:input path="length" htmlEscape="false" maxlength="50" max="100"
                                     class="form-control required money"/>
                     </td>
                     <td>
-                        <form:input path="high" htmlEscape="false" maxlength="50" max="999.99" class="form-control money"/>
+                        <form:input path="high" htmlEscape="false" maxlength="50" max="100" class="form-control money"/>
                     </td>
                     <td>
-                        <form:input path="multiple" htmlEscape="false" maxlength="50" class="form-control required"/>
+                        <form:input path="multiple" htmlEscape="false" maxlength="20" class="form-control required"/>
                     </td>
                     <td>
-                        <form:input path="param1" htmlEscape="false" maxlength="50" class="form-control"/>
+                        <form:input path="param1" htmlEscape="false" maxlength="20" class="form-control"/>
                     </td>
                     <td>
-                        <form:input path="param2" htmlEscape="false" maxlength="50" class="form-control"/>
+                        <form:input path="param2" htmlEscape="false" maxlength="20" class="form-control"/>
                     </td>
                     <td>
-                        <form:input path="param3" htmlEscape="false" maxlength="50" class="form-control"/>
+                        <form:input path="param3" htmlEscape="false" maxlength="20" class="form-control"/>
                     </td>
                     <td>
-                        <form:input path="param4" htmlEscape="false" maxlength="50" class="form-control"/>
+                        <form:input path="param4" htmlEscape="false" maxlength="20" class="form-control"/>
                     </td>
                     <td>
-                        <form:input path="param5" htmlEscape="false" maxlength="50" class="form-control"/>
+                        <form:input path="param5" htmlEscape="false" maxlength="20" class="form-control"/>
                     </td>
                 </tr>
                 <tr>
