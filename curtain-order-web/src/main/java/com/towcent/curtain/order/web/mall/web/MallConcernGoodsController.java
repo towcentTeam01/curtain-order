@@ -69,8 +69,9 @@ public class MallConcernGoodsController extends BaseController {
 		if (null != page && !CollectionUtils.isEmpty(page.getList())) {
 			for (ConcernGoods g : page.getList()) {
 				String mainUrls = g.getGoods().getMainUrls();
-				g.getGoods().setGoodsPicUrl(StringUtils.substringBefore(mainUrls, ";"));
-				g.setPicUrl(StringUtils.substringBefore(mainUrls, ";") + "?v=" + g.getGoods().getDescPicV());
+				String firstUrl = StringUtils.substringBefore(mainUrls, ";");
+				g.getGoods().setGoodsPicUrl(firstUrl.replaceAll(".jpg", "_300.jpg"));
+				g.setPicUrl(firstUrl + "?v=" + g.getGoods().getDescPicV());
 			}
 		}
 		model.addAttribute("page", page);
