@@ -89,7 +89,7 @@ if(window.parent!=window){
 	</div>
 	<!-- END 登录框 -->
 	<div class="page-footer">
-		<div style="color:#98a6ba; padding:10px" align="center">
+		<div style="color:#98a6ba; padding:10px" align="center" id="footerId">
 			Copyright &copy; 2018 
 			版权所有 @@科技有限公司
 		</div>
@@ -158,6 +158,7 @@ function getMerchantInfo() {
             var title = $('.form-signin-heading').text();
             if(data.data.merchantName){
                 $('.form-signin-heading').html(data.data.merchantName+title);
+                $('.footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
 			}
         }
     });
