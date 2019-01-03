@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-<title>${fns:getConfig('productName')}</title>
+<title id="titleId">${fns:getConfig('productName')}</title>
 <meta name="decorator" content="blank"/>
 <c:set var="tabmode" value="${empty cookie.tabmode.value ? '1' : cookie.tabmode.value}"/>
 <c:if test="${tabmode eq '1'}">
@@ -356,6 +356,7 @@
                 if(data.data.merchantName){
                     $('#productName').html(data.data.merchantName+title);
                     $('#footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
+                    $('#titleId').html(data.data.merchantName + $('#titleId').text());
                 }
             }
         });
