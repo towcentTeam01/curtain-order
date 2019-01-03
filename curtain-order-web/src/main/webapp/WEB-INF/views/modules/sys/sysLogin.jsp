@@ -158,7 +158,7 @@ function getMerchantInfo() {
             var title = $('.form-signin-heading').text();
             if(data.data.merchantName){
                 $('.form-signin-heading').html(data.data.merchantName+title);
-                $('.footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
+                $('#footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
 			}
         }
     });
