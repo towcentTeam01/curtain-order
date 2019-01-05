@@ -222,7 +222,7 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="orderMain">
 			<tr>
-				<td><a href="${ctx}/order/orderMain/detail?id=${orderMain.id}">
+				<td><a href="${ctx}/mall/order/detail?id=${orderMain.id}">
 					${orderMain.orderNo}
 				</a></td>
 				<td>
