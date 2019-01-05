@@ -100,6 +100,7 @@ public class MallUserController extends BaseController {
             User sysUser = new User();
             sysUser.setId(null);
             sysUser.setLoginName(user.getLoginName());
+            sysUser.setJob("0");  // 待审核
             List<User> list = userService.findUser(sysUser);
             if (!CollectionUtils.isEmpty(list)) {
                 return resultVo(resultVo, E_001, "用户名已存在");
