@@ -31,6 +31,12 @@
 			<li><label>手机号码：</label>
 				<form:input path="mobile" htmlEscape="false" maxlength="64" class="form-control"/>
 			</li>
+			<li><label>账号状态：</label>
+                <form:select path="job" class="form-control">
+                    <form:option value="" label="请选择"/>
+                    <form:options items="${fns:getDictList('user_status')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                </form:select>
+            </li>
 			<li class="btns"><button type="submit" id="btnSubmit" class="button big"><span class="magnifier icon"></span>查询</button> </li>
 			<li class="clearfix"></li>
 		</ul>

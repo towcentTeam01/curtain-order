@@ -8,6 +8,7 @@
         u.login_name AS "user.loginName",
         u.name AS "user.name",
 		u.phone AS "user.phone",
+		u.mobile AS "user.mobile",
 		u.email AS "user.email",
 		u.job AS "user.job",
 		u.create_date AS "user.createDate",
