@@ -67,6 +67,8 @@ public class SysUserController extends BaseController {
         SysMerchantInfo merchantInfo = new SysMerchantInfo();
         merchantInfo.setId(MerchantUtils.getMerchantId(request) + "");
         userMerchantRel.setMerchant(merchantInfo);
+        user.setNo("000"); // 000代表普通用户
+        userMerchantRel.setUser(user);
         Page<SysUserMerchantRel> p = new Page<SysUserMerchantRel>(request, response);
         p.setOrderBy("u.create_date DESC");
         Page<SysUserMerchantRel> page = sysUserMerchantRelService.findPage(p, userMerchantRel);

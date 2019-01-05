@@ -41,6 +41,18 @@
 			<if test="user != null and user.id != null and user.id != ''">
                 AND a.sys_user_id = #{user.id}
             </if>
+			<if test="user != null and user.job != null and user.job != ''">
+				AND u.job = #{user.job}
+			</if>
+			<if test="user != null and user.no != null and user.no != ''">
+				AND u.no = #{user.no}
+			</if>
+			<if test="user != null and user.mobile != null and user.mobile != ''">
+				AND u.mobile like concat('%',#{user.mobile},'%')
+			</if>
+			<if test="user != null and user.loginName != null and user.loginName != ''">
+				AND u.login_name like concat('%',#{user.loginName},'%')
+			</if>
             <if test="merchant != null and merchant.id != null and merchant.id != ''">
                 AND a.merchant_id = #{merchant.id}
             </if>
