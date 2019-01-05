@@ -59,7 +59,7 @@
 				<form:input path="email" htmlEscape="false" maxlength="100" class="form-control "/>
 			</div>
 		</div>
-		<div class="form-group">
+		<!-- div class="form-group">
 			<label class="col-sm-2 control-label">
 				<span class="help-inline"><font color="red" style="vertical-align:middle;">* </font></span>
 				密码：
@@ -67,7 +67,7 @@
 			<div class="col-sm-3">
 				<form:input path="password" htmlEscape="false" maxlength="32" class="form-control required"/>
 			</div>
-		</div>
+		</div-->
 		<div class="form-group">
 			<label class="col-sm-2 control-label">
 				性别：
