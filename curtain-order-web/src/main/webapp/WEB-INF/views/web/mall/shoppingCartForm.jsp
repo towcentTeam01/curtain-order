@@ -62,7 +62,7 @@
 				成品宽(单位/米)：
 			</label>
 			<div class="col-sm-3">
-				<form:input path="length" htmlEscape="false" maxlength="10" class="form-control required money" max="100"/>
+				<form:input path="length" htmlEscape="false" maxlength="10" class="form-control required money" min="0" max="100"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -70,7 +70,7 @@
 				成品高(单位/米)：
 			</label>
 			<div class="col-sm-3">
-				<form:input path="high" htmlEscape="false" maxlength="10" class="form-control money" max="100"/>
+				<form:input path="high" htmlEscape="false" maxlength="10" class="form-control money" min="0" max="100"/>
 			</div>
 		</div>
 		<div class="form-group">

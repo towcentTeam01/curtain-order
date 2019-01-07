@@ -244,11 +244,10 @@
                 <tbody>
                 <tr>
                     <td>
-                        <form:input path="length" htmlEscape="false" maxlength="10" max="100"
-                                    class="form-control required money"/>
+                        <form:input path="length" htmlEscape="false" maxlength="10" min="0" max="100" class="form-control required money"/>
                     </td>
                     <td>
-                        <form:input path="high" htmlEscape="false" maxlength="10" max="100" class="form-control money"/>
+                        <form:input path="high" htmlEscape="false" maxlength="10" min="0" max="100" class="form-control money"/>
                     </td>
                     <td>
                         <form:input path="multiple" htmlEscape="false" maxlength="10" min="1" class="form-control required"/>
