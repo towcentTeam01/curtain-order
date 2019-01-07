@@ -129,11 +129,11 @@ public class ShoppingCartController extends BaseController {
             }
 
             if (null == shoppingCart.getHigh()) {
-                return resultVo(resultVo, E_001, "成品宽为必填项");
+                // return resultVo(resultVo, E_001, "成品高为必填项");
             }
 
             if (null == shoppingCart.getLength()) {
-                return resultVo(resultVo, E_001, "成品高为必填项");
+                return resultVo(resultVo, E_001, "成品宽为必填项");
             }
 
             if (StringUtils.isBlank(shoppingCart.getGoodsId())) {

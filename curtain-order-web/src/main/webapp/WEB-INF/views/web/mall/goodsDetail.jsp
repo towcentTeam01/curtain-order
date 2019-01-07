@@ -244,14 +244,14 @@
                 <tbody>
                 <tr>
                     <td>
-                        <form:input path="length" htmlEscape="false" maxlength="50" max="100"
+                        <form:input path="length" htmlEscape="false" maxlength="10" max="100"
                                     class="form-control required money"/>
                     </td>
                     <td>
-                        <form:input path="high" htmlEscape="false" maxlength="50" max="100" class="form-control money"/>
+                        <form:input path="high" htmlEscape="false" maxlength="10" max="100" class="form-control money"/>
                     </td>
                     <td>
-                        <form:input path="multiple" htmlEscape="false" maxlength="20" class="form-control required"/>
+                        <form:input path="multiple" htmlEscape="false" maxlength="10" class="form-control required"/>
                     </td>
                     <td>
                         <form:input path="param1" htmlEscape="false" maxlength="20" class="form-control"/>
