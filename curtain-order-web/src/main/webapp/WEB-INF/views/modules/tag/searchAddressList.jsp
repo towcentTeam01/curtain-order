@@ -91,9 +91,10 @@
 						   phone="${consigneeAddr.mobilePhone}" address="${consigneeAddr.address}"
 						   value="${consigneeAddr.consigneeName}"/>
 				</td>
-				<td><a href="${ctx}/sys/consigneeAddr/form?id=${consigneeAddr.id}">
+				<td><!-- a href="${ctx}/sys/consigneeAddr/form?id=${consigneeAddr.id}"-->
 						${consigneeAddr.consigneeName}
-				</a></td>
+				<!-- </a> -->
+				</td>
 				<td>
 						${consigneeAddr.address}
 				</td>
