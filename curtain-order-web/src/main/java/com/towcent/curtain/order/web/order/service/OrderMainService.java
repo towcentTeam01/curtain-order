@@ -83,7 +83,7 @@ public class OrderMainService extends CrudService<OrderMainDao, OrderMain> {
                 goods.setId(shoppingCart.getGoodsId());
                 dtl.setGoods(goods);
                 orderDtls.add(dtl);
-                amount = amount.add(shoppingCart.getAmount());
+                // amount = amount.add(shoppingCart.getAmount());
                 qty = qty.add(shoppingCart.getQty());
 
                 shoppingCartService.delete(shoppingCart);
