@@ -98,10 +98,10 @@ public class ShoppingCartController extends BaseController {
             return form(shoppingCart, model);
         }
         Goods goods = goodsService.get(shoppingCart.getGoodsId());
-        shoppingCart.setPrice(new BigDecimal(goods.getPrice()));
+        // shoppingCart.setPrice(new BigDecimal(goods.getPrice()));
         shoppingCart.setNum(1);
-        shoppingCart.setQty(shoppingCart.getLength().multiply(new BigDecimal(shoppingCart.getNum().toString())));
-        shoppingCart.setAmount(shoppingCart.getPrice().multiply(shoppingCart.getQty()));
+        shoppingCart.setQty(shoppingCart.getLength().multiply(shoppingCart.getMultiple()));
+        // shoppingCart.setAmount(shoppingCart.getPrice().multiply(shoppingCart.getQty()));
         shoppingCart.setGoodsName(goods.getGoodsName());
         shoppingCart.setGoodsPicUrl(goods.getGoodsPicUrl());
         shoppingCartService.save(shoppingCart);
