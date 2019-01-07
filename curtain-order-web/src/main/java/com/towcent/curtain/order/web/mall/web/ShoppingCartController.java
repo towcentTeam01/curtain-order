@@ -135,6 +135,9 @@ public class ShoppingCartController extends BaseController {
             if (null == shoppingCart.getLength()) {
                 return resultVo(resultVo, E_001, "成品宽为必填项");
             }
+            if (null == shoppingCart.getMultiple()) {
+                return resultVo(resultVo, E_001, "褶数为必填项");
+            }
 
             if (StringUtils.isBlank(shoppingCart.getGoodsId())) {
                 return resultVo(resultVo, E_001, "请选择购买商品");
@@ -149,10 +152,10 @@ public class ShoppingCartController extends BaseController {
 //                return resultVo(resultVo, E_001, "该商品已下架");
 //            }
 
-            shoppingCart.setPrice(new BigDecimal(goods.getPrice()));
+            // shoppingCart.setPrice(new BigDecimal(goods.getPrice()));
             shoppingCart.setNum(1);
-            shoppingCart.setQty(shoppingCart.getLength().multiply(new BigDecimal(shoppingCart.getNum().toString())));
-            shoppingCart.setAmount(shoppingCart.getPrice().multiply(shoppingCart.getQty()));
+            shoppingCart.setQty(shoppingCart.getLength().multiply(shoppingCart.getMultiple()));
+            // shoppingCart.setAmount(shoppingCart.getPrice().multiply(shoppingCart.getQty()));
 
             shoppingCart.setGoodsName(goods.getGoodsName());
             shoppingCart.setGoodsPicUrl(goods.getGoodsPicUrl());
