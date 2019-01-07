@@ -78,7 +78,7 @@
 				褶数(倍)：
 			</label>
 			<div class="col-sm-3">
-				<form:input path="multiple" htmlEscape="false" maxlength="10" class="form-control required money" max="100"/>
+				<form:input path="multiple" htmlEscape="false" maxlength="10" min="1" class="form-control required money" max="100"/>
 			</div>
 		</div>
 		<div class="form-group">
