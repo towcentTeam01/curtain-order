@@ -2,12 +2,12 @@ package com.towcent.curtain.order.web.mall.web;
 
 import com.towcent.base.common.utils.Md5Utils;
 import com.towcent.base.common.vo.ResultVo;
+import com.towcent.base.sc.web.common.persistence.Page;
 import com.towcent.base.sc.web.common.utils.StringUtils;
 import com.towcent.base.sc.web.common.web.BaseController;
-import com.towcent.base.sc.web.modules.sys.entity.Office;
-import com.towcent.base.sc.web.modules.sys.entity.Role;
-import com.towcent.base.sc.web.modules.sys.entity.User;
-import com.towcent.base.sc.web.modules.sys.service.SystemService;
+import com.towcent.base.sc.web.modules.sys.entity.*;
+import com.towcent.base.sc.web.modules.sys.service.*;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.mall.service.MallUserService;
 import com.towcent.curtain.order.web.sys.entity.SysMerchantInfo;
 import com.towcent.curtain.order.web.sys.entity.SysUserMerchantRel;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,18 @@ public class MallUserController extends BaseController {
     @Autowired
     private SysUserMerchantRelService sysUserMerchantRelService;
 
+    @Autowired
+    private SysCarouselConfService sysCarouselConfService;
+
+    @Autowired
+    private SysNoticeService sysNoticeService;
+
+    @Autowired
+    private SysDictMainService sysDictMainService;
+
+    @Autowired
+    private SysDictDtlService sysDictDtlService;
+
     private SysMerchantInfo getMerchantInfo(HttpServletRequest request) {
         try {
             String uri = request.getServerName();
@@ -60,6 +73,47 @@ public class MallUserController extends BaseController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<SysDictDtl> getDictListByKey(String key) {
+        try {
+            SysDictMain sysDictMain = new SysDictMain();
+            sysDictMain.setCode(key);
+            List<SysDictMain> mainList = sysDictMainService.findList(sysDictMain);
+            if (CollectionUtils.isEmpty(mainList)) {
+                return null;
+            } else {
+                SysDictDtl sysDictDtl = new SysDictDtl();
+                sysDictDtl.setDictId(mainList.get(0).getId());
+                List<SysDictDtl> list = sysDictDtlService.findList(sysDictDtl);
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "${adminPath}/mall/index", method = RequestMethod.GET)
+    public String mallIndex(Model model, HttpServletRequest request, HttpServletResponse response) {
+        SysCarouselConf sysCarouselConf = new SysCarouselConf();
+        sysCarouselConf.setMerchantId(MerchantUtils.getMerchantId(request));
+        List<SysCarouselConf> carouselList = sysCarouselConfService.findList(sysCarouselConf);
+        model.addAttribute("carouselList", carouselList);
+
+        Page<SysNotice> pageDto = new Page<>(request, response);
+        pageDto.setPageSize(5);
+        SysNotice sysNotice = new SysNotice();
+        sysNotice.setMerchantId(MerchantUtils.getMerchantId(request));
+        Page<SysNotice> page = sysNoticeService.findPage(pageDto, sysNotice);
+        if (null != page && !CollectionUtils.isEmpty(page.getList())) {
+            model.addAttribute("noticeList", page.getList());
+        }
+
+        List<SysDictDtl> dictDtls = getDictListByKey("label_type");
+        model.addAttribute("dictDtls", dictDtls);
+
+        return "web/mall/index";
     }
 
     @RequestMapping(value = "${adminPath}/toRegister", method = RequestMethod.GET)
