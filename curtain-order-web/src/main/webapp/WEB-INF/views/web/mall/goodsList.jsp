@@ -186,6 +186,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .action button.btn {
@@ -212,6 +214,7 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
+    <li><a href="${ctx}/mall/index">首页</a></li>
     <li class="active"><a href="${ctx}/mall/goods/list">商品列表</a></li>
 </ul>
 

@@ -9,9 +9,17 @@
     <script src="${ctxStatic}/layui/layui.js" charset="utf-8"></script>
 
     <style>
+        body {
+            width: 1000px;
+            margin: auto;
+            padding: auto;
+        }
 
-        .box-content{
-            padding: 2% 2% 1% 2%;
+        .box-content {
+        / / padding: 2 % 2 % 1 % 2 %;
+            width: 1000px;
+            margin: auto;
+            padding: auto;
         }
 
         .carousel-img {
@@ -26,40 +34,45 @@
             height: 300px;
         }
 
-        .notice-list{
+        .notice-list {
             border: 1px solid #ccc;
             margin: 1% 0;
             padding: 10px;
             display: grid;
             border-radius: 10px;
+            width: 1000px;
         }
 
-        .notice-list ul li{
+        .notice-list ul{
+            width: 980px;
+        }
+
+        .notice-list ul li {
             clear: both;
             padding: 5px 0;
         }
 
-        .notice-list ul li span.fl{
+        .notice-list ul li span.fl {
             float: left;
             width: 18%;
             overflow: hidden;
-            text-overflow:ellipsis;
+            text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .notice-list ul li span.min{
+        .notice-list ul li span.min {
             float: left;
             width: 60%;
             overflow: hidden;
-            text-overflow:ellipsis;
+            text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .notice-list ul li span.fr{
+        .notice-list ul li span.fr {
             float: right;
         }
 
-        .label-list ul li{
+        .label-list ul li {
             width: 50%;
             display: inline-block;
             float: left;
@@ -69,9 +82,9 @@
             font-weight: bold;
         }
 
-        .label-list ul li a{
+        .label-list ul li a {
             color: #fff;
-            width: 90%;
+            width: 98%;
             display: inline-block;
             border: 1px solid #00a0e9;
             padding: 10% 0;
@@ -90,7 +103,7 @@
         function goToBack() {
             window.location.href = '${ctx}/mall/order/list?orderType=1';
         }
-        
+
     </script>
 
 </head>
