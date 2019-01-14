@@ -232,10 +232,20 @@
                 <form:input path="goodsName" htmlEscape="false" maxlength="100" class="form-control"/>
             </li>
             <li><label>风格：</label>
-                <form:input path="style" htmlEscape="false" maxlength="100" class="form-control"/>
+                <form:select path="style" class="form-control">
+                    <form:option value="" label="请选择"/>
+                    <form:options items="${fns:getDictList('goods_style')}" itemLabel="label" itemValue="label"
+                                  htmlEscape="false"/>
+                </form:select>
+                <!-- <form:input path="style" htmlEscape="false" maxlength="100" class="form-control"/> -->
             </li>
             <li><label>材质：</label>
-                <form:input path="material" htmlEscape="false" maxlength="100" class="form-control"/>
+                <form:select path="material" class="form-control">
+                    <form:option value="" label="请选择"/>
+                    <form:options items="${fns:getDictList('goods_material')}" itemLabel="label" itemValue="label"
+                                  htmlEscape="false"/>
+                </form:select>
+                <!-- <form:input path="material" htmlEscape="false" maxlength="100" class="form-control"/> -->
             </li>
             <li><label>分类：</label>
                 <form:select path="cateNo" class="form-control">
