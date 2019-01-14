@@ -60,8 +60,8 @@ public class ExportUtils {
         
         //设置每列的宽度
         sheet.setColumnWidth(0, 5250);
-        sheet.setColumnWidth(1, 2650);
-        sheet.setColumnWidth(2, 2650);
+        sheet.setColumnWidth(1, 2850);
+        sheet.setColumnWidth(2, 2850);
         sheet.setColumnWidth(3, 1800);
         sheet.setColumnWidth(4, 4100);
         sheet.setColumnWidth(5, 4100);
