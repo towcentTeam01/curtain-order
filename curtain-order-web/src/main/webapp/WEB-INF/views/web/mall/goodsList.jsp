@@ -244,13 +244,15 @@
                                   htmlEscape="false"/>
                 </form:select>
             </li>
+            <form:hidden path="labelType" />
+            <!--
             <li><label>标签类别：</label>
                 <form:select path="labelType" class="form-control">
                     <form:option value="" label="请选择"/>
                     <form:options items="${fns:getDictList('label_type')}" itemLabel="label" itemValue="value"
                                   htmlEscape="false"/>
                 </form:select>
-            </li>
+            </li>-->
             <li><label>创建时间：</label>
                 <input name="beginCreateDate" type="text" readonly="readonly" maxlength="20" class="form-control Wdate"
                        value="<fmt:formatDate value="${goods.beginCreateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"

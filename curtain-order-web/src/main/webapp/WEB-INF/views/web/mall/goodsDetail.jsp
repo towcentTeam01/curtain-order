@@ -174,6 +174,7 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
+    <li><a href="${ctx}/mall/goods/list?labelType=${goods.labelType}">列表</a></li>
     <li class="active">
         <a href="${ctx}/mall/goods/detail?goodsId=${goods.id}">商品详情</a>
     </li>
@@ -183,8 +184,8 @@
     <div class="goods-panel">
         <ul class="cate">
             <li>
-                <a href="${ctx}/mall/goods/list">首页</a>>
-                <a href="${ctx}/mall/goods/list?cateNo=${goods.cateNo}">${goods.cateName}</a>>
+                <a href="${ctx}/mall/goods/list?labelType=${goods.labelType}">首页</a>>
+                <a href="${ctx}/mall/goods/list?labelType=${goods.labelType}&cateNo=${goods.cateNo}">${goods.cateName}</a>>
                 <a style="color: #428bca;" href="${ctx}/mall/goods/detail?goodsId=${goods.id}">${goods.goodsName}</a>
             </li>
         </ul>
