@@ -59,7 +59,7 @@ public class ExportUtils {
         sheet.getPrintSetup().setPaperSize(PaperSize.A4_PAPER);
         
         //设置每列的宽度
-        sheet.setColumnWidth(0, 4250);
+        sheet.setColumnWidth(0, 5250);
         sheet.setColumnWidth(1, 2650);
         sheet.setColumnWidth(2, 2650);
         sheet.setColumnWidth(3, 1800);
