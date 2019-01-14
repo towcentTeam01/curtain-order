@@ -128,7 +128,7 @@ public class ExportUtils {
             
             createCell(wb, row, 0, dtl.getGoodsName());
             createCell(wb, row, 1, dtl.getLength()+"");
-            createCell(wb, row, 2, dtl.getHigh()+"");
+            createCell(wb, row, 2, null == dtl.getHigh() ? "" : dtl.getHigh()+"");
             createCell(wb, row, 3, dtl.getMultiple()+"");
             createCell(wb, row, 4, dtl.getParam1());
             createCell(wb, row, 5, dtl.getParam2());
