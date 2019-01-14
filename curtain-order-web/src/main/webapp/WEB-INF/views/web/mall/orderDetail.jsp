@@ -142,7 +142,7 @@
                     ${od.index+1}
                 </td>
                 <td>
-                    ${orderDtl.goods.goodsNo}
+                    <a herf="${ctx}/mall/goods/detail?goodsId=${orderDtl.goods.goodsId}">${orderDtl.goods.goodsNo}</a>
                 </td>
                 <td>
                     ${orderDtl.goods.goodsName}

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 import static com.towcent.base.common.constants.BaseConstant.E_000;
@@ -154,6 +155,15 @@ public class MallOrderController extends BaseController {
     public String delete(OrderMain orderMain, RedirectAttributes redirectAttributes) {
         orderMain.setOrderStatus(ORDER_STATUS_8);
         orderMainService.save(orderMain);
+
+        // 添加取消订单日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderMain.getId());
+        orderLog.setContent("取消订单");
+        orderLog.setCreateBy(UserUtils.getUser());
+        orderLog.setCreateDate(new Date());
+        orderLogService.save(orderLog);
+
         addMessage(redirectAttributes, "取消订单成功");
         return "redirect:"+ Global.getAdminPath()+"/mall/order/?repage";
     }
