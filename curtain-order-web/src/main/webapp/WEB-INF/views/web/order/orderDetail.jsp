@@ -253,9 +253,9 @@
             });
         }
 
-        function updateStatusFun(status, id) {
+        function updateStatusFun(status, id, amount) {
             var oldStatus = $('#orderStatus').val();
-            var data = {id: id, status: status, oldStatus: oldStatus};
+            var data = {id: id, status: status, oldStatus: oldStatus, amount: amount};
             layer.load();
             $.ajax({
                 type: "POST",
@@ -321,6 +321,41 @@
             });
         }
 
+        function addAmount(status, id) {
+            var content = [];
+            content.push('<ul style="margin-top: 20px;height: auto;text-align: center;padding: 0 10px;">');
+            content.push('<li><input id="amount" class="form-control" rows="5" placeholder="请输入报价"></input></li>');
+            content.push('</ul>');
+            content = content.join('').toString();
+            window.sgSpan = layer.open({
+                type: 1,
+                title: '报价',
+                area: ['300px', '160px'],
+                content: content,
+                btns: 2,
+                btnAlign: 'c',
+                btn: ['确定', '取消'],
+                success: function (layero, index) {
+                },
+                yes: function (index, layero) {
+                    var amount = $(layero).find('#amount').val();
+                    if (!$.trim(amount)) {
+                        layer.msg('请输入报价');
+                        return;
+                    }
+
+                    var reg = /^[\-\+]?([0-9]\d*|0|[1-9]\d{0,2}(,\d{3})*)(\.\d+)?$/;
+                    if (!reg.test(amount)) {
+                        layer.msg('格式不正确');
+                        return;
+                    }
+                    updateStatusFun(status, id, amount);
+                },
+                no: function (index, layero) {
+                }
+            });
+        }
+
     </script>
 
 </head>
@@ -342,9 +377,9 @@
     </div>
     <div style="margin-bottom:15px;" class="width85">
         <!-- Standard button -->
-        <%--<button id="button_refuse" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}--%>
-                <%--onclick="updateStatus('0', '${orderMain.id}');" class="btn btn-warning order-btn">退回--%>
-        <%--</button>--%>
+            <%--<button id="button_refuse" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}--%>
+            <%--onclick="updateStatus('0', '${orderMain.id}');" class="btn btn-warning order-btn">退回--%>
+            <%--</button>--%>
 
         <!-- Standard button -->
         <button id="button_saleafter" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}
@@ -361,9 +396,9 @@
                 onclick="updateStatus('4', '${orderMain.id}');" class="btn btn-success order-btn">下料
         </button>
 
-        <!-- Contextual button for informational alert messages -->
-        <button id="button_price" type="button" ${orderMain.orderStatus != '4' ? 'disabled="true"' : ''}
-                onclick="updateStatus('5', '${orderMain.id}');" class="btn btn-info order-btn">报价
+        <!-- Contextual button for informational alert messages  ${orderMain.orderStatus != '4' ? 'disabled="true"' : ''}-->
+        <button id="button_price" type="button"
+                onclick="addAmount('5', '${orderMain.id}');" class="btn btn-info order-btn">报价
         </button>
 
         <!-- Indicates caution should be taken with this action -->

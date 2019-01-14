@@ -1,33 +1,5 @@
 package com.towcent.curtain.order.web.order.web;
 
-import static com.towcent.base.common.constants.BaseConstant.E_000;
-import static com.towcent.base.common.constants.BaseConstant.E_001;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.towcent.base.sc.web.modules.sys.entity.User;
-import com.towcent.curtain.order.web.common.utils.MerchantUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.towcent.base.common.utils.DateUtils;
@@ -36,9 +8,11 @@ import com.towcent.base.sc.web.common.config.Global;
 import com.towcent.base.sc.web.common.persistence.Page;
 import com.towcent.base.sc.web.common.utils.StringUtils;
 import com.towcent.base.sc.web.common.web.BaseController;
+import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
 import com.towcent.curtain.order.common.Constant;
 import com.towcent.curtain.order.web.common.utils.ExportUtils;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.config.entity.SysLogisticsCompanyMerchant;
 import com.towcent.curtain.order.web.config.service.SysLogisticsCompanyMerchantService;
 import com.towcent.curtain.order.web.order.entity.OrderDtl;
@@ -49,6 +23,27 @@ import com.towcent.curtain.order.web.order.service.OrderLogService;
 import com.towcent.curtain.order.web.order.service.OrderMainService;
 import com.towcent.curtain.order.web.sys.entity.SysMerchantInfo;
 import com.towcent.curtain.order.web.sys.service.SysMerchantInfoService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import static com.towcent.base.common.constants.BaseConstant.E_000;
+import static com.towcent.base.common.constants.BaseConstant.E_001;
 
 /**
  * 订单Controller
@@ -307,13 +302,17 @@ public class OrderMainController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "updateStatus")
     public ResultVo updateStatus(
-            @RequestParam(required = true) String id, @RequestParam(required = true) String status, String oldStatus) {
+            @RequestParam(required = true) String id, @RequestParam(required = true) String status, String oldStatus, BigDecimal amount) {
         ResultVo resultVo = new ResultVo();
         try {
 
             OrderMain orderMain = get(id);
             if (!oldStatus.equals(orderMain.getOrderStatus())) {
                 return resultVo(resultVo, E_001, "订单状态已更新，请刷新页面再试");
+            }
+
+            if (null != amount && amount.compareTo(BigDecimal.ZERO) > 0) {
+                orderMain.setTotalAmount(amount.toString());
             }
             orderMain.setOrderStatus(status);
             orderMainService.save(orderMain);
