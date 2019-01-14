@@ -8,10 +8,12 @@
 		a.content AS "content",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
+		u.login_name AS "createBy.name",
 		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="orderLogJoins">
+		left join sys_user u on a.create_by = u.id
 	</sql>
     
 	<select id="get" resultType="OrderLog">
