@@ -196,7 +196,7 @@
         </tr>
         <tr>
             <td width="15%">报价</td>
-            <td width="35%">${orderMain.totalAmount}</td>
+            <td width="35%" style="color:red;">${orderMain.totalAmount}</td>
             <td width="15%">总米数</td>
             <td width="35%">${orderMain.totalQty}米</td>
         </tr>
