@@ -228,6 +228,7 @@
 				<th>售后申请时间</th> -->
 				<th>创建时间</th>
 				<th>发货时间</th>
+				<th>是否导出</th>
 				<shiro:hasPermission name="order:orderMain:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -272,6 +273,9 @@
 				</td>
 				<td>
 					<fmt:formatDate value="${orderMain.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+				    ${fns:getDictLabel(orderMain.isExport, 'is_export', '')}
 				</td>
 				<shiro:hasPermission name="order:orderMain:edit">
 				    <td>
