@@ -109,7 +109,7 @@
 <body>
 <ul class="nav nav-tabs">
     <li><a href="${ctx}/mall/order/list?orderType=1">订单列表</a></li>
-    <li class="active"><a href="${ctx}/mall/order/detail?id=${orderMain.id}">订单查看</a></li>
+    <li class="active"><a href="${ctx}/mall/order/detail?id=${orderMain.id}">订单详情</a></li>
 </ul>
 <br/>
 <form:form id="inputForm" modelAttribute="orderMain" method="post" class="form-horizontal">
