@@ -116,7 +116,7 @@ public class MallOrderController extends BaseController {
 
             resultVo.setData(orderMain);
 
-            return resultVo(resultVo, E_000, "添加到购车成功");
+            return resultVo(resultVo, E_000, "创建订单成功");
         } catch (Exception e) {
             e.printStackTrace();
         }

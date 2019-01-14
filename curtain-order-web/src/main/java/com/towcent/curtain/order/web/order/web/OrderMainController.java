@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -108,6 +109,15 @@ public class OrderMainController extends BaseController {
             return form(orderMain, model);
         }
         orderMainService.save(orderMain);
+
+        // 修改订单发货日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderMain.getId());
+        orderLog.setContent("修改订单成功");
+        orderLog.setCreateBy(UserUtils.getUser());
+        orderLog.setCreateDate(new Date());
+        orderLogService.save(orderLog);
+
         addMessage(redirectAttributes, "保存订单成功");
         return "redirect:" + Global.getAdminPath() + "/order/orderMain/?repage";
     }
@@ -116,6 +126,14 @@ public class OrderMainController extends BaseController {
     @RequestMapping(value = "delete")
     public String delete(OrderMain orderMain, RedirectAttributes redirectAttributes) {
         orderMainService.delete(orderMain);
+
+        // 修改订单发货日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderMain.getId());
+        orderLog.setContent("删除订单成功");
+        orderLog.setCreateBy(UserUtils.getUser());
+        orderLog.setCreateDate(new Date());
+        orderLogService.save(orderLog);
         addMessage(redirectAttributes, "删除订单成功");
         return "redirect:" + Global.getAdminPath() + "/order/orderMain/?repage";
     }
@@ -159,7 +177,9 @@ public class OrderMainController extends BaseController {
                     entity.setLogisticsName(logisticsName);
                     entity.setFreightNumber(freightNumber);
                     entity.setDeliveryTime(new Date());
-                    orderMainService.sendGoods(entity);
+
+                    User user = UserUtils.getUser();
+                    orderMainService.sendGoods(entity, user);
 
                     return resultVo(resultVo, E_000, "发货成功");
 
@@ -258,6 +278,15 @@ public class OrderMainController extends BaseController {
             ouputStream = response.getOutputStream();
             wb.write(ouputStream);
             ouputStream.flush();
+
+            // 导出订单日志
+            OrderLog orderLog = new OrderLog();
+            orderLog.setOrderId(orderMain.getId());
+            orderLog.setContent("导出订单成功");
+            orderLog.setCreateBy(UserUtils.getUser());
+            orderLog.setCreateDate(new Date());
+            orderLogService.save(orderLog);
+
             return null;
         } catch (Exception e) {
             addMessage(redirectAttributes, "导出订单失败！失败信息：" + e.getMessage());
@@ -283,10 +312,13 @@ public class OrderMainController extends BaseController {
             orderMain.setOrderStatus(status);
             orderMainService.save(orderMain);
 
-//            OrderLog orderLog = new OrderLog();
-//            orderLog.setOrderId(id);
-//            orderLog.setContent("");
-//            orderLogService.save(orderLog);
+            // 修改订单状态日志
+            OrderLog orderLog = new OrderLog();
+            orderLog.setOrderId(orderMain.getId());
+            orderLog.setContent("修改订单状态成功");
+            orderLog.setCreateBy(UserUtils.getUser());
+            orderLog.setCreateDate(new Date());
+            orderLogService.save(orderLog);
 
             return resultVo(resultVo, E_000, "操作成功");
         } catch (Exception e) {
@@ -310,6 +342,14 @@ public class OrderMainController extends BaseController {
             }
             orderMain.setRemarks(remarks);
             orderMainService.save(orderMain);
+
+            // 添加订单备注日志
+            OrderLog orderLog = new OrderLog();
+            orderLog.setOrderId(orderMain.getId());
+            orderLog.setContent("添加订单备注");
+            orderLog.setCreateBy(UserUtils.getUser());
+            orderLog.setCreateDate(new Date());
+            orderLogService.save(orderLog);
 
             return resultVo(resultVo, E_000, "操作成功");
         } catch (Exception e) {
