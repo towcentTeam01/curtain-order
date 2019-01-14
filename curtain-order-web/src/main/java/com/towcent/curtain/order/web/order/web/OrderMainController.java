@@ -279,6 +279,12 @@ public class OrderMainController extends BaseController {
             wb.write(ouputStream);
             ouputStream.flush();
 
+            // 改变导出状态
+            OrderMain exportOrder = new OrderMain();
+            exportOrder.setId(orderMain.getId());
+            exportOrder.setIsExport("1");
+            orderMainService.updateSelective(exportOrder);
+
             // 导出订单日志
             OrderLog orderLog = new OrderLog();
             orderLog.setOrderId(orderMain.getId());
