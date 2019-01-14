@@ -235,7 +235,7 @@
         </tr>
     </table>
     
-    <button type="button" id="showLog" class="button big" style="margin: auto 7.5%;display: none;" onclick="showLog1(this)">查看操作日志</button>
+    <button type="button" id="showLog" class="button big" style="margin: auto 7.5%;" onclick="showLog1(this)">查看操作日志</button>
     
     <!-- 日志 -->
     <table id="contentTable" class="table table-bordered table-condensed show-log" style="display: none;">
