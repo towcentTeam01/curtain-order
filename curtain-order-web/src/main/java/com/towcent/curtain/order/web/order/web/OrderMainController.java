@@ -318,9 +318,22 @@ public class OrderMainController extends BaseController {
             orderMainService.save(orderMain);
 
             // 修改订单状态日志
+            String msg = "";
+            if ("2".equals(status)) {
+                msg = "售后审核通过";
+            } else if ("3".equals(status)) {
+                msg = "财务审核通过";
+            } else if ("4".equals(status)) {
+                msg = "已下料";
+            } else if ("5".equals(status)) {
+                msg = "已报价";
+            } else if ("7".equals(status)) {
+                msg = "已完成";
+            }
+
             OrderLog orderLog = new OrderLog();
             orderLog.setOrderId(orderMain.getId());
-            orderLog.setContent("修改订单状态成功");
+            orderLog.setContent(msg);
             orderLog.setCreateBy(UserUtils.getUser());
             orderLog.setCreateDate(new Date());
             orderLogService.save(orderLog);
