@@ -205,13 +205,13 @@
 			<tr>
 				<th>订单号</th>
 				<th>订单状态</th>
-				<th>报价</th>
-				<th>收货人姓名</th>
-				<th>收货人联系方式</th>
-				<th>收货地址</th>
 				<th>总米数/米</th>
-				<th>运单号</th>
-				<th>物流公司名称</th>
+				<th>报价</th>
+				<th>收货人信息</th>
+                <!-- <th>收货人联系方式</th>
+                <th>收货地址</th>
+				<th>运单号</th>-->
+				<th>物流信息</th>
 				<!-- <th>售后备注</th>
 				<th>售后申请时间</th> -->
 				<th>创建时间</th>
@@ -229,25 +229,26 @@
 					${fns:getDictLabel(orderMain.orderStatus, 'order_status', '')}
 				</td>
 				<td>
+                    ${orderMain.totalQty}
+                </td>
+				<td>
 					${orderMain.totalAmount}
 				</td>
 				<td>
-					${orderMain.consigneeName}
+					${orderMain.consigneeName}(${orderMain.consigneePhone})${orderMain.consigneeAddress}
 				</td>
-				<td>
+				<!-- <td>
 					${orderMain.consigneePhone}
 				</td>
 				<td>
 					${orderMain.consigneeAddress}
 				</td>
 				<td>
-					${orderMain.totalQty}
-				</td>
-				<td>
 					${orderMain.freightNumber}
 				</td>
+				-->
 				<td>
-					${orderMain.logisticsName}
+				    ${orderMain.logisticsName}<c:if test="${not empty orderMain.freightNumber}">(${orderMain.freightNumber})</c:if>
 				</td>
 				<%-- <td>
 					${orderMain.saleAfterRemarks}
@@ -261,7 +262,7 @@
 				<td>
 					<fmt:formatDate value="${orderMain.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				    <td>
+				<td style='font-weight:bold; font-size: 16px;'>
 					    <a href="${ctx}/mall/order/detail?id=${orderMain.id}">查看</a>
 	    				<%-- <a href="${ctx}/order/orderMain/form?id=${orderMain.id}">修改</a> --%>
 	    				<c:if test="${orderMain.orderStatus == '0' || orderMain.orderStatus == '1'}">

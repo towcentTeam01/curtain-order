@@ -106,14 +106,15 @@
         <th><input type="checkbox" id="allbox"/></th>
         <th>商品名称</th>
         <th>商品图片</th>
-        <th>成品宽(单位/米)</th>
-        <th>成品高(单位/米)</th>
+        <th>成品宽(米)</th>
+        <th>成品高(米)</th>
         <th>褶数(倍)</th>
         <th>辅料铅线、铅块、底边花边</th>
         <th>里衬/造型(返幔、帘头)</th>
         <th>对/单开</th>
         <th>打孔/捏褶(对花)</th>
         <th>环、S钩</th>
+        <th>是否定型</th>
         <th>详情说明</th>
         <shiro:hasPermission name="mall:shoppingCart:edit">
             <th>操作</th>
@@ -155,6 +156,9 @@
             </td>
             <td>
                     ${shoppingCart.param5}
+            </td>
+            <td>
+                    ${fns:getDictLabel(shoppingCart.isFinalize, 'yes_no', '')}
             </td>
             <td>
                     ${shoppingCart.remarks}

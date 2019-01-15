@@ -59,7 +59,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">
-				成品宽(单位/米)：
+				成品宽(米)：
 			</label>
 			<div class="col-sm-3">
 				<form:input path="length" htmlEscape="false" maxlength="10" class="form-control required money" min="0" max="100"/>
@@ -67,7 +67,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">
-				成品高(单位/米)：
+				成品高(米)：
 			</label>
 			<div class="col-sm-3">
 				<form:input path="high" htmlEscape="false" maxlength="10" class="form-control money" min="0" max="100"/>
@@ -121,6 +121,17 @@
 				<form:input path="param5" htmlEscape="false" maxlength="50" class="form-control "/>
 			</div>
 		</div>
+		<div class="form-group">
+            <label class="col-sm-2 control-label">
+                是否定型：
+            </label>
+            <div class="col-sm-3">
+                <form:select path="isFinalize" class="form-control">
+                    <form:option value="" label="请选择"/>
+                    <form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                </form:select>
+            </div>
+        </div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">
 				详情说明：

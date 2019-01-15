@@ -29,6 +29,7 @@ public class ShoppingCart extends DataEntity<ShoppingCart> {
     private String param3;        // 对/单开
     private String param4;        // 打孔/捏褶(对花)
     private String param5;        // 环、S钩(不要可不填)
+    private String isFinalize;   // 是否定型（1:是 0:否）
 
     public ShoppingCart() {
         super();
@@ -166,4 +167,11 @@ public class ShoppingCart extends DataEntity<ShoppingCart> {
         this.param5 = param5;
     }
 
+    public String getIsFinalize() {
+        return isFinalize;
+    }
+
+    public void setIsFinalize(String isFinalize) {
+        this.isFinalize = isFinalize;
+    }
 }

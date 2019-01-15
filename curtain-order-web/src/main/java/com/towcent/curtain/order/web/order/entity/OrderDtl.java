@@ -32,6 +32,7 @@ public class OrderDtl extends DataEntity<OrderDtl> {
 	private String param4;		// 打孔/捏褶(对花)
 	private String param5;		// 环、S钩(不要可不填)
 	private String evalFlag;		// 评价标识(0:未评价 1:已评价) yes_no
+	private String isFinalize;   // 是否定型（1:是 0:否）
 	
 	public OrderDtl() {
 		super();
@@ -186,5 +187,12 @@ public class OrderDtl extends DataEntity<OrderDtl> {
 	public void setEvalFlag(String evalFlag) {
 		this.evalFlag = evalFlag;
 	}
-	
+
+	public String getIsFinalize() {
+		return isFinalize;
+	}
+
+	public void setIsFinalize(String isFinalize) {
+		this.isFinalize = isFinalize;
+	}
 }

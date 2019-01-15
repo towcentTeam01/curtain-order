@@ -19,6 +19,7 @@
 		a.param3 AS "param3",
 		a.param4 AS "param4",
 		a.param5 AS "param5",
+        a.is_finalize AS "isFinalize",
 		a.remarks AS "remarks",
 		a.merchant_id AS "merchantId"
 	</sql>
@@ -94,6 +95,7 @@
 					param3,
 					param4,
 					param5,
+                    is_finalize,
 					remarks,
 					merchant_id,
 					create_by,
@@ -117,6 +119,7 @@
 			#{param3},
 			#{param4},
 			#{param5},
+            #{isFinalize},
 			#{remarks},
 			#{merchantId},
 			#{createBy.id},
@@ -174,6 +177,9 @@
             </if>
             <if test="param5 != null">
                 param5,
+            </if>
+            <if test="isFinalize != null">
+                is_finalize,
             </if>
             <if test="remarks != null">
                 remarks,
@@ -243,6 +249,9 @@
             <if test="param5 != null">
                 #{param5},
             </if>
+            <if test="isFinalize != null">
+                #{isFinalize},
+            </if>
             <if test="remarks != null">
                 #{remarks},
             </if>
@@ -284,6 +293,7 @@
 			param3 = #{param3},
 			param4 = #{param4},
 			param5 = #{param5},
+        is_finalize = #{isFinalize},
 			remarks = #{remarks},
 			merchant_id = #{merchantId},
 			update_by = #{updateBy.id},
@@ -338,6 +348,9 @@
             </if>
             <if test="param5 != null">
                 param5 = #{param5},
+            </if>
+            <if test="isFinalize != null">
+                is_finalize = #{isFinalize},
             </if>
             <if test="remarks != null">
                 remarks = #{remarks},

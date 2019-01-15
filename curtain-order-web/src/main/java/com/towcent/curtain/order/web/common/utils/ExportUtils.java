@@ -69,7 +69,8 @@ public class ExportUtils {
         //sheet.setColumnWidth(7, 900);
         sheet.setColumnWidth(7, 2800);
         sheet.setColumnWidth(8, 3200);
-        sheet.setColumnWidth(9, 4700);
+        sheet.setColumnWidth(9, 1800);
+        sheet.setColumnWidth(10, 4700);
         //表头
         XSSFRow row = sheet.createRow(1);
         XSSFCell cell = row.createCell(0);
@@ -84,7 +85,7 @@ public class ExportUtils {
         cell.setCellStyle(getStyle(wb));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         cell.setCellValue(sdf.format(orderMain.getCreateDate()));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 8, 9));
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 8, 10));
         
         row = sheet.createRow(2);
         cell = row.createCell(0);
@@ -105,9 +106,9 @@ public class ExportUtils {
         cell = row.createCell(8);
         cell.setCellStyle(style);
         cell.setCellValue("联系电话：" + orderMain.getConsigneePhone());
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 8, 9));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 8, 10));
         
-        String[] headers = new String[]{"型号", "成品宽单位:米", "成品高单位:米", "褶数(倍)", "辅料铅线、铅块、底边花边", "里衬/造型(返幔、帘头)", "对/单开", "打孔/捏褶(对花)", "环、S钩(不要可不填)", "注明"};
+        String[] headers = new String[]{"型号", "成品宽单位:米", "成品高单位:米", "褶数(倍)", "辅料铅线、铅块、底边花边", "里衬/造型(返幔、帘头)", "对/单开", "打孔/捏褶(对花)", "环、S钩(不要可不填)", "是否定型", "注明"};
         // 产生表格标题行
         row = sheet.createRow(3);
         style = getStyle2(wb);
@@ -136,7 +137,8 @@ public class ExportUtils {
             //createCell(wb, row, 7, "" + dtl.getNum());
             createCell(wb, row, 7, dtl.getParam4());
             createCell(wb, row, 8, dtl.getParam5());
-            createCell(wb, row, 9, dtl.getRemarks()); 
+            createCell(wb, row, 9, "1".equals(dtl.getIsFinalize()) ? "是" : "否");
+            createCell(wb, row, 10, dtl.getRemarks());
             index++;
         } 
         
