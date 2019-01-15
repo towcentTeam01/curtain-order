@@ -100,8 +100,8 @@
         }
 
         .widget-dishmanagernew-dish-list-item .combo-icon-wrap {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
             display: block;
             float: left;
             position: relative;
@@ -196,8 +196,8 @@
         }
 
         .combo-icon-wrap img {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
         }
 
         .panel-body .btn {
@@ -299,7 +299,7 @@
             <div class="panel-body ui-sortable dish" data-node="dish_list_wrap" id="spec_1" data-typeid='1'>
                 <div class="widget-dishmanagernew-dish-list-item dropdown online ui-sortable-handle">
                     <div class="combo-icon-wrap dropdown-toggle">
-                        <img class="combo-icon" width="120" height="120" onclick="detail('${goods.id}')" style="cursor:pointer"
+                        <img class="combo-icon" width="180" height="180" onclick="detail('${goods.id}')" style="cursor:pointer"
                              src="${goods.goodsPicUrl}">
                         <span class="saleout-status" style="display: none;"></span>
                         <span class="saleout-status" style="display: none;"></span>
@@ -311,10 +311,10 @@
                                 class="dish-editor" data-node="editor"></span>
                         </div>
                         <div class="dish-store-nums">
-                            <span class="dish-counts">库存：${goods.qty}米</span>
+                            <span class="dish-counts" style="font-size: 16px;">库存：${goods.qty}米</span>
                         </div>
-                        <div class="info_nav price">单价：
-                            <span>¥&nbsp;${goods.price}</span>
+                        <div class="info_nav price" style="font-size: 16px;">单价：
+                            <span style="font-size: 16px;">¥&nbsp;${goods.price}</span>
                         </div>
                         <div class="tag-wrap">
                             <div class="dropdown-parent dropdown">
@@ -324,9 +324,9 @@
                     <!--info-->
                     <!--action-->
                     <div class="action">
-                        <button class="btn btn-default btn-xs" onclick="detail('${goods.id}')">详情</button>
+                        <button class="btn btn-default" onclick="detail('${goods.id}')">详情</button>
                         <span class="blank"></span>
-                        <button class="btn btn-default btn-xs" onclick="collectFun('${goods.id}');">收藏</button>
+                        <button class="btn btn-default" onclick="collectFun('${goods.id}');">收藏</button>
                         <%--<span class="blank"></span>--%>
                         <%--<button class="btn btn-default btn-xs">加入购物车</button>--%>
                         <%--<span class="blank"></span>--%>

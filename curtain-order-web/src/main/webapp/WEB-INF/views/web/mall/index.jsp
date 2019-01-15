@@ -73,7 +73,7 @@
         }
 
         .label-list ul li {
-            width: 50%;
+            width: 33.3%;
             display: inline-block;
             float: left;
             text-align: center;
