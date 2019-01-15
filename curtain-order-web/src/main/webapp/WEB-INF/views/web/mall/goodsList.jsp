@@ -215,7 +215,7 @@
 <body>
 <ul class="nav nav-tabs">
     <li><a href="${ctx}/mall/index">首页</a></li>
-    <li class="active"><a href="${ctx}/mall/goods/list">商品列表</a></li>
+    <li class="active"><a href="${ctx}/mall/goods/list?labelType=${goods.labelType}">商品列表</a></li>
 </ul>
 
 <div class="box-content">
@@ -225,7 +225,7 @@
         <input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
         <input id="pageSize" name="pageSize" type="hidden" value="12"/>
         <ul class="ul-form">
-            <li><label>商品编码：</label>
+            <li><label>商品型号：</label>
                 <form:input path="goodsNo" htmlEscape="false" maxlength="50" class="form-control"/>
             </li>
             <li><label>商品名称：</label>
@@ -299,7 +299,7 @@
             <div class="panel-body ui-sortable dish" data-node="dish_list_wrap" id="spec_1" data-typeid='1'>
                 <div class="widget-dishmanagernew-dish-list-item dropdown online ui-sortable-handle">
                     <div class="combo-icon-wrap dropdown-toggle">
-                        <img class="combo-icon" width="120" height="120"
+                        <img class="combo-icon" width="120" height="120" onclick="detail('${goods.id}')" style="cursor:pointer"
                              src="${goods.goodsPicUrl}">
                         <span class="saleout-status" style="display: none;"></span>
                         <span class="saleout-status" style="display: none;"></span>
