@@ -248,7 +248,7 @@
             <th style="width: 3%;">序号</th>
             <th>操作内容</th>
             <th>操作时间</th>
-            <th>操作人</th>
+            <!-- th>操作人</th -->
         </tr>
         </thead>
         <tbody>
@@ -263,9 +263,9 @@
                 <td>
                     <fmt:formatDate value="${log.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
                 </td>
-                <td>
+                <!-- td>
                     ${log.createBy.name}
-                </td>
+                </td -->
             </tr>
         </c:forEach>
         </tbody>

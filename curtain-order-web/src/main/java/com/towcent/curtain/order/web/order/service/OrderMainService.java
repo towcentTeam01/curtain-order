@@ -127,7 +127,7 @@ public class OrderMainService extends CrudService<OrderMainDao, OrderMain> {
     }
 
     public synchronized String creatOrderNo(String key) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMyyddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
         return key + sdf.format(new Date()) + RandomStringUtils.randomNumeric(3);
     }
 }
