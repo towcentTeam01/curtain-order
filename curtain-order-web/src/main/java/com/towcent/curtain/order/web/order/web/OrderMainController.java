@@ -313,8 +313,12 @@ public class OrderMainController extends BaseController {
 
             if (null != amount && amount.compareTo(BigDecimal.ZERO) > 0) {
                 orderMain.setTotalAmount(amount.toString());
+                if ("4".equals(oldStatus)) {
+                    orderMain.setOrderStatus(status);
+                }
+            } else {
+                orderMain.setOrderStatus(status);
             }
-            orderMain.setOrderStatus(status);
             orderMainService.save(orderMain);
 
             // 修改订单状态日志
