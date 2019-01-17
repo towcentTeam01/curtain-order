@@ -19,6 +19,17 @@
 <link id="style_color" href="${ctxStatic}/login/css/darkblue.min.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 .header{height:80px;padding-top:20px;} .alert{position:relative;width:300px;margin:0 auto;*padding-bottom:0px;}
+body
+{
+    background:url('${ctxStatic}/login/images/login.jpg');
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+    background-size：100% 100%;
+    background-repead:no-repead;
+}
 </style>
 <script src="${ctxStatic}/jquery/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
@@ -89,7 +100,7 @@ if(window.parent!=window){
 	</div>
 	<!-- END 登录框 -->
 	<div class="page-footer">
-		<div style="color:#98a6ba; padding:10px" align="center" id="footerId">
+		<div style="color:#4e70a1; padding:10px" align="center" id="footerId">
 			Copyright &copy; 2018 
 			版权所有 @@科技有限公司
 		</div>
@@ -100,17 +111,18 @@ var ctxpath = '/static';
 $(function() {
 	$('input[name="username"]').focus();
 	Metronic.init(); // init metronic core components
-	$.backstretch(
-		[
-	        "${ctxStatic}/login/images/bg/1.jpg",
-	        "${ctxStatic}/login/images/bg/2.jpg",
-	        "${ctxStatic}/login/images/bg/3.jpg",
-	        "${ctxStatic}/login/images/bg/4.jpg"
-		], {
-			fade: 1000,
-			duration: 8000
-		}
-	);
+	// $.backstretch(
+	//	[
+	        // "${ctxStatic}/login/images/bg/1.jpg",
+	        // "${ctxStatic}/login/images/bg/2.jpg",
+	        // "${ctxStatic}/login/images/bg/3.jpg",
+	        // "${ctxStatic}/login/images/bg/4.jpg"
+	        // "${ctxStatic}/login/images/login5.jpg"
+	//	], {
+	//		fade: 1000,
+	//		duration: 8000
+	//	}
+	//);
 	
 	$("#loginForm").validate({
 		errorElement : "span",
@@ -160,7 +172,11 @@ function getMerchantInfo() {
                 $('.form-signin-heading').html(data.data.merchantName+title);
                 $('#footerId').html(data.data.qq + "  © 2018 " + data.data.wxCode + "版权所有 地址:" + data.data.address);
 			}
+			if (data.data.id) {
+			    $("body").css("background","url('${ctxStatic}/login/images/login" + data.data.id + ".jpg')");
+			}
         }
+
     });
 }
 
