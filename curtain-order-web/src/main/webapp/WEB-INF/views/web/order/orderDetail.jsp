@@ -397,7 +397,7 @@
         </button>
 
         <!-- Contextual button for informational alert messages -->
-        <button id="button_price" type="button" ${orderMain.orderStatus != '4' ? 'disabled="true"' : ''}
+        <button id="button_price" type="button" ${orderMain.orderStatus == '1' || orderMain.orderStatus == '2' || orderMain.orderStatus == '3' ? 'disabled="true"' : ''}
                 onclick="addAmount('5', '${orderMain.id}');" class="btn btn-info order-btn">报价
         </button>
 

@@ -218,6 +218,18 @@
         });
     }
 
+function ajaxFun(url, params, callback) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: params,
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (callback) callback(data);
+        }
+    });
+}
 function getMerchantInfo() {
     ajaxFun("${ctx}/getMerchantInfo", {}, function (data) {
         if (data && data.data) {
