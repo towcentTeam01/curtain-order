@@ -19,7 +19,9 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mall/consigneeAddr/">收货地址列表</a></li>
+        <c:if test="${empty page.list}">
 		<shiro:hasPermission name="mall:consigneeAddr:edit"><li><a href="${ctx}/mall/consigneeAddr/form">收货地址添加</a></li></shiro:hasPermission>
+		</c:if>
 	</ul>
 	<form:form id="searchForm" modelAttribute="consigneeAddr" action="${ctx}/mall/consigneeAddr/" method="post" class="navbar-form form-search" role="form">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
