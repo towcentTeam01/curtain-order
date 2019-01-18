@@ -176,6 +176,8 @@ public class MallUserController extends BaseController {
             user.setCreateDate(new Date());
             user.setUpdateDate(user.getCreateDate());
             user.setDelFlag(DEL_FLAG_0);
+            user.setNo("000");   // 代表普通会员
+            user.setJob("0");  // 待审核
 
             Role role = systemService.getRoleByEnname(SYS_ROLE_CUSTOMER);
             systemService.assignUserToRole(role, user);
