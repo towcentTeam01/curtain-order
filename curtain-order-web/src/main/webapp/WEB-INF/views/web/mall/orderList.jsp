@@ -268,9 +268,11 @@
 	    				<c:if test="${orderMain.orderStatus == '0' || orderMain.orderStatus == '1'}">
 						   <a href="${ctx}/mall/order/delete?id=${orderMain.id}" onclick="return confirmx('确认要取消该订单吗？', this.href)">取消</a>
 						</c:if>
+						<!--
 	                    <c:if test="${orderMain.orderStatus == '6'}">
 	                        <a data-id="${orderMain.logisticsNo}" data-no="${orderMain.freightNumber}" data-name="${orderMain.logisticsName}" onclick="showLogistics(this);" href="javascript:void(0);">查看物流</a>
 	                    </c:if>
+	                    -->
 				    </td>
 			</tr>
 		</c:forEach>

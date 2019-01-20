@@ -287,10 +287,11 @@
 						<c:if test="${orderMain.orderStatus == '5'}">
 	                        <a data-id="${orderMain.id}" onclick="sendGoods(this);" href="javascript:void(0);">发货</a>
 	                    </c:if>
+	                    <!--
 	                    <c:if test="${orderMain.orderStatus == '6'}">
 	                        <a data-id="${orderMain.logisticsNo}" data-no="${orderMain.freightNumber}" data-name="${orderMain.logisticsName}" onclick="showLogistics(this);" href="javascript:void(0);">查看物流</a>
 	                    </c:if>
-	                    
+	                    -->
 	                    <!-- 需要区分是否导出 -->
 	                    <a href="${ctx}/order/orderMain/export?id=${orderMain.id}" style='font-weight:bold; font-size: 16px;<c:if test="${orderMain.isExport == '1'}">color:green;</c:if>'>导出</a>
 				    </td>
