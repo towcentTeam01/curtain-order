@@ -43,7 +43,7 @@ public class Goods extends DataEntity<Goods> {
 	private Date endCreateDate;		// 结束 创建时间
 	private String goodsPicUrl;		// 商品图片url
 	private List<String> goodsImgList;
-
+	private Integer merchantId;
 
 	public Goods() {
 		super();
@@ -292,5 +292,15 @@ public class Goods extends DataEntity<Goods> {
 
 	public void setGoodsImgList(List<String> goodsImgList) {
 		this.goodsImgList = goodsImgList;
+	}
+
+	@Override
+	public Integer getMerchantId() {
+		return merchantId;
+	}
+
+	@Override
+	public void setMerchantId(Integer merchantId) {
+		this.merchantId = merchantId;
 	}
 }

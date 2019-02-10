@@ -3,11 +3,11 @@
 <mapper namespace="com.towcent.curtain.order.app.server.sys.dao.SysUserMerchantMapper" >
   	<resultMap id="BaseResultMap" type="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" >
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="sys_user_id" property="userId" jdbcType="INTEGER" />
 		<result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
   	</resultMap>
   	<sql id="Base_Column_List" >
-  	  	a.id, a.user_id, a.merchant_id
+  	  	a.id, a.sys_user_id, a.merchant_id
   	</sql>
 	<sql id="condition" >
     	<if test="null!=params" >
@@ -15,7 +15,7 @@
         		and a.id = #{params.id,jdbcType=INTEGER}
       		</if>
       		<if test="params.userId != null" >
-        		and a.user_id = #{params.userId,jdbcType=INTEGER}
+        		and a.sys_user_id = #{params.userId,jdbcType=INTEGER}
       		</if>
       		<if test="params.merchantId != null" >
         		and a.merchant_id = #{params.merchantId,jdbcType=INTEGER}
@@ -25,24 +25,24 @@
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 		select 
 		<include refid="Base_Column_List" />
-		from sys_user_merchant a
+		from sys_user_merchant_rel a
 		where a.id = #{id,jdbcType=INTEGER}
 	</select>
 	<select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
 		select 
 		<include refid="Base_Column_List" />
-		from sys_user_merchant a 
+		from sys_user_merchant_rel a
 		where 1=1 
 		<include refid="condition" />
 	</select>
 	<select id="selectCount" resultType="java.lang.Integer" >
-	  	select count(1) as s from sys_user_merchant a where 1=1
+	  	select count(1) as s from sys_user_merchant_rel a where 1=1
 	  	<include refid="condition" />
 	</select>
 	<select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
 	  	select 
 	  	<include refid="Base_Column_List" />
-	  	from sys_user_merchant a
+	  	from sys_user_merchant_rel a
 	  	where 1=1
 	  	<include refid="condition" />
 	  	<if test="orderByField != null and ''!=orderByField" >
@@ -54,17 +54,17 @@
 	  	limit #{page.startRowNum} ,#{page.pageSize}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-	  	delete from sys_user_merchant
+	  	delete from sys_user_merchant_rel
 	  	where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<delete id="deleteByPrimarayKeyForModel" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" >
-	  	delete from sys_user_merchant
+	  	delete from sys_user_merchant_rel
 	  	where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" useGeneratedKeys="true" keyProperty="id">
-    	insert into sys_user_merchant (
+    	insert into sys_user_merchant_rel (
 					id,
-			user_id,
+			sys_user_id,
 			merchant_id
     	)
     	values (
@@ -74,13 +74,13 @@
 		)
   	</insert>
 	<insert id="insertSelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" useGeneratedKeys="true" keyProperty="id" >
-    	insert into sys_user_merchant 
+    	insert into sys_user_merchant_rel
     	<trim prefix="(" suffix=")" suffixOverrides="," >
       		<if test="id != null" >
       			id,
       		</if>
       		<if test="userId != null" >
-      			user_id,
+      			sys_user_id,
       		</if>
       		<if test="merchantId != null" >
       			merchant_id,
@@ -99,13 +99,13 @@
     	</trim>
   	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" >
-    	update sys_user_merchant 
+    	update sys_user_merchant_rel
 	    <set >
 	      	<if test="id != null" >
 	        	id = #{id,jdbcType=INTEGER},
 	      	</if>
 	      	<if test="userId != null" >
-	        	user_id = #{userId,jdbcType=INTEGER},
+	        	sys_user_id = #{userId,jdbcType=INTEGER},
 	      	</if>
 	      	<if test="merchantId != null" >
 	        	merchant_id = #{merchantId,jdbcType=INTEGER},
@@ -114,10 +114,10 @@
     	where id = #{id,jdbcType=INTEGER}
   	</update>
   	<update id="updateByPrimaryKey" parameterType="com.towcent.curtain.order.app.client.sys.dto.SysUserMerchant" >
-    	update sys_user_merchant 
+    	update sys_user_merchant_rel
     	set 
       	      		id = #{id,jdbcType=INTEGER},
-      		user_id = #{userId,jdbcType=INTEGER},
+      		sys_user_id = #{userId,jdbcType=INTEGER},
       		merchant_id = #{merchantId,jdbcType=INTEGER} 
     	where id = #{id,jdbcType=INTEGER}
   	</update>
