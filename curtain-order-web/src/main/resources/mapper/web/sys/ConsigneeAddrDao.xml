@@ -55,7 +55,7 @@
 					<if test="dbName == 'mssql'">'%'+#{mobilePhone}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{mobilePhone},'%')</if>
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
 				AND a.merchant_id = #{merchantId}
 			</if>
 			<if test="user != null and user.id != null and user.id != ''">

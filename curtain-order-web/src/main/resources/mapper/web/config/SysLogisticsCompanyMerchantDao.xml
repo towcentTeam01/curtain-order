@@ -34,7 +34,7 @@
 			<if test="company != null and company.id != null and company.id != ''">
 				AND a.company_id = #{company.id}
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
 				AND a.merchant_id = #{merchantId}
 			</if>
 		</where>

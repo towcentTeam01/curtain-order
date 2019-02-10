@@ -53,7 +53,7 @@
 			<if test="goods != null and goods.id != null and goods.id != ''">
 				AND a.goods_id = #{goods.id}
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
 				AND a.merchant_id = #{merchantId}
 			</if>
 		</where>

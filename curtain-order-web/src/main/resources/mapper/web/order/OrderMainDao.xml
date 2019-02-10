@@ -88,7 +88,7 @@
 			<if test="isExport != null and isExport != ''">
 				AND a.is_export = #{isExport}
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
                 AND a.merchant_id = #{merchantId}
             </if>
 			<if test="createBy != null and createBy.id != null and createBy.id != ''">

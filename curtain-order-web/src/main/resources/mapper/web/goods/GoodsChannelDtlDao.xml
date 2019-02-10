@@ -40,7 +40,7 @@
 			<if test="channel != null and channel.id != null and channel.id != ''">
 				AND a.channel_id = #{channel.id}
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
 				AND a.merchant_id = #{merchantId}
 			</if>
 		</where>
