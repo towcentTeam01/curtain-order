@@ -57,7 +57,7 @@
 				图片(请勿上传多张图片)：
 			</label>
 			<div class="col-sm-3">
-				<sys:fileInput path="url" value="${sysCarouselConf.url}" type="icon" thumbSize="200X200"></sys:fileInput>
+				<sys:fileInput path="url" value="${sysCarouselConf.url}" type="1" thumbSize="200X200"></sys:fileInput>
 
 			</div>
 		</div>
