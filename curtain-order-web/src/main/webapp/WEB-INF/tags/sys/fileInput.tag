@@ -17,7 +17,7 @@ if ('${value}') {
 	img = "<img src='${value}' class='file-preview-image' style='width:auto;height:160px;'>";
 }
 $('#imgUpload-${path}').fileinput({
-	uploadUrl : '${ctx}/image/upload/imageUpload',
+	uploadUrl : '${ctx}/image/curtainupload/imageUpload',
 	allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
 	uploadExtraData : {
 		uploadType : '${type}',

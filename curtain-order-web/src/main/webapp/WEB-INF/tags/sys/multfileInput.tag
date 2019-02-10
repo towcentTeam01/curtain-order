@@ -32,7 +32,7 @@ if ('${value}') {
 	}
 }
 $('#upload${path }').fileinput({
-	uploadUrl : '${ctx}/image/upload/imageUpload',
+	uploadUrl : '${ctx}/image/curtainupload/imageUpload',
 	allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
 	uploadExtraData : {
 		uploadType : '${type}',

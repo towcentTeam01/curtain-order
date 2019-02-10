@@ -3,7 +3,7 @@ package com.towcent.curtain.order.web.common.web;
 import com.google.common.collect.Maps;
 import com.towcent.base.common.utils.*;
 import com.towcent.base.sc.web.common.config.ConfigUtils;
-import com.towcent.base.sc.web.common.web.UploadController;
+import com.towcent.base.sc.web.common.web.BaseController;
 import com.towcent.base.sc.web.modules.sys.entity.SysImageConf;
 import com.towcent.curtain.order.web.common.utils.CurtainImageUtils;
 import org.springframework.messaging.MessageChannel;
@@ -32,8 +32,8 @@ import static com.towcent.base.common.constants.BaseConstant.YES;
  * @version 2016-01-08
  */
 @Controller
-@RequestMapping(value = "${adminPath}/image/upload")
-public class CurtainUploadController extends UploadController {
+@RequestMapping(value = "${adminPath}/image/curtainupload")
+public class CurtainUploadController extends BaseController {
 
 	@Resource
 	private MessageChannel ftpChannel;
