@@ -94,7 +94,7 @@
 			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
 				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
 			</if>
-			<if test="merchantId != null and merchantId != ''">
+			<if test="merchantId != null">
 				AND a.merchant_id = #{merchantId}
 			</if>
 			<if test="goodsStatus != null and goodsStatus != ''">
