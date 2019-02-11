@@ -7,6 +7,7 @@ import com.towcent.base.sc.web.common.utils.StringUtils;
 import com.towcent.base.sc.web.common.web.BaseController;
 import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.config.service.SysLogisticsCompanyMerchantService;
 import com.towcent.curtain.order.web.order.entity.OrderDtl;
 import com.towcent.curtain.order.web.order.entity.OrderLog;
@@ -85,7 +86,7 @@ public class MallOrderController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "crate")
-    public ResultVo crate(OrderMain orderMain) {
+    public ResultVo crate(OrderMain orderMain, HttpServletRequest request) {
         ResultVo resultVo = new ResultVo();
         try {
 
@@ -113,6 +114,7 @@ public class MallOrderController extends BaseController {
             orderMain.setConsigneeAddress(consigneeAddr.getAddress());
             orderMain.setConsigneeName(consigneeAddr.getConsigneeName());
             orderMain.setConsigneePhone(consigneeAddr.getMobilePhone());
+            orderMain.setMerchantId(MerchantUtils.getMerchantId(request));
             orderMainService.create(orderMain);
 
             resultVo.setData(orderMain);

@@ -10,6 +10,7 @@ import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
 import com.towcent.curtain.order.app.client.sys.dto.SysFrontAccount;
 import com.towcent.curtain.order.common.Constant;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.config.entity.SysLogisticsCompanyMerchant;
 import com.towcent.curtain.order.web.config.service.SysLogisticsCompanyMerchantService;
 import com.towcent.curtain.order.web.goods.entity.Goods;
@@ -93,7 +94,7 @@ public class ShoppingCartController extends BaseController {
 
     @RequiresPermissions("mall:shoppingCart:edit")
     @RequestMapping(value = "save")
-    public String save(ShoppingCart shoppingCart, Model model, RedirectAttributes redirectAttributes) {
+    public String save(ShoppingCart shoppingCart, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         if (!beanValidator(model, shoppingCart)) {
             return form(shoppingCart, model);
         }
@@ -104,6 +105,7 @@ public class ShoppingCartController extends BaseController {
         // shoppingCart.setAmount(shoppingCart.getPrice().multiply(shoppingCart.getQty()));
         shoppingCart.setGoodsName(goods.getGoodsName());
         shoppingCart.setGoodsPicUrl(goods.getGoodsPicUrl());
+        shoppingCart.setMerchantId(MerchantUtils.getMerchantId(request));
         shoppingCartService.save(shoppingCart);
         addMessage(redirectAttributes, "保存购物车成功");
         return "redirect:" + Global.getAdminPath() + "/mall/shoppingCart/?repage";
@@ -119,7 +121,7 @@ public class ShoppingCartController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "addToCart")
-    public ResultVo addToCart(ShoppingCart shoppingCart) {
+    public ResultVo addToCart(ShoppingCart shoppingCart, HttpServletRequest request) {
         ResultVo resultVo = new ResultVo();
         try {
 
@@ -160,6 +162,7 @@ public class ShoppingCartController extends BaseController {
             shoppingCart.setGoodsName(goods.getGoodsName());
             shoppingCart.setGoodsPicUrl(goods.getGoodsPicUrl());
             shoppingCart.setCreateBy(sysUser);
+            shoppingCart.setMerchantId(MerchantUtils.getMerchantId(request));
             shoppingCartService.save(shoppingCart);
 
             resultVo.setData(shoppingCart);

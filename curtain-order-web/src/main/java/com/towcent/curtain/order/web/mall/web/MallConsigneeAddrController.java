@@ -5,6 +5,7 @@ import com.towcent.base.sc.web.common.persistence.Page;
 import com.towcent.base.sc.web.common.utils.StringUtils;
 import com.towcent.base.sc.web.common.web.BaseController;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
+import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.sys.entity.ConsigneeAddr;
 import com.towcent.curtain.order.web.sys.service.ConsigneeAddrService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -61,11 +62,12 @@ public class MallConsigneeAddrController extends BaseController {
 
 	@RequiresPermissions("mall:consigneeAddr:edit")
 	@RequestMapping(value = "save")
-	public String save(ConsigneeAddr consigneeAddr, Model model, RedirectAttributes redirectAttributes) {
+	public String save(ConsigneeAddr consigneeAddr, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, consigneeAddr)){
 			return form(consigneeAddr, model);
 		}
 		consigneeAddr.setUser(UserUtils.getUser());
+		consigneeAddr.setMerchantId(MerchantUtils.getMerchantId(request));
 		consigneeAddrService.save(consigneeAddr);
 		addMessage(redirectAttributes, "保存收货地址成功");
 		return "redirect:"+Global.getAdminPath()+"/mall/consigneeAddr/?repage";
