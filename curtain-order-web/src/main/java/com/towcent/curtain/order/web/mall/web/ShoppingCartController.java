@@ -176,7 +176,7 @@ public class ShoppingCartController extends BaseController {
 
 
     @RequestMapping(value = "toConfirm")
-    public String toConfirm(OrderMain orderMain, Model model) {
+    public String toConfirm(OrderMain orderMain, Model model, HttpServletRequest request) {
         List<OrderDtl> orderDtls = Lists.newArrayList();
         String[] idArr = StringUtils.split(orderMain.getIds(), ";");
         if (null != idArr && idArr.length > 0) {
@@ -189,6 +189,7 @@ public class ShoppingCartController extends BaseController {
                 goods.setGoodsName(shoppingCart.getGoodsName());
                 goods.setId(shoppingCart.getGoodsId());
                 dtl.setGoods(goods);
+                dtl.setMerchantId(MerchantUtils.getMerchantId(request));
                 orderDtls.add(dtl);
             }
         }
