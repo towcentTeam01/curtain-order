@@ -55,9 +55,7 @@
 			        <img style="width: 50px;height: 50px; object-fit: contain;" src="${concernGoods.picUrl}"/>
 			    </td>
 				<td>
-				    <a href="#" onclick="detail('${concernGoods.goods.id}')">
 					${concernGoods.goods.goodsNo}
-					</a>
 				</td>
 				<td>${concernGoods.goods.goodsName}</td>
 				<td>

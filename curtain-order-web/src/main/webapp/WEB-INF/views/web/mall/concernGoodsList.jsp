@@ -14,6 +14,10 @@
 			$("#searchForm").submit();
         	return false;
         }
+        function detail(id) {
+            if (!id) return;
+            window.location.href = "${ctx}/mall/goods/detail?goodsId=" + id;
+        }
 	</script>
 </head>
 <body>
@@ -50,7 +54,9 @@
 			        <img style="width: 100px;height: 100px; object-fit: contain;" src="${concernGoods.goods.goodsPicUrl}"/>
 			    </td>
 				<td>
-					${concernGoods.goods.goodsNo}
+				    <a href="#" onclick="detail('${concernGoods.goods.id}')">
+					    ${concernGoods.goods.goodsNo}
+					</a>
 				</td>
 				<td>${concernGoods.goods.goodsName}</td>
 				<td>
