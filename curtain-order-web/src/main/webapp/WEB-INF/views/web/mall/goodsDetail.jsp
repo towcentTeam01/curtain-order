@@ -279,7 +279,7 @@
                 </tr>
                 <tr>
                     <td>详细说明</td>
-                    <td colspan="7">
+                    <td colspan="8">
                         <form:textarea path="remarks" rows="3" maxlength="200" htmlEscape="false" class="form-control"/>
                     </td>
                 </tr>
