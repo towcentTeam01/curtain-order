@@ -75,7 +75,7 @@ public class MallOrderController extends BaseController {
     @RequestMapping(value = {"list", ""})
     public String list(OrderMain orderMain, HttpServletRequest request, HttpServletResponse response, Model model) {
         orderMain.setCreateBy(UserUtils.getUser());
-        orderMain.setMerchantId(UserUtils.getMerchantId());
+        orderMain.setMerchantId(MerchantUtils.getMerchantId(request));
         Page<OrderMain> p = new Page<OrderMain>(request, response);
         p.setOrderBy("a.create_date DESC");
         Page<OrderMain> page = orderMainService.findPage(p, orderMain);
