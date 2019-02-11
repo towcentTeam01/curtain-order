@@ -240,6 +240,7 @@
                     <th>对/单开</th>
                     <th>打孔/捏褶（对花）</th>
                     <th>环、S钩（不要可不填）</th>
+                    <th>是否定型</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -267,6 +268,13 @@
                     </td>
                     <td>
                         <form:input path="param5" htmlEscape="false" maxlength="20" class="form-control"/>
+                    </td>
+                    <td>
+                        <form:select path="isFinalize" class="form-control">
+                            <form:option value="" label="请选择"/>
+                            <form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                        </form:select>
+                        <!-- <form:input path="param5" htmlEscape="false" maxlength="20" class="form-control"/> -->
                     </td>
                 </tr>
                 <tr>
