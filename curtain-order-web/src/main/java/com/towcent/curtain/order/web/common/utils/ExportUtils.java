@@ -127,7 +127,7 @@ public class ExportUtils {
             row = sheet.createRow(index);     
             // 给这一行的第一列赋值     
             
-            createCell(wb, row, 0, dtl.getGoodsName());
+            createCell(wb, row, 0, dtl.getGoods().getGoodsNo());
             createCell(wb, row, 1, dtl.getLength()+"");
             createCell(wb, row, 2, null == dtl.getHigh() ? "" : dtl.getHigh()+"");
             createCell(wb, row, 3, dtl.getMultiple()+"");
