@@ -49,7 +49,8 @@ if(window.parent!=window){
 <div class="login">
 <!-- BEGIN LOGO -->
 <div class="logo">
-	<h1 class="form-signin-heading">${fns:getConfig('productName')}</h1>
+	<!-- <h1 class="form-signin-heading">${fns:getConfig('productName')}</h1>  -->
+	<h1 class="form-signin-heading">订货系统</h1>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN 登录框 -->
