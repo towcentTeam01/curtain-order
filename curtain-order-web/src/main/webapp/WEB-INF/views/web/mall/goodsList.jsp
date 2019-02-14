@@ -307,7 +307,7 @@
                     <!--info-->
                     <div class="info">
                         <div class="dish-top-info">
-                            <span class="dish-name" title="${goods.goodsName}">${goods.goodsName}</span><span
+                            <span class="dish-name" title="${goods.goodsNo}">${goods.goodsNo}</span><span
                                 class="dish-editor" data-node="editor"></span>
                         </div>
                         <div class="dish-store-nums">

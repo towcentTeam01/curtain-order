@@ -186,7 +186,7 @@
             <li>
                 <a href="${ctx}/mall/goods/list?labelType=${goods.labelType}">首页</a>>
                 <a href="${ctx}/mall/goods/list?labelType=${goods.labelType}&cateNo=${goods.cateNo}">${goods.cateName}</a>>
-                <a style="color: #428bca;" href="${ctx}/mall/goods/detail?goodsId=${goods.id}">${goods.goodsName}</a>
+                <a style="color: #428bca;" href="${ctx}/mall/goods/detail?goodsId=${goods.id}">${goods.goodsNo}</a>
             </li>
         </ul>
         <div class="goods-img">
