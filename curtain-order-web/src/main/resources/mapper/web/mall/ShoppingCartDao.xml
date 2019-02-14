@@ -5,6 +5,7 @@
     <sql id="shoppingCartColumns">
 		a.id AS "id",
 		a.goods_id AS "goodsId",
+        g.goods_no AS "goodsNo",
 		a.goods_name AS "goodsName",
 		a.goods_pic_url AS "goodsPicUrl",
 		a.length AS "length",
@@ -25,6 +26,7 @@
 	</sql>
 
     <sql id="shoppingCartJoins">
+        left join goods g ON g.id = a.goods_id
     </sql>
 
     <select id="get" resultType="ShoppingCart">

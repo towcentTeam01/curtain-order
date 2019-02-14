@@ -104,7 +104,7 @@
     <thead>
     <tr>
         <th><input type="checkbox" id="allbox"/></th>
-        <th>商品名称</th>
+        <th>商品型号</th>
         <th>商品图片</th>
         <th>成品宽(米)</th>
         <th>成品高(米)</th>
@@ -128,7 +128,7 @@
                 <input type="checkbox" name="completeCheck" id="${shoppingCart.id}" value="${shoppingCart.id}"/>
             </td>
             <td><a href="${ctx}/mall/shoppingCart/form?id=${shoppingCart.id}">
-                    ${shoppingCart.goodsName}
+                    ${shoppingCart.goodsNo}
             </a></td>
             <td>
                 <img src="${shoppingCart.goodsPicUrl}" style="height: 100px;height: 100px"/>

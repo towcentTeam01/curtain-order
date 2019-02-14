@@ -15,6 +15,7 @@ public class ShoppingCart extends DataEntity<ShoppingCart> {
 
     private static final long serialVersionUID = 1L;
     private String goodsId;        // 商品id
+    private String goodsNo;        // 商品型号
     private String goodsName;        // 商品名称
     private String goodsPicUrl;        // 商品图片
     private BigDecimal length;        // 成品宽(单位/米)
@@ -173,5 +174,13 @@ public class ShoppingCart extends DataEntity<ShoppingCart> {
 
     public void setIsFinalize(String isFinalize) {
         this.isFinalize = isFinalize;
+    }
+
+    public String getGoodsNo() {
+        return goodsNo;
+    }
+
+    public void setGoodsNo(String goodsNo) {
+        this.goodsNo = goodsNo;
     }
 }
