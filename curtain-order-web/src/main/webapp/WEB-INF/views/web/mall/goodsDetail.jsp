@@ -207,7 +207,7 @@
                     <span style="float: right;${isCollect == '1' ? 'color:red;' : 'color:#ccc;'}"
                           onclick="collectFun('${goods.id}')"><i class="icon-heart icon-white"></i></span>
                 </li>
-                <li>分类：${goods.cateName}</li>
+                <li>分类：${fns:getDictLabel(goods.cateNo, 'goods_category', '')}</li>
                 <li>品牌：${goods.brandName}</li>
                 <li>价格：${goods.price}</li>
                 <li>库存：${goods.qty}</li>
