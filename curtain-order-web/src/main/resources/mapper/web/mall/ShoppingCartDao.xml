@@ -51,7 +51,7 @@
                 <if test="dbName == 'mysql'">concat('%',#{goodsName},'%')</if>
             </if>
             <if test="null != createBy and createBy.id != null and createBy.id != ''">
-                and create_by = ${createBy.id}
+                and a.create_by = ${createBy.id}
             </if>
         </where>
         <choose>
