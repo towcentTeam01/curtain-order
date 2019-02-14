@@ -45,7 +45,7 @@ public class CurtainUploadController extends BaseController {
 	/** 统一后缀 */
 	private static final String JPG = ".jpg";
 	/** 小缩略图 */
-	private static final String SJPG = "_s.jpg";
+	private static final String SJPG = "_300.jpg";
 	private static final String SPRIT = "/";
 	
 	
