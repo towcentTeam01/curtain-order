@@ -293,7 +293,9 @@
 	                    </c:if>
 	                    -->
 	                    <!-- 需要区分是否导出 -->
+	                    <c:if test="${orderMain.orderStatus != 8}">
 	                    <a href="${ctx}/order/orderMain/export?id=${orderMain.id}" style='font-weight:bold; font-size: 16px;<c:if test="${orderMain.isExport == '1'}">color:green;</c:if>'>导出</a>
+	                    </c:if>
 				    </td>
 				</shiro:hasPermission>
 			</tr>

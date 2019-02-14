@@ -203,7 +203,7 @@
         </div>
         <div class="goods-info">
             <ul class="info-item">
-                <li class="item-name">${goods.goodsName}
+                <li class="item-name">${goods.goodsNo}
                     <span style="float: right;${isCollect == '1' ? 'color:red;' : 'color:#ccc;'}"
                           onclick="collectFun('${goods.id}')"><i class="icon-heart icon-white"></i></span>
                 </li>
