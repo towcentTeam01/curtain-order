@@ -238,7 +238,7 @@
 				<td><a href="${ctx}/order/orderMain/detail?id=${orderMain.id}">
 					${orderMain.orderNo}
 				</a></td>
-				<td>
+				<td <c:if test="orderMain.orderStatus == 8">style="color:red;"</c:if>>
 					${fns:getDictLabel(orderMain.orderStatus, 'order_status', '')}
 				</td>
 				<td>
