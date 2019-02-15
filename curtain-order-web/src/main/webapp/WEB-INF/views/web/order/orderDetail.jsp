@@ -370,6 +370,7 @@
     <form:hidden path="orderStatus"/>
     <form:hidden path="logisticsNo"/>
 
+    <shiro:hasPermission name="order:orderMain:edit">
     <div class="alert alert-info width85" contenteditable="true">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <h4>提示!</h4>
@@ -420,7 +421,7 @@
         <button id="button_remark" type="button" onclick="addRemark('${orderMain.id}');" class="btn btn-default">添加备注
         </button>
     </div>
-
+    </shiro:hasPermission>
     <table id="contentTable" class="table table-bordered table-condensed">
         <thead>
         <tr>
