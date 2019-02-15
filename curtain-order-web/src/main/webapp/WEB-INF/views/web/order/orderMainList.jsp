@@ -215,6 +215,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+			    <th>序号</th>
 				<th>订单号</th>
 				<th>订单状态</th>
 				<th>总米数/米</th>
@@ -233,8 +234,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${page.list}" var="orderMain">
+		<c:forEach items="${page.list}" var="orderMain" varStatus="i">
 			<tr>
+			    <td>${i.index + 1}</td>
 				<td><a href="${ctx}/order/orderMain/detail?id=${orderMain.id}">
 					${orderMain.orderNo}
 				</a></td>
