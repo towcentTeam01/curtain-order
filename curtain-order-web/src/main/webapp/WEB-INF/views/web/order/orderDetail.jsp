@@ -158,11 +158,11 @@
                         layer.msg('请输入物流单号');
                         return;
                     }
-                    var reg = /^\w+$/;
-                    if (!reg.test(freightNumber)) {
-                        layer.msg('物流单号格式不正确');
-                        return;
-                    }
+                    // var reg = /^\w+$/;
+                    // if (!reg.test(freightNumber)) {
+                    //    layer.msg('物流单号格式不正确');
+                    //    return;
+                    // }
                     var data = {
                         id: id,
                         logisticsNo: logisticsNo,
