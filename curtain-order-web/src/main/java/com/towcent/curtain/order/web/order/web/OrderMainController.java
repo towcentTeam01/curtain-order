@@ -161,7 +161,8 @@ public class OrderMainController extends BaseController {
             @RequestParam(required = true) String id,
             String freightNumber,
             String logisticsNo,
-            String logisticsName) {
+            String logisticsName,
+            String freightRemark) {
         ResultVo resultVo = new ResultVo();
         try {
             OrderMain entity = orderMainService.get(id);
@@ -169,7 +170,11 @@ public class OrderMainController extends BaseController {
                 if (Constant.ORDER_STATUS_5.equals(entity.getOrderStatus())) {
                     entity.setOrderStatus(Constant.ORDER_STATUS_6);
                     entity.setLogisticsNo(logisticsNo);
-                    entity.setLogisticsName(logisticsName);
+                    if (StringUtils.isNotBlank(freightRemark)) {
+                        entity.setLogisticsName(freightRemark);
+                    } else {
+                        entity.setLogisticsName(logisticsName);
+                    }
                     entity.setFreightNumber(freightNumber);
                     entity.setDeliveryTime(new Date());
 

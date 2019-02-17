@@ -44,6 +44,7 @@
             var content = [];
             content.push('<ul style="margin-top: 20px;height: auto;text-align: center;">');
             content.push('<li>物流公司：'+expressCompany+'</li>');
+            content.push('<li>物流备注：<input type="text" id="freightRemark" class="form-control" style="display: inline-block;width:200px;height:30px;margin: 10px;" placeholder="请输入其他物流公司"></li>');
             content.push('<li>物流单号：<input type="text" id="freightNumber" class="form-control" style="display: inline-block;width:200px;height:30px;margin: 10px;" placeholder="请输入运单号"></li>');
             content.push('</ul>');
 
@@ -52,7 +53,7 @@
             window.sgSpan = layer.open({
                 type : 1,
                 title : '订单发货',
-                area : [ '400px', '240px' ],
+                area : [ '400px', '270px' ],
                 content : content,
                 btns:2,
                 btnAlign:'c',
@@ -60,6 +61,7 @@
                 success: function(layero,index){
                 },
                 yes: function(index,layero){
+                    var freightRemark = $(layero).find('#freightRemark').val();
                     var freightNumber = $(layero).find('#freightNumber').val();
                     var logisticsNo = $(layero).find('#logisticsNo').val();
                     var logisticsName = $(layero).find('#logisticsNo option:selected').text();
@@ -72,12 +74,12 @@
                         layer.msg('请输入物流单号');
                         return;
                     }
-                    var reg = /^\w+$/;
-                    if(!reg.test(freightNumber)){
-                        layer.msg('物流单号格式不正确');
-                        return;
-                    }
-                    var data = {id:id,logisticsNo:logisticsNo,freightNumber:freightNumber,logisticsName:logisticsName};
+                    // var reg = /^\w+$/;
+                    // if(!reg.test(freightNumber)){
+                    //    layer.msg('物流单号格式不正确');
+                    //    return;
+                    // }
+                    var data = {id:id,logisticsNo:logisticsNo,freightNumber:freightNumber,logisticsName:logisticsName,freightRemark: freightRemark};
 
                     checkLogNoFun(data,function(){
                         sendGoodsFun(data,function(){
