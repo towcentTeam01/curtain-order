@@ -125,6 +125,7 @@
     </div>
 
     <div class="notice-list">
+        <span style="font-size: 18px;">系统公告</span>
         <ul>
             <c:forEach items="${noticeList}" var="item" varStatus="va">
                 <li>
