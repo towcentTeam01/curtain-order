@@ -3,6 +3,8 @@ package com.towcent.curtain.order.web.goods.service;
 import java.util.Arrays;
 import java.util.List;
 
+import com.towcent.base.sc.web.modules.sys.service.SysDictDtlService;
+import com.towcent.base.sc.web.modules.sys.utils.DictUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import org.springframework.util.CollectionUtils;
 @Service
 @Transactional(readOnly = true)
 public class GoodsService extends CrudService<GoodsDao, Goods> {
+
+    private SysDictDtlService sysDictDtlService;
 
     public Goods get(String id) {
         Goods entity = super.get(id);
@@ -54,6 +58,13 @@ public class GoodsService extends CrudService<GoodsDao, Goods> {
 
     @Transactional(readOnly = false)
     public void save(Goods goods) {
+        if (StringUtils.isBlank(goods.getPrice())) {
+            goods.setPrice(null);
+        }
+        if (StringUtils.isBlank(goods.getCostPrice())) {
+            goods.setCostPrice(null);
+        }
+        goods.setCateName(DictUtils.getDictLabel(goods.getCateNo(), "goods_category", "正常产品"));
         super.save(goods);
     }
 
