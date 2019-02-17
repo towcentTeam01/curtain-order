@@ -10,6 +10,8 @@
 	<script type="text/javascript" src="${ctxStatic}/jquery/plugin/jerichotab/js/jquery.jerichotab.min.js"></script>
 </c:if>
 <script src="${ctxStatic}/jquery/plugin/messager/jquery.messager.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${ctxStatic}/layui/css/layui.css" media="all">
+    <script src="${ctxStatic}/layui/layui.js" charset="utf-8"></script>
 <style type="text/css">
 	#main {padding:0;margin:0;} #main .container-fluid{padding:0 4px 0 6px;}
 	#header {margin:0 0 8px;position:static;} #header li {font-size:14px;_font-size:12px;}
@@ -146,6 +148,14 @@
 		}
 		getNotifyNum(); //<c:if test="${oaNotifyRemindInterval ne '' && oaNotifyRemindInterval ne '0'}">
 		setInterval(getNotifyNum, ${oaNotifyRemindInterval}); //</c:if> */
+
+		// 判断用户是否有通过审核
+        $.get("${ctx}/general/user/checkLoginNameStatus",function(data){
+		    if ("false" == data) {
+		    alert("账号没有通过审核，请联系商务进行开通。");
+		    window.location.href = "${ctx}/logout";
+		    }
+		});
 	});
 	// <c:if test="${tabmode eq '1'}"> 添加一个页签
 	function addTab($this, refresh){

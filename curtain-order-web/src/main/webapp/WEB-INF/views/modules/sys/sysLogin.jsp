@@ -17,6 +17,8 @@
 <link href="${ctxStatic}/common/jeesite.css" type="text/css" rel="stylesheet" />
 <link href="${ctxStatic}/login/css/components.css" rel="stylesheet" type="text/css"/>
 <link id="style_color" href="${ctxStatic}/login/css/darkblue.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="${ctxStatic}/layui/css/layui.css" media="all">
+    <script src="${ctxStatic}/layui/layui.js" charset="utf-8"></script>
 <style type="text/css">
 .header{height:80px;padding-top:20px;} .alert{position:relative;width:300px;margin:0 auto;*padding-bottom:0px;}
 body

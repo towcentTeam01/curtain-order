@@ -178,6 +178,22 @@ public class SysUserController extends BaseController {
     }
 
     /**
+     * 验证登录用户是否通过审核
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequiresPermissions("general:user:edit")
+    @RequestMapping(value = "checkLoginNameStatus")
+    public String checkLoginNameStatus() {
+        User user = UserUtils.getUser();
+        if ("1".equals(user.getJob())) {
+            return "true";
+        }
+        return "false";
+    }
+
+    /**
      * 用户信息显示及保存
      *
      * @param user
