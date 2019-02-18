@@ -56,6 +56,9 @@
             <if test="merchant != null and merchant.id != null and merchant.id != ''">
                 AND a.merchant_id = #{merchant.id}
             </if>
+
+			AND a.del_flag = 0
+
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
