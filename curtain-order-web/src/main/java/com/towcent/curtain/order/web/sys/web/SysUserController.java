@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -119,6 +120,8 @@ public class SysUserController extends BaseController {
                        RedirectAttributes redirectAttributes) {
 
         // 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
+        List<String> roleIds = new ArrayList<String>();
+        user.setRoleIdList(roleIds);
         if (StringUtils.isNotBlank(user.getId())) {
             // userDao.updateSelective(user);
             Role role = systemService.getRoleByEnname(SYS_ROLE_CUSTOMER);
