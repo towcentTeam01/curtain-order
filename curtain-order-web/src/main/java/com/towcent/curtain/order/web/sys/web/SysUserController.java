@@ -120,7 +120,9 @@ public class SysUserController extends BaseController {
 
         // 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
         if (StringUtils.isNotBlank(user.getId())) {
-            userDao.updateSelective(user);
+            // userDao.updateSelective(user);
+            Role role = systemService.getRoleByEnname(SYS_ROLE_CUSTOMER);
+            systemService.assignUserToRole(role, user);
         } else {
             user.setId(null);
             user.setLoginName(user.getLoginName());
