@@ -7,6 +7,7 @@ import com.towcent.base.sc.web.common.constant.WebConstant;
 import com.towcent.base.sc.web.common.persistence.Page;
 import com.towcent.base.sc.web.common.utils.StringUtils;
 import com.towcent.base.sc.web.common.web.BaseController;
+import com.towcent.base.sc.web.modules.sys.dao.UserDao;
 import com.towcent.base.sc.web.modules.sys.entity.Office;
 import com.towcent.base.sc.web.modules.sys.entity.Role;
 import com.towcent.base.sc.web.modules.sys.entity.User;
@@ -44,6 +45,8 @@ public class SysUserController extends BaseController {
     private SystemService systemService;
     @Autowired
     private SysUserMerchantRelService sysUserMerchantRelService;
+    @Autowired
+    private UserDao userDao;
 
     @ModelAttribute
     public User get(@RequestParam(required = false) String id) {
@@ -101,11 +104,11 @@ public class SysUserController extends BaseController {
     @RequestMapping(value = "save")
     public String save(User user, HttpServletRequest request, Model model,
                        RedirectAttributes redirectAttributes) {
-        if (Global.isDemoMode()) {
-            addMessage(redirectAttributes, "演示模式，不允许操作！");
-            return "redirect:" + adminPath + "/general/user/list?repage";
-        }
+
         // 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
+        if (StringUtils.isNotBlank(user.getId())) {
+            userDao.updateSelective(user);
+        } else {
         user.setCompany(new Office(request.getParameter("company.id")));
         user.setOffice(new Office(request.getParameter("office.id")));
         // 如果新密码为空，则不更换密码
@@ -131,7 +134,8 @@ public class SysUserController extends BaseController {
         }
         user.setRoleList(roleList);
         // 保存用户信息
-        systemService.saveUser(user);
+            systemService.saveUser(user);
+        }
         // 清除当前用户缓存
         if (user.getLoginName().equals(UserUtils.getUser().getLoginName())) {
             UserUtils.clearCache();
