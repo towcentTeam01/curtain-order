@@ -183,7 +183,7 @@ public class SysUserController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequiresPermissions("general:user:edit")
+    // @RequiresPermissions("general:user:edit")
     @RequestMapping(value = "checkLoginNameStatus")
     public String checkLoginNameStatus() {
         User user = UserUtils.getUser();
