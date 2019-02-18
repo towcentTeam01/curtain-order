@@ -15,13 +15,16 @@ import com.towcent.base.sc.web.modules.sys.service.SystemService;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
 import com.towcent.curtain.order.common.Constant;
 import com.towcent.curtain.order.web.common.utils.MerchantUtils;
+import com.towcent.curtain.order.web.mall.service.MallUserService;
 import com.towcent.curtain.order.web.sys.entity.SysMerchantInfo;
 import com.towcent.curtain.order.web.sys.entity.SysUserMerchantRel;
+import com.towcent.curtain.order.web.sys.service.SysMerchantInfoService;
 import com.towcent.curtain.order.web.sys.service.SysUserMerchantRelService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +33,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
+
+import static com.towcent.base.common.constants.BaseConstant.DEL_FLAG_0;
+import static com.towcent.base.common.constants.BaseConstant.E_001;
+import static com.towcent.curtain.order.common.Constant.SYS_ROLE_CUSTOMER;
+import static com.towcent.curtain.order.common.Constant.SYS_USER_TYPE_3;
 
 /**
  * 用户Controller
@@ -47,6 +56,10 @@ public class SysUserController extends BaseController {
     private SysUserMerchantRelService sysUserMerchantRelService;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private MallUserService userService;
+    @Autowired
+    private SysMerchantInfoService sysMerchantInfoService;
 
     @ModelAttribute
     public User get(@RequestParam(required = false) String id) {
@@ -109,32 +122,65 @@ public class SysUserController extends BaseController {
         if (StringUtils.isNotBlank(user.getId())) {
             userDao.updateSelective(user);
         } else {
-        user.setCompany(new Office(request.getParameter("company.id")));
-        user.setOffice(new Office(request.getParameter("office.id")));
-        // 如果新密码为空，则不更换密码
-        if (StringUtils.isNotBlank(user.getNewPassword())) {
-            // user.setPassword(SystemService.entryptPassword(user.getNewPassword()));
-            user.setPassword(Md5Utils.encryption(user.getNewPassword()));
-        }
-        if (!beanValidator(model, user)) {
-            return form(user, model);
-        }
-        if (!"true".equals(checkLoginName(user.getOldLoginName(),
-                user.getLoginName()))) {
-            addMessage(model, "保存用户'" + user.getLoginName() + "'失败，登录名已存在");
-            return form(user, model);
-        }
-        // 角色数据有效性验证，过滤不在授权内的角色
-        List<Role> roleList = Lists.newArrayList();
-        List<String> roleIdList = user.getRoleIdList();
-        for (Role r : systemService.findAllRole()) {
-            if (roleIdList.contains(r.getId())) {
-                roleList.add(r);
+            user.setId(null);
+            user.setLoginName(user.getLoginName());
+            user.setNo("000");   // 代表普通会员
+            user.setJob("0");  // 待审核
+            List<User> list = userService.findUser(user);
+            if (!CollectionUtils.isEmpty(list)) {
+                // return resultVo(resultVo, E_001, "用户名已存在");
+                return "web/sys/sysUserForm";
             }
-        }
-        user.setRoleList(roleList);
-        // 保存用户信息
-            systemService.saveUser(user);
+
+            SysMerchantInfo merchantInfo = getMerchantInfo(request);
+            if (null != merchantInfo) {
+                user.setMerchantId(Integer.parseInt(merchantInfo.getId()));
+            }
+
+            user.setPassword(Md5Utils.encryption(user.getPassword()));
+            user.setUserType(SYS_USER_TYPE_3);
+            user.setCompany(new Office("1"));
+            user.setOffice(new Office("1"));
+            user.setName(user.getLoginName());
+            user.setCreateBy(new User("1"));
+            user.setUpdateBy(user.getCreateBy());
+            user.setCreateDate(new Date());
+            user.setUpdateDate(user.getCreateDate());
+            user.setDelFlag(DEL_FLAG_0);
+
+            Role role = systemService.getRoleByEnname(SYS_ROLE_CUSTOMER);
+            systemService.assignUserToRole(role, user);
+
+            if (null != merchantInfo) {
+                SysUserMerchantRel rel = new SysUserMerchantRel();
+                rel.setUser(user);
+                rel.setMerchant(merchantInfo);
+                sysUserMerchantRelService.save(rel);
+            }
+
+//        user.setCompany(new Office(request.getParameter("company.id")));
+//        user.setOffice(new Office(request.getParameter("office.id")));
+//        // 如果新密码为空，则不更换密码
+//        if (StringUtils.isNotBlank(user.getNewPassword())) {
+//            // user.setPassword(SystemService.entryptPassword(user.getNewPassword()));
+//            user.setPassword(Md5Utils.encryption(user.getNewPassword()));
+//        }
+//        if (!"true".equals(checkLoginName(user.getOldLoginName(),
+//                user.getLoginName()))) {
+//            addMessage(model, "保存用户'" + user.getLoginName() + "'失败，登录名已存在");
+//            return form(user, model);
+//        }
+//        // 角色数据有效性验证，过滤不在授权内的角色
+//        List<Role> roleList = Lists.newArrayList();
+//        List<String> roleIdList = user.getRoleIdList();
+//        for (Role r : systemService.findAllRole()) {
+//            if (roleIdList.contains(r.getId())) {
+//                roleList.add(r);
+//            }
+//        }
+//        user.setRoleList(roleList);
+//         保存用户信息
+//            systemService.saveUser(user);
         }
         // 清除当前用户缓存
         if (user.getLoginName().equals(UserUtils.getUser().getLoginName())) {
@@ -143,6 +189,18 @@ public class SysUserController extends BaseController {
         }
         addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
         return "redirect:" + adminPath + "/general/user/list?repage";
+    }
+
+    private SysMerchantInfo getMerchantInfo(HttpServletRequest request) {
+        try {
+            String uri = request.getServerName();
+            if (StringUtils.isNotBlank(uri)) {
+                return sysMerchantInfoService.getMerchantInfo(uri);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @RequiresPermissions("general:user:edit")
