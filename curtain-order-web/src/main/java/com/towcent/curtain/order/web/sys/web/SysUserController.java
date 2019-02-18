@@ -12,6 +12,7 @@ import com.towcent.base.sc.web.modules.sys.entity.Role;
 import com.towcent.base.sc.web.modules.sys.entity.User;
 import com.towcent.base.sc.web.modules.sys.service.SystemService;
 import com.towcent.base.sc.web.modules.sys.utils.UserUtils;
+import com.towcent.curtain.order.common.Constant;
 import com.towcent.curtain.order.web.common.utils.MerchantUtils;
 import com.towcent.curtain.order.web.sys.entity.SysMerchantInfo;
 import com.towcent.curtain.order.web.sys.entity.SysUserMerchantRel;
@@ -67,6 +68,7 @@ public class SysUserController extends BaseController {
         SysMerchantInfo merchantInfo = new SysMerchantInfo();
         merchantInfo.setId(MerchantUtils.getMerchantId(request) + "");
         userMerchantRel.setMerchant(merchantInfo);
+        userMerchantRel.setDelFlag(Constant.DEL_FLAG_0);
         user.setNo("000"); // 000代表普通用户
         userMerchantRel.setUser(user);
         Page<SysUserMerchantRel> p = new Page<SysUserMerchantRel>(request, response);
