@@ -101,7 +101,7 @@ public class SysUserController extends BaseController {
                        RedirectAttributes redirectAttributes) {
         if (Global.isDemoMode()) {
             addMessage(redirectAttributes, "演示模式，不允许操作！");
-            return "redirect:" + adminPath + "/sys/user/list?repage";
+            return "redirect:" + adminPath + "/general/user/list?repage";
         }
         // 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
         user.setCompany(new Office(request.getParameter("company.id")));
@@ -136,7 +136,7 @@ public class SysUserController extends BaseController {
             // UserUtils.getCacheMap().clear();
         }
         addMessage(redirectAttributes, "保存用户'" + user.getLoginName() + "'成功");
-        return "redirect:" + adminPath + "/sys/user/list?repage";
+        return "redirect:" + adminPath + "/general/user/list?repage";
     }
 
     @RequiresPermissions("general:user:edit")
@@ -144,7 +144,7 @@ public class SysUserController extends BaseController {
     public String delete(User user, RedirectAttributes redirectAttributes) {
         if (Global.isDemoMode()) {
             addMessage(redirectAttributes, "演示模式，不允许操作！");
-            return "redirect:" + adminPath + "/sys/user/list?repage";
+            return "redirect:" + adminPath + "/general/user/list?repage";
         }
         if (UserUtils.getUser().getId().equals(user.getId())) {
             addMessage(redirectAttributes, "删除用户失败, 不允许删除当前用户");
@@ -154,7 +154,7 @@ public class SysUserController extends BaseController {
             systemService.deleteUser(user);
             addMessage(redirectAttributes, "删除用户成功");
         }
-        return "redirect:" + adminPath + "/sys/user/list?repage";
+        return "redirect:" + adminPath + "/general/user/list?repage";
     }
 
     /**
