@@ -56,8 +56,10 @@
             <if test="merchant != null and merchant.id != null and merchant.id != ''">
                 AND a.merchant_id = #{merchant.id}
             </if>
+			<if test="user != null and user.delFlag != null and user.delFlag != ''">
+				AND u.del_flag = 0
+			</if>
 
-			AND a.del_flag = 0
 
 		</where>
 		<choose>
