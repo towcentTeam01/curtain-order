@@ -100,7 +100,7 @@
     </ul>
 </form:form>
 <sys:message content="${message}"/>
-<table id="contentTable" class="table table-striped table-bordered table-condensed" style="-webkit-overflow-scrolling:touch;">
+<table id="contentTable" class="table table-striped table-bordered table-condensed">
     <thead>
     <tr>
         <th><input type="checkbox" id="allbox"/></th>
