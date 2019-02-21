@@ -246,7 +246,7 @@
 					--%>
 				</div>
 				<div id="openClose" class="close">&nbsp;</div>
-				<div id="right" style="width:100%;-webkit-overflow-scrolling:touch;overflow:auto;"> <!-- style="overflow:visible;" -->
+				<div id="right" style="width:100%;-webkit-overflow-scrolling:touch;overflow:auto;overflow-y:scroll;overflow-x:scroll;"> <!-- style="overflow:visible;" -->
 					<iframe id="mainFrame" name="mainFrame" src=""  scrolling="yes" frameborder="no" width="100%" height="650"></iframe>
 				</div>
 			</div>
