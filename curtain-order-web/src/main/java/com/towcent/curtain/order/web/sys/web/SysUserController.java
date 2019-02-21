@@ -114,6 +114,20 @@ public class SysUserController extends BaseController {
         return "web/sys/sysUserForm";
     }
 
+    @RequiresPermissions("general:user:view")
+    @RequestMapping(value = "updatePasswd")
+    public String updatePasswd(User user, Model model) {
+        if (user.getCompany() == null || user.getCompany().getId() == null) {
+            user.setCompany(UserUtils.getUser().getCompany());
+        }
+        if (user.getOffice() == null || user.getOffice().getId() == null) {
+            user.setOffice(UserUtils.getUser().getOffice());
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", systemService.findAllRole());
+        return "web/sys/sysUserPasswd";
+    }
+
     @RequiresPermissions("general:user:edit")
     @RequestMapping(value = "save")
     public String save(User user, HttpServletRequest request, Model model,
@@ -322,4 +336,27 @@ public class SysUserController extends BaseController {
         return "modules/sys/userModifyPwd";
     }
 
+
+    @RequiresPermissions("general:user:edit")
+    @RequestMapping(value = "savePasswd")
+    public String savePasswd(User user, HttpServletRequest request, Model model,
+                       RedirectAttributes redirectAttributes) {
+
+        // 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
+        List<String> roleIds = new ArrayList<String>();
+        user.setRoleIdList(roleIds);
+        if (StringUtils.isNotBlank(user.getId())) {
+            user.setPassword(Md5Utils.encryption(user.getPassword()));
+            // userDao.updateSelective(user);
+            Role role = systemService.getRoleByEnname(SYS_ROLE_CUSTOMER);
+            systemService.assignUserToRole(role, user);
+        }
+        // 清除当前用户缓存
+        if (user.getLoginName().equals(UserUtils.getUser().getLoginName())) {
+            UserUtils.clearCache();
+            // UserUtils.getCacheMap().clear();
+        }
+        addMessage(redirectAttributes, "修改用户'" + user.getLoginName() + "'密码成功");
+        return "redirect:" + adminPath + "/general/user/list?repage";
+    }
 }

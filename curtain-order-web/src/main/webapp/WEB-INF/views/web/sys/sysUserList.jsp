@@ -73,6 +73,7 @@
 				</td>
 				<shiro:hasPermission name="general:user:edit"><td>
     				<a href="${ctx}/general/user/form?id=${sysFrontAccount.user.id}">修改</a>
+    				<a href="${ctx}/general/user/updatePasswd?id=${sysFrontAccount.user.id}">修改密码</a>
     				<a href="${ctx}/sys/consigneeAddr/list?user.id=${sysFrontAccount.user.id}">收货地址</a>
 					<a href="${ctx}/general/user/delete?id=${sysFrontAccount.user.id}" onclick="return confirmx('确认要删除该会员吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>

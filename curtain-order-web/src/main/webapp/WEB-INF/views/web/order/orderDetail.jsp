@@ -415,8 +415,8 @@
                 onclick="updateStatus('7', '${orderMain.id}');" class="btn btn-success order-btn">完成
         </button>
 
-        <!-- Indicates a dangerous or potentially negative action -->
-        <button id="button_delete" type="button" ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''}
+        <!-- Indicates a dangerous or potentially negative action ${orderMain.orderStatus != '1' ? 'disabled="true"' : ''} -->
+        <button id="button_delete" type="button"
                 onclick="updateStatus('8', '${orderMain.id}');" class="btn btn-danger order-btn">取消
         </button>
 
