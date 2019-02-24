@@ -152,7 +152,7 @@
         // 判断用户是否注册过
         $.get("${ctx}/general/user/checkLoginNameReg",function(data){
             if ("false" == data) {
-            alert("账号不存在，请检查后再试。");
+            // alert("账号不存在，请检查后再试。");
             window.location.href = "${ctx}/logout";
             }
         });
