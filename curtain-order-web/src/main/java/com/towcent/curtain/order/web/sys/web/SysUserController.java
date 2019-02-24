@@ -250,11 +250,32 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @RequiresPermissions("general:user:edit")
     @RequestMapping(value = "checkLoginName")
-    public String checkLoginName(String oldLoginName, String loginName) {
+    public String checkLoginName(String oldLoginName, String loginName, HttpServletRequest request) {
         if (loginName != null && loginName.equals(oldLoginName)) {
             return "true";
         } else if (loginName != null
                 && systemService.getUserByLoginName(loginName) == null) {
+            return "true";
+        }
+        return "false";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "checkLoginNameReg")
+    public String checkLoginNameReg(HttpServletRequest request) {
+        User user = UserUtils.getUser();
+
+        SysMerchantInfo merchantInfo = this.getMerchantInfo(request);
+        if (null == merchantInfo) {
+            return "true";
+        }
+
+        SysUserMerchantRel rel = new SysUserMerchantRel();
+        rel.setMerchant(merchantInfo);
+        user.setDelFlag(com.towcent.base.sc.web.common.constant.Constant.DEL_FLAG_0);
+        rel.setUser(user);
+        List<SysUserMerchantRel> relList = this.sysUserMerchantRelService.findList(rel);
+        if (!CollectionUtils.isEmpty(relList)) {
             return "true";
         }
         return "false";

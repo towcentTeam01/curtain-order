@@ -149,6 +149,14 @@
 		getNotifyNum(); //<c:if test="${oaNotifyRemindInterval ne '' && oaNotifyRemindInterval ne '0'}">
 		setInterval(getNotifyNum, ${oaNotifyRemindInterval}); //</c:if> */
 
+        // 判断用户是否注册过
+        $.get("${ctx}/general/user/checkLoginNameReg",function(data){
+            if ("false" == data) {
+            alert("账号不存在，请检查后再试。");
+            window.location.href = "${ctx}/logout";
+            }
+        });
+
 		// 判断用户是否有通过审核
         $.get("${ctx}/general/user/checkLoginNameStatus",function(data){
 		    if ("false" == data) {
@@ -246,6 +254,7 @@
 					--%>
 				</div>
 				<div id="openClose" class="close">&nbsp;</div>
+				<!-- style="width:100%;-webkit-overflow-scrolling:touch;overflow:auto;overflow-y:scroll;overflow-x:scroll;" -->
 				<div id="right" style="width:100%;-webkit-overflow-scrolling:touch;overflow:auto;overflow-y:scroll;overflow-x:scroll;"> <!-- style="overflow:visible;" -->
 					<iframe id="mainFrame" name="mainFrame" src=""  scrolling="yes" frameborder="no" width="100%" height="650"></iframe>
 				</div>
