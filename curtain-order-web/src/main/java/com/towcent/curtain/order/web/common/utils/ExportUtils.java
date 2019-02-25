@@ -59,18 +59,18 @@ public class ExportUtils {
         sheet.getPrintSetup().setPaperSize(PaperSize.A4_PAPER);
         
         //设置每列的宽度
-        sheet.setColumnWidth(0, 5250);
-        sheet.setColumnWidth(1, 2850);
-        sheet.setColumnWidth(2, 2850);
+        sheet.setColumnWidth(0, 5050);
+        sheet.setColumnWidth(1, 2800);
+        sheet.setColumnWidth(2, 2800);
         sheet.setColumnWidth(3, 1800);
-        sheet.setColumnWidth(4, 4100);
-        sheet.setColumnWidth(5, 4100);
-        sheet.setColumnWidth(6, 2200);
+        sheet.setColumnWidth(4, 3800);
+        sheet.setColumnWidth(5, 4000);
+        sheet.setColumnWidth(6, 2000);
         //sheet.setColumnWidth(7, 900);
-        sheet.setColumnWidth(7, 2800);
-        sheet.setColumnWidth(8, 3200);
-        sheet.setColumnWidth(9, 1800);
-        sheet.setColumnWidth(10, 4700);
+        sheet.setColumnWidth(7, 2400);
+        sheet.setColumnWidth(8, 2900);
+        sheet.setColumnWidth(9, 1000);
+        sheet.setColumnWidth(10, 4200);
         //表头
         XSSFRow row = sheet.createRow(1);
         XSSFCell cell = row.createCell(0);
@@ -96,17 +96,17 @@ public class ExportUtils {
         style.getFont().setBold(true);
         cell.setCellStyle(style);
         cell.setCellValue("订单号：" + orderMain.getOrderNo());
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 4));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 3));
         
-        cell = row.createCell(5);
+        cell = row.createCell(4);
         cell.setCellStyle(style);
         cell.setCellValue("联系人：" + orderMain.getConsigneeName());
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 5, 7));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 4, 6));
         
-        cell = row.createCell(8);
+        cell = row.createCell(7);
         cell.setCellStyle(style);
         cell.setCellValue("联系电话：" + orderMain.getConsigneePhone());
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 8, 10));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 7, 10));
         
         String[] headers = new String[]{"型号", "成品宽单位:米", "成品高单位:米", "褶数(倍)", "辅料铅线、铅块、底边花边", "里衬/造型(返幔、帘头)", "对/单开", "打孔/捏褶(对花)", "环、S钩(不要可不填)", "是否定型", "注明"};
         // 产生表格标题行
@@ -201,7 +201,7 @@ public class ExportUtils {
         XSSFFont font = workbook.createFont();
         font.setFontName("宋体");
         font.setBoldweight((short)1);
-        font.setFontHeightInPoints((short) 15);
+        font.setFontHeightInPoints((short) 13);
         // 把字体应用到当前的样式
         style.setFont(font);
 		return style;
