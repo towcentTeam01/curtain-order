@@ -18,10 +18,10 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/sysCarouselConf/">轮播图配置表列表</a></li>
-		<shiro:hasPermission name="sys:sysCarouselConf:edit"><li><a href="${ctx}/sys/sysCarouselConf/form">轮播图配置表添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/mall/sysCarouselConf/">轮播图配置表列表</a></li>
+		<shiro:hasPermission name="sys:sysCarouselConf:edit"><li><a href="${ctx}/mall/sysCarouselConf/form">轮播图配置表添加</a></li></shiro:hasPermission>
 	</ul>
-	<form:form id="searchForm" modelAttribute="sysCarouselConf" action="${ctx}/sys/sysCarouselConf/" method="post" class="navbar-form form-search" role="form">
+	<form:form id="searchForm" modelAttribute="sysCarouselConf" action="${ctx}/mall/sysCarouselConf/" method="post" class="navbar-form form-search" role="form">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
@@ -107,8 +107,8 @@
 					${sysCarouselConf.remark}
 				</td>
 				<shiro:hasPermission name="sys:sysCarouselConf:edit"><td>
-    				<a href="${ctx}/sys/sysCarouselConf/form?id=${sysCarouselConf.id}">修改</a>
-					<a href="${ctx}/sys/sysCarouselConf/delete?id=${sysCarouselConf.id}" onclick="return confirmx('确认要删除该轮播图配置表吗？', this.href)">删除</a>
+    				<a href="${ctx}/mall/sysCarouselConf/form?id=${sysCarouselConf.id}">修改</a>
+					<a href="${ctx}/mall/sysCarouselConf/delete?id=${sysCarouselConf.id}" onclick="return confirmx('确认要删除该轮播图配置表吗？', this.href)">删除</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

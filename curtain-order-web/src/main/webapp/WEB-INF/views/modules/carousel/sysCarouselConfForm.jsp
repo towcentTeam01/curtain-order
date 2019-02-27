@@ -27,10 +27,10 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/sysCarouselConf/">轮播图配置表列表</a></li>
-		<li class="active"><a href="${ctx}/sys/sysCarouselConf/form?id=${sysCarouselConf.id}">轮播图配置表<shiro:hasPermission name="sys:sysCarouselConf:edit">${not empty sysCarouselConf.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="sys:sysCarouselConf:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/mall/sysCarouselConf/">轮播图配置表列表</a></li>
+		<li class="active"><a href="${ctx}/mall/sysCarouselConf/form?id=${sysCarouselConf.id}">轮播图配置表<shiro:hasPermission name="sys:sysCarouselConf:edit">${not empty sysCarouselConf.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="sys:sysCarouselConf:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
-	<form:form id="inputForm" modelAttribute="sysCarouselConf" action="${ctx}/sys/sysCarouselConf/save" method="post" class="form-horizontal">
+	<form:form id="inputForm" modelAttribute="sysCarouselConf" action="${ctx}/mall/sysCarouselConf/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="form-group">
