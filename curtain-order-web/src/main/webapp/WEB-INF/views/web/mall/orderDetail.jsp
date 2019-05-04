@@ -132,7 +132,7 @@
             <th>对/单开</th>
             <th>打孔/捏褶<br>(对花)</th>
             <th>环、S钩</th>
-            <th>是否定型</th>
+            <th>工艺</th>
             <th>详细说明</th>
         </tr>
         </thead>
@@ -179,7 +179,7 @@
                     ${orderDtl.param5}
                 </td>
                 <td>
-                    ${fns:getDictLabel(orderDtl.isFinalize, 'yes_no', '')}
+                    ${fns:getDictLabel(orderDtl.isFinalize, 'technology', '')}
                 </td>
                 <td>
                     ${orderDtl.remarks}

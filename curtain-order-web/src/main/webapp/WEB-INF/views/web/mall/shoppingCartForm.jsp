@@ -123,12 +123,12 @@
 		</div>
 		<div class="form-group">
             <label class="col-sm-2 control-label">
-                是否定型：
+                工艺：
             </label>
             <div class="col-sm-3">
                 <form:select path="isFinalize" class="form-control">
                     <form:option value="" label="请选择"/>
-                    <form:options items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                    <form:options items="${fns:getDictList('technology')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
                 </form:select>
             </div>
         </div>

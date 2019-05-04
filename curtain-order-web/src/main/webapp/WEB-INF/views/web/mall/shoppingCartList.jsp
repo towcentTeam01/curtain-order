@@ -114,7 +114,7 @@
         <th>对/单开</th>
         <th>打孔/捏褶(对花)</th>
         <th>环、S钩</th>
-        <th>是否定型</th>
+        <th>工艺</th>
         <th>详情说明</th>
         <shiro:hasPermission name="mall:shoppingCart:edit">
             <th>操作</th>
@@ -158,7 +158,7 @@
                     ${shoppingCart.param5}
             </td>
             <td>
-                    ${fns:getDictLabel(shoppingCart.isFinalize, 'yes_no', '')}
+                    ${fns:getDictLabel(shoppingCart.isFinalize, 'technology', '')}
             </td>
             <td>
                     ${shoppingCart.remarks}

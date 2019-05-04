@@ -120,6 +120,12 @@ public class OrderMainController extends BaseController {
     @RequiresPermissions("order:orderMain:edit")
     @RequestMapping(value = "delete")
     public String delete(OrderMain orderMain, RedirectAttributes redirectAttributes) {
+        // 判断一下当前订单的状态
+        orderMain = orderMainService.get(orderMain.getId());
+        if (!(StringUtils.equals("0", orderMain.getOrderStatus()) || StringUtils.equals("1", orderMain.getOrderStatus()))) {
+            addMessage(redirectAttributes, "该订单状态不允许取消");
+            return "redirect:" + Global.getAdminPath() + "/order/orderMain/?repage";
+        }
         orderMainService.delete(orderMain);
 
         // 修改订单发货日志
